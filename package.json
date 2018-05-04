@@ -1,0 +1,125 @@
+{
+  "name": "create-react-styleguide",
+  "description": "A toolkit for creating React component libraries and style guides",
+  "version": "0.0.1",
+  "license": "ISC",
+  "author": "Brian Stone <brians@zillowgroup.com>",
+  "homepage": "https://github.com/zillow/create-react-styleguide#readme",
+  "bugs": {
+    "url": "https://github.com/zillow/create-react-styleguide/issues"
+  },
+  "bin": {
+    "create-react-styleguide": "./lib/bin/create-react-styleguide.js"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "npm run lint && rimraf lib && babel src --out-dir lib --quiet",
+    "build:watch": "rimraf lib && babel src --watch --out-dir lib",
+    "lint": "eslint *.js src tests",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "npm run build && npm run test:all",
+    "test:coverage": "npm run build && cross-env NODE_ENV=test NWB_TEST=true nyc mocha tests/*-test.js tests/commands/*-test.js",
+    "test:all": "cross-env NODE_ENV=test NWB_TEST=true mocha --require babel-register tests/*-test.js tests/commands/*-test.js",
+    "test:watch": "cross-env NODE_ENV=test NWB_TEST=true mocha --require babel-register --watch tests/*-test.js",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "docs",
+    "lib",
+    "templates",
+    "express.js",
+    "polyfills.js",
+    "index.js",
+    "util"
+  ],
+  "engines": {
+    "node": ">=6.11.5"
+  },
+  "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "chalk": "^2.4.1",
+    "copy-template-dir": "^1.4.0",
+    "nwb": "^0.21.5",
+    "ora": "^2.1.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-styleguidist": "^7.0.9",
+    "run-series": "^1.1.8",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "cross-env": "^5.1.4",
+    "eslint": "^4.19.1",
+    "eslint-plugin-zillow": "^1.0.0-beta.2",
+    "mocha": "^5.1.1",
+    "nyc": "^11.7.1",
+    "prettier": "^1.12.1",
+    "rimraf": "^2.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zillow/create-react-styleguide.git"
+  },
+  "keywords": [
+    "development",
+    "react",
+    "styleguide",
+    "style guide",
+    "component library",
+    "tooling"
+  ],
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "loose": true,
+          "targets": {
+            "node": "6.11.5"
+          }
+        }
+      ],
+      "stage-2",
+      "react"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          [
+            "istanbul",
+            {
+              "include": "src"
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "extends": "plugin:zillow/recommended",
+    "env": {
+      "browser": true
+    }
+  },
+  "nyc": {
+    "instrument": false,
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "require": [
+      "babel-core/register"
+    ],
+    "sourceMap": false
+  }
+}
