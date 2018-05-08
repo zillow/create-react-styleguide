@@ -13,7 +13,7 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
                     use: {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['babel-preset-react', 'babel-preset-es2017'],
+                            presets: ['babel-preset-react', 'babel-preset-env'],
                             plugins: [babelPluginTransformClassProperties],
                         },
                     },

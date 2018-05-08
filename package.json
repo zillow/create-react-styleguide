@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-es2017": "^6.24.1",
     "chalk": "^2.4.1",
     "copy-template-dir": "^1.4.0",
     "nwb": "^0.21.5",
