@@ -27,6 +27,7 @@ function copyTemplate(templateDir, targetDir, templateVars, cb) {
         }
         createdFiles.sort().forEach(createdFile => {
             const relativePath = path.relative(targetDir, createdFile);
+            // eslint-disable-next-line no-console
             console.log(`  ${chalk.green('create')} ${relativePath}`);
         });
         cb();
@@ -71,6 +72,7 @@ function initGit(args, cwd, cb) {
             error => {
                 if (error) {
                     spinner.fail();
+                    // eslint-disable-next-line no-console
                     console.log(chalk.red(error.message));
                     cb();
                     return;
@@ -121,7 +123,8 @@ function createModuleProject(args, name, targetDir, cb) {
         // CBA making this part generic until it's needed
         if (args.react) {
             devDependencies = devDependencies.map(depPkg => `${depPkg}@${args.react}`);
-            templateVars.reactPeerVersion = `^${args.react}`; // YOLO
+            // YOLO
+            templateVars.reactPeerVersion = `^${args.react}`;
         } else {
             // TODO Get from npm so we don't have to manually update on major releases
             templateVars.reactPeerVersion = '16.x';
