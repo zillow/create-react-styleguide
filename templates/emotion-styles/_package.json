@@ -1,0 +1,38 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "{{name}} React component",
+  "main": "lib/index.js",{{esModulesPackageConfig}}
+  "files": [
+    "css",
+    "es",
+    "lib",
+    "umd",
+    "src"
+  ],
+  "scripts": {
+    "build": "create-react-styleguide script build",
+    "build:styleguide": "create-react-styleguide script build:styleguide",
+    "clean": "create-react-styleguide script clean",
+    "start": "create-react-styleguide script start",
+    "test": "create-react-styleguide script test",
+    "test:coverage": "create-react-styleguide script test:coverage",
+    "test:watch": "create-react-styleguide script test:watch",
+    "prepublishOnly": "create-react-styleguide script prepublishOnly"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "react": "{{reactPeerVersion}}"
+  },
+  "devDependencies": {
+    "create-react-styleguide": "{{createReactStyleguideVersion}}"
+  },
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "repository": "",
+  "keywords": [
+    "react-component"
+  ]
+}

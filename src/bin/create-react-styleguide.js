@@ -41,4 +41,9 @@ yargs
             });
         },
         handler: commandHandler,
+    })
+    .option('styles', {
+        desc: 'The styling library to use when creating a new project',
+        default: 'emotion',
+        choices: ['emotion', 'none'],
     }).argv;

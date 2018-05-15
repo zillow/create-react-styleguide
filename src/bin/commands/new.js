@@ -96,6 +96,11 @@ function writeConfigFile(dir, config, cb) {
  */
 function createModuleProject(args, name, targetDir, cb) {
     let devDependencies = ['react', 'react-dom', 'create-react-styleguide'];
+    let dependencies = [];
+    if (args.styles === 'emotion') {
+        dependencies = ['emotion', 'react-emotion', 'emotion-theming'];
+    }
+
     const externals = { react: 'React' };
     const projectType = 'react-component';
 
@@ -105,7 +110,12 @@ function createModuleProject(args, name, targetDir, cb) {
             return;
         }
         const { umd, esModules } = prefs;
-        const templateDir = path.join(__dirname, '../../../templates/react-styleguide');
+
+        let templateDir = path.join(__dirname, '../../../templates/inline-styles');
+        if (args.styles === 'emotion') {
+            templateDir = path.join(__dirname, '../../../templates/emotion-styles');
+        }
+
         const templateVars = {
             name,
             esModules,
@@ -136,6 +146,8 @@ function createModuleProject(args, name, targetDir, cb) {
                 callback => writeConfigFile(targetDir, nwbConfig, callback),
                 callback =>
                     install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
+                callback =>
+                    install(dependencies, { cwd: targetDir, save: true, dev: false }, callback),
                 callback => initGit(args, targetDir, callback),
             ],
             cb
@@ -144,8 +156,5 @@ function createModuleProject(args, name, targetDir, cb) {
 }
 
 export default (argv, callback) => {
-    // Translate argv into args for createModuleProject
-    const args = {};
-
-    createModuleProject(args, argv.projectDirectory, argv.projectDirectory, callback);
+    createModuleProject(argv, argv.projectDirectory, argv.projectDirectory, callback);
 };
