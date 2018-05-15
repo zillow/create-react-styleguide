@@ -1,0 +1,7 @@
+/coverage
+/es
+/lib
+/node_modules
+/styleguide
+/umd
+npm-debug.log*
