@@ -22,6 +22,8 @@ Generated projects include the following npm scripts out of the box:
 | npm run build | Build the component library to the `lib` folder |
 | npm run build:styleguide | Build the style guide to the `styleguide` folder |
 | npm run clean | Clean generated folders |
+| npm run eslint | Run eslint on all .js and .jsx files in the `src` folder |
+| npm run eslint:fix | Run eslint with the `--fix` option |
 | npm test | Run unit tests |
 
 ## crs.config.js

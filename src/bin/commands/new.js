@@ -96,9 +96,13 @@ function writeConfigFile(dir, config, cb) {
  */
 function createModuleProject(args, name, targetDir, cb) {
     let devDependencies = ['react', 'react-dom', 'create-react-styleguide'];
-    let dependencies = [];
+    if (args.eslint === 'zillow') {
+        devDependencies.push('eslint-plugin-zillow');
+    }
+
+    const dependencies = ['prop-types'];
     if (args.styles === 'emotion') {
-        dependencies = ['emotion', 'react-emotion', 'emotion-theming'];
+        dependencies.push('emotion', 'react-emotion', 'emotion-theming');
     }
 
     const externals = { react: 'React' };
@@ -120,6 +124,10 @@ function createModuleProject(args, name, targetDir, cb) {
             name,
             esModules,
             esModulesPackageConfig: esModules ? '\n  "module": "es/index.js",' : '',
+            eslintPackageConfig:
+                args.eslint === 'zillow'
+                    ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
+                    : '',
             createReactStyleguideVersion: pkg.version,
         };
         const nwbConfig = {
@@ -140,9 +148,17 @@ function createModuleProject(args, name, targetDir, cb) {
             templateVars.reactPeerVersion = '16.x';
         }
 
+        let copyEslintTemplate = callback => callback();
+        if (args.eslint === 'zillow') {
+            const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
+            copyEslintTemplate = callback =>
+                copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
+        }
+
         runSeries(
             [
                 callback => copyTemplate(templateDir, targetDir, templateVars, callback),
+                copyEslintTemplate,
                 callback => writeConfigFile(targetDir, nwbConfig, callback),
                 callback =>
                     install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),

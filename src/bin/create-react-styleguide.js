@@ -32,6 +32,8 @@ yargs
                     'build',
                     'build:styleguide',
                     'clean',
+                    'eslint',
+                    'eslint:fix',
                     'start',
                     'test',
                     'test:coverage',
@@ -46,4 +48,9 @@ yargs
         desc: 'The styling library to use when creating a new project',
         default: 'emotion',
         choices: ['emotion', 'none'],
+    })
+    .option('eslint', {
+        desc: 'Add eslint configuration when creating a new project',
+        default: 'zillow',
+        choices: ['zillow', 'none'],
     }).argv;
