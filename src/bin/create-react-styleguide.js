@@ -30,6 +30,7 @@ yargs
                 describe: 'The script to run',
                 choices: [
                     'build',
+                    'build:watch',
                     'build:styleguide',
                     'clean',
                     'eslint',

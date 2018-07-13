@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "create-react-styleguide script build",
+    "build:watch": "create-react-styleguide script build:watch",
     "build:styleguide": "create-react-styleguide script build:styleguide",
     "clean": "create-react-styleguide script clean",{{eslintPackageConfig}}
     "start": "create-react-styleguide script start",

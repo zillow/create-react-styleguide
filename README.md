@@ -20,6 +20,7 @@ Generated projects include the following npm scripts out of the box:
 | --------- | ----------- |
 | npm start | Start the style guide server on http://localhost:6060 |
 | npm run build | Build the component library to the `lib` folder |
+| npm run build:watch | Watch the `src` folder for changes and run the build script |
 | npm run build:styleguide | Build the style guide to the `styleguide` folder |
 | npm run clean | Clean generated folders |
 | npm run eslint | Run eslint on all .js and .jsx files in the `src` folder |
