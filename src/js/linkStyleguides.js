@@ -1,4 +1,5 @@
 const path = require('path');
+const glob = require('glob');
 
 const currentPath = process.cwd();
 
@@ -11,10 +12,13 @@ const linkStyleguides = (modules, styleguideConfig = {}) => {
         styleguideConfig.sections = [];
     }
     if (styleguideConfig.components) {
-        styleguideConfig.sections.push({
-            name: 'Components',
-            components: styleguideConfig.components,
-        });
+        const files = glob.sync(styleguideConfig.components);
+        if (files.length) {
+            styleguideConfig.sections.push({
+                name: 'Components',
+                components: styleguideConfig.components,
+            });
+        }
     }
     modules.forEach(module => {
         styleguideConfig.sections.push({
