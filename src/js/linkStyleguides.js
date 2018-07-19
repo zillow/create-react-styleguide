@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
@@ -26,7 +27,9 @@ const linkStyleguides = (modules, styleguideConfig = {}) => {
             components: `node_modules/${module}/src/components/**/[A-Z]*.jsx`,
         });
         styleguideConfig.webpackConfig.module.rules[0].include.push(
-            path.join(currentPath, `node_modules/${module}/src`)
+            // Use realpath to resolve symlinks
+            // https://github.com/webpack/webpack/issues/1643
+            fs.realpathSync(path.join(currentPath, `node_modules/${module}/src`))
         );
     });
     return styleguideConfig;
