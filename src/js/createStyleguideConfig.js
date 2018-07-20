@@ -22,15 +22,10 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
     };
 
     const styleguideConfig = {
-        components: 'src/components/**/[A-Z]*.jsx',
         webpackConfig,
     };
 
-    if (options.styleguides && options.styleguides.length) {
-        return linkStyleguides(options.styleguides, styleguideConfig);
-    }
-
-    return styleguideConfig;
+    return linkStyleguides(options, styleguideConfig);
 };
 
 export default createStyleguideConfig;

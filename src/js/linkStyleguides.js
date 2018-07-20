@@ -3,28 +3,48 @@ const path = require('path');
 const glob = require('glob');
 
 const currentPath = process.cwd();
+const README_NAME = 'STYLEGUIDE.md';
+const COMPONENTS = 'src/components/**/[A-Z]*.jsx';
+
+const buildSection = (pkgPath, readmePath, components) => {
+    // eslint-disable-next-line
+    const pkg = require(pkgPath);
+    const section = {
+        name: pkg.name,
+        components,
+        description: `| Version | Homepage | Author |\n| - | - | - |\n| ${
+            pkg.version
+        } | ${pkg.homepage || 'not specified'} | ${pkg.author || 'not specified'} |`,
+    };
+    if (fs.existsSync(readmePath)) {
+        section.content = fs.realpathSync(readmePath);
+    }
+    return section;
+};
 
 /**
  *  Modifies the styleguideConfig to include components from each given module in separate sections
  */
-const linkStyleguides = (modules, styleguideConfig = {}) => {
-    if (!styleguideConfig.sections) {
-        // eslint-disable-next-line no-param-reassign
-        styleguideConfig.sections = [];
+const linkStyleguides = (options = {}, styleguideConfig = {}) => {
+    const sections = [];
+
+    // Make sure local components exist before adding component
+    const files = glob.sync(COMPONENTS);
+    if (files.length) {
+        sections.push(
+            buildSection(
+                path.join(currentPath, 'package.json'),
+                path.join(currentPath, README_NAME),
+                COMPONENTS
+            )
+        );
     }
-    if (styleguideConfig.components) {
-        const files = glob.sync(styleguideConfig.components);
-        if (files.length) {
-            styleguideConfig.sections.push({
-                name: 'Components',
-                components: styleguideConfig.components,
-            });
-        }
-    }
-    modules.forEach(module => {
-        styleguideConfig.sections.push({
+
+    const styleguides = options.styleguides || [];
+    styleguides.forEach(module => {
+        sections.push({
             name: module,
-            components: `node_modules/${module}/src/components/**/[A-Z]*.jsx`,
+            components: `node_modules/${module}/${COMPONENTS}`,
         });
         styleguideConfig.webpackConfig.module.rules[0].include.push(
             // Use realpath to resolve symlinks
@@ -32,6 +52,9 @@ const linkStyleguides = (modules, styleguideConfig = {}) => {
             fs.realpathSync(path.join(currentPath, `node_modules/${module}/src`))
         );
     });
+
+    // eslint-disable-next-line no-param-reassign
+    styleguideConfig.sections = sections;
     return styleguideConfig;
 };
 
