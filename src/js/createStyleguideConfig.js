@@ -1,6 +1,4 @@
 import path from 'path';
-import classProperties from 'babel-plugin-transform-class-properties';
-import objectRestSpread from 'babel-plugin-transform-object-rest-spread';
 import getCRSConfig from './getCRSConfig';
 import linkStyleguides from './linkStyleguides';
 
@@ -15,7 +13,7 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
                         loader: 'babel-loader',
                         options: {
                             presets: ['babel-preset-react', 'babel-preset-env'],
-                            plugins: [classProperties, objectRestSpread],
+                            plugins: ['transform-class-properties', 'transform-object-rest-spread'],
                         },
                     },
                 },
