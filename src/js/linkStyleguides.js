@@ -42,10 +42,14 @@ const linkStyleguides = (options = {}, styleguideConfig = {}) => {
 
     const styleguides = options.styleguides || [];
     styleguides.forEach(module => {
-        sections.push({
-            name: module,
-            components: `node_modules/${module}/${COMPONENTS}`,
-        });
+        const modulePath = path.join(currentPath, `node_modules/${module}/`);
+        sections.push(
+            buildSection(
+                path.join(modulePath, 'package.json'),
+                path.join(modulePath, README_NAME),
+                `node_modules/${module}/${COMPONENTS}`
+            )
+        );
         styleguideConfig.webpackConfig.module.rules[0].include.push(
             // Use realpath to resolve symlinks
             // https://github.com/webpack/webpack/issues/1643
