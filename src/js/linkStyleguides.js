@@ -6,6 +6,16 @@ const currentPath = process.cwd();
 const README_NAME = 'STYLEGUIDE.md';
 const COMPONENTS = 'src/components/**/[A-Z]*.jsx';
 
+const getAuthor = author => {
+    if (typeof author === 'string') {
+        return author;
+    }
+    if (author && author.name) {
+        return author.name;
+    }
+    return false;
+};
+
 const buildSection = (pkgPath, readmePath, components) => {
     // eslint-disable-next-line
     const pkg = require(pkgPath);
@@ -14,7 +24,7 @@ const buildSection = (pkgPath, readmePath, components) => {
         components,
         description: `| Version | Homepage | Author |\n| - | - | - |\n| ${
             pkg.version
-        } | ${pkg.homepage || 'not specified'} | ${pkg.author || 'not specified'} |`,
+        } | ${pkg.homepage || 'not specified'} | ${getAuthor(pkg.author) || 'not specified'} |`,
     };
     if (fs.existsSync(readmePath)) {
         section.content = fs.realpathSync(readmePath);
