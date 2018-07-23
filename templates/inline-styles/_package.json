@@ -8,7 +8,8 @@
     "es",
     "lib",
     "umd",
-    "src"
+    "src",
+    "STYLEGUIDE.md"
   ],
   "scripts": {
     "build": "create-react-styleguide script build",
