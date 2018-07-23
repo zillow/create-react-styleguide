@@ -49,6 +49,10 @@ For a styleguide to be linked, it must first be published to npm. Running `npm p
 
 From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed. That's it! Running `npm start` will now show components from all linked libraries.
 
+## STYLEGUIDE.md
+
+This is an optional file at the root of your project that describes your component library as a whole. This will be shown at the top of your living styleguide, and at the beginning of your section wherever this styleguide is linked.
+
 ## Under the covers
 
 `create-react-styleguide` leverages [nwb](https://github.com/insin/nwb) under the covers for its build and testing tasks. [react-styleguidist](https://react-styleguidist.js.org/) is used for the living style guide.
