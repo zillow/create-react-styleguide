@@ -23,6 +23,11 @@
     "test:watch": "cross-env NODE_ENV=test NWB_TEST=true mocha --require babel-register --watch tests/*-test.js",
     "prepublish": "npm run build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "files": [
     "docs",
     "lib",
@@ -61,6 +66,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.1.4",
     "eslint-plugin-zillow": "^1.0.0-rc.1",
+    "husky": "^1.0.0-rc.13",
     "mocha": "^5.1.1",
     "nyc": "^11.7.1",
     "rimraf": "^2.6.2"
