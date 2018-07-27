@@ -1,3 +1,5 @@
-const createJestSetupConfig = require('create-react-styleguide').createJestSetupConfig;
+import { createSerializer } from 'jest-emotion';
+import * as emotion from 'emotion';
 
-createJestSetupConfig();
+// Serialize emotion styles into snapshots
+expect.addSnapshotSerializer(createSerializer(emotion));
