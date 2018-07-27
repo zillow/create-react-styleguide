@@ -29,7 +29,8 @@
     "react": "{{reactPeerVersion}}"
   },
   "devDependencies": {
-    "create-react-styleguide": "{{createReactStyleguideVersion}}"
+    "create-react-styleguide": "{{createReactStyleguideVersion}}",
+    "jest-emotion": "{{jestEmotionVersion}}"
   },
   "author": "",
   "homepage": "",
