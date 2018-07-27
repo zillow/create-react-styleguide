@@ -19,6 +19,7 @@
     "start": "create-react-styleguide script start",
     "test": "create-react-styleguide script test",
     "test:coverage": "create-react-styleguide script test:coverage",
+    "test:update": "create-react-styleguide script test:update",
     "test:watch": "create-react-styleguide script test:watch",
     "prepublishOnly": "create-react-styleguide script prepublishOnly"
   },
@@ -28,7 +29,8 @@
     "react": "{{reactPeerVersion}}"
   },
   "devDependencies": {
-    "create-react-styleguide": "{{createReactStyleguideVersion}}"
+    "create-react-styleguide": "{{createReactStyleguideVersion}}",
+    "jest-emotion": "{{jestEmotionVersion}}"
   },
   "author": "",
   "homepage": "",

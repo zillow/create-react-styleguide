@@ -148,6 +148,10 @@ function createModuleProject(args, name, targetDir, cb) {
             templateVars.reactPeerVersion = '16.x';
         }
 
+        if (args.styles === 'emotion') {
+            templateVars.jestEmotionVersion = `^9.2`;
+        }
+
         let copyEslintTemplate = callback => callback();
         if (args.eslint === 'zillow') {
             const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
