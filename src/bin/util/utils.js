@@ -4,20 +4,8 @@
  */
 
 import spawn from 'cross-spawn';
-import fs from 'fs';
 import ora from 'ora';
 import resolve from 'resolve';
-
-/**
- * Check if a directory exists.
- */
-export function directoryExists(dir): boolean {
-    try {
-        return fs.statSync(dir).isDirectory();
-    } catch (e) {
-        return false;
-    }
-}
 
 /**
  * Get a list of nwb plugin names passed as arguments.

@@ -11,7 +11,7 @@ import ora from 'ora';
 import copyTemplateDir from 'copy-template-dir';
 import runSeries from 'run-series';
 import inquirer from 'inquirer';
-import { typeOf, install, toSource, directoryExists } from '../util/utils';
+import { typeOf, install, toSource } from '../util/utils';
 import pkg from '../../../package.json';
 
 const CONFIG_FILE_NAME = 'nwb.config.js';
@@ -98,7 +98,7 @@ function initGit(args, cwd, cb) {
         return;
     }
     // Bail if a git repo already exists (e.g. nwb init in an existing repo)
-    if (directoryExists(path.join(cwd, '.git'))) {
+    if (fs.existsSync(path.join(cwd, '.git'))) {
         process.nextTick(cb);
         return;
     }
