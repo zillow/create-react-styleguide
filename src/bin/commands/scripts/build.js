@@ -1,10 +1,8 @@
 import runSeries from 'run-series';
 import { spawn } from 'child_process';
 import { babel } from '../../util/executables';
+import { BABEL_OPTIONS, BABEL_OPTIONS_ES } from '../../util/babel';
 import noop from '../../util/noop';
-
-export const BABEL_OPTIONS = ['src', '--out-dir', 'lib', '--copy-files'];
-export const BABEL_OPTIONS_ES = ['src', '--out-dir', 'es', '--copy-files'];
 
 export default (argv, callback = noop) => {
     runSeries([
