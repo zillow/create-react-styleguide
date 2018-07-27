@@ -38,6 +38,7 @@ yargs
                     'start',
                     'test',
                     'test:coverage',
+                    'test:update',
                     'test:watch',
                     'prepublishOnly',
                 ],
