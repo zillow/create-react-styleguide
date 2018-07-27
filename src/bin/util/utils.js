@@ -109,16 +109,6 @@ export function joinAnd(array, lastClause = 'and') {
 }
 
 /**
- * Hack to generate simple config file contents by stringifying to JSON, but
- * without JSON formatting.
- */
-export function toSource(obj) {
-    return JSON.stringify(obj, null, 2)
-        .replace(/"([^"]+)":/g, '$1:')
-        .replace(/"/g, "'");
-}
-
-/**
  * Better typeof.
  */
 export function typeOf(o) {
