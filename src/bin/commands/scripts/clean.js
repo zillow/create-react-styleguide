@@ -1,23 +1,11 @@
+import path from 'path';
 import runSeries from 'run-series';
-import { spawn } from 'child_process';
-import { clean } from 'nwb/lib/utils';
-import { nwb } from '../../util/executables';
+import rimraf from 'rimraf';
 import noop from '../../util/noop';
 
-const nwbClean = (argv, callback = noop) => {
-    spawn(nwb, ['clean-module'], {
-        stdio: 'inherit',
-    }).on('close', callback);
-};
+const currentDir = process.cwd();
+const dirs = ['lib', 'es', 'styleguide'];
 
-export default (argv, callback) => {
-    runSeries(
-        [
-            // Clean 'build'
-            cb => nwbClean(argv, cb),
-            // Clean 'build:styleguide'
-            cb => clean('styleguide', ['styleguide'], cb),
-        ],
-        callback
-    );
+export default (argv, callback = noop) => {
+    runSeries(dirs.map(dir => cb => rimraf(path.join(currentDir, dir), {}, cb)), callback);
 };
