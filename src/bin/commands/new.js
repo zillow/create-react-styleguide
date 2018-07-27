@@ -10,8 +10,8 @@ import chalk from 'chalk';
 import ora from 'ora';
 import copyTemplateDir from 'copy-template-dir';
 import runSeries from 'run-series';
-import { getNpmModulePrefs } from 'nwb/lib/createProject';
-import { install, toSource, directoryExists } from 'nwb/lib/utils';
+import inquirer from 'inquirer';
+import { typeOf, install, toSource, directoryExists } from '../util/utils';
 import pkg from '../../../package.json';
 
 const CONFIG_FILE_NAME = 'nwb.config.js';
@@ -32,6 +32,59 @@ function copyTemplate(templateDir, targetDir, templateVars, cb) {
         });
         cb();
     });
+}
+
+/**
+ * Prompt the user for preferences related to publishing a module to npm, unless
+ * they've asked us not to or have already provided all the possible options via
+ * arguments.
+ */
+function getNpmModulePrefs(args, cb) {
+    // An ES modules build is enabled by default, but can be disabled with
+    // --no-es-modules or --es-modules=false (or a bunch of other undocumented
+    // stuff)
+    const esModules =
+        args['es-modules'] !== false && !/^(0|false|no|nope|off)$/.test(args['es-modules']);
+    // Pass a UMD global variable name with --umd=MyThing, or pass --no-umd to
+    // indicate you don't want a UMD build.
+    const umd = typeOf(args.umd) === 'string' ? args.umd : false;
+
+    // Don't ask questions if the user doesn't want them, or already told us all
+    // the answers.
+    if (args.f || args.force || ('umd' in args && 'es-modules' in args)) {
+        process.nextTick(cb, null, { umd, esModules });
+        return;
+    }
+
+    inquirer
+        .prompt([
+            {
+                when: () => !('es-modules' in args),
+                type: 'confirm',
+                name: 'esModules',
+                message:
+                    'Do you want to create an ES modules build for use by compatible bundlers?',
+                default: esModules,
+            },
+            {
+                when: () => !('umd' in args),
+                type: 'confirm',
+                name: 'createUMD',
+                message: 'Do you want to create a UMD build for global usage via <script> tag?',
+                default: umd,
+            },
+            {
+                when: ({ createUMD }) => createUMD,
+                type: 'input',
+                name: 'umd',
+                message: 'Which global variable should the UMD build set?',
+                validate(input) {
+                    return input.trim() ? true : 'Required to create a UMD build';
+                },
+                default: umd || '',
+            },
+        ])
+        .then(answers => cb(null, answers), err => cb(err));
 }
 
 /**
