@@ -10,8 +10,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import copyTemplateDir from 'copy-template-dir';
 import runSeries from 'run-series';
-import inquirer from 'inquirer';
-import { typeOf, install } from '../util/utils';
+import install from '../util/install';
 import pkg from '../../../package.json';
 
 /**
@@ -30,59 +29,6 @@ function copyTemplate(templateDir, targetDir, templateVars, cb) {
         });
         cb();
     });
-}
-
-/**
- * Prompt the user for preferences related to publishing a module to npm, unless
- * they've asked us not to or have already provided all the possible options via
- * arguments.
- */
-function getNpmModulePrefs(args, cb) {
-    // An ES modules build is enabled by default, but can be disabled with
-    // --no-es-modules or --es-modules=false (or a bunch of other undocumented
-    // stuff)
-    const esModules =
-        args['es-modules'] !== false && !/^(0|false|no|nope|off)$/.test(args['es-modules']);
-    // Pass a UMD global variable name with --umd=MyThing, or pass --no-umd to
-    // indicate you don't want a UMD build.
-    const umd = typeOf(args.umd) === 'string' ? args.umd : false;
-
-    // Don't ask questions if the user doesn't want them, or already told us all
-    // the answers.
-    if (args.f || args.force || ('umd' in args && 'es-modules' in args)) {
-        process.nextTick(cb, null, { umd, esModules });
-        return;
-    }
-
-    inquirer
-        .prompt([
-            {
-                when: () => !('es-modules' in args),
-                type: 'confirm',
-                name: 'esModules',
-                message:
-                    'Do you want to create an ES modules build for use by compatible bundlers?',
-                default: esModules,
-            },
-            {
-                when: () => !('umd' in args),
-                type: 'confirm',
-                name: 'createUMD',
-                message: 'Do you want to create a UMD build for global usage via <script> tag?',
-                default: umd,
-            },
-            {
-                when: ({ createUMD }) => createUMD,
-                type: 'input',
-                name: 'umd',
-                message: 'Which global variable should the UMD build set?',
-                validate(input) {
-                    return input.trim() ? true : 'Required to create a UMD build';
-                },
-                default: umd || '',
-            },
-        ])
-        .then(answers => cb(null, answers), err => cb(err));
 }
 
 /**
@@ -150,61 +96,50 @@ function createModuleProject(args, name, targetDir, cb) {
         devDependencies.push('jest-emotion');
     }
 
-    getNpmModulePrefs(args, (err, prefs) => {
-        if (err) {
-            cb(err);
-            return;
-        }
-        const { esModules } = prefs;
+    let templateDir = path.join(__dirname, '../../../templates/inline-styles');
+    if (args.styles === 'emotion') {
+        templateDir = path.join(__dirname, '../../../templates/emotion-styles');
+    }
 
-        let templateDir = path.join(__dirname, '../../../templates/inline-styles');
-        if (args.styles === 'emotion') {
-            templateDir = path.join(__dirname, '../../../templates/emotion-styles');
-        }
+    const templateVars = {
+        name,
+        eslintPackageConfig:
+            args.eslint === 'zillow'
+                ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
+                : '',
+        createReactStyleguideVersion: pkg.version,
+        huskyConfig:
+            args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
+    };
 
-        const templateVars = {
-            name,
-            esModules,
-            esModulesPackageConfig: esModules ? '\n  "module": "es/index.js",' : '',
-            eslintPackageConfig:
-                args.eslint === 'zillow'
-                    ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
-                    : '',
-            createReactStyleguideVersion: pkg.version,
-            huskyConfig:
-                args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
-        };
+    // CBA making this part generic until it's needed
+    if (args.react) {
+        devDependencies = devDependencies.map(depPkg => `${depPkg}@${args.react}`);
+        // YOLO
+        templateVars.reactPeerVersion = `^${args.react}`;
+    } else {
+        // TODO Get from npm so we don't have to manually update on major releases
+        templateVars.reactPeerVersion = '16.x';
+    }
 
-        // CBA making this part generic until it's needed
-        if (args.react) {
-            devDependencies = devDependencies.map(depPkg => `${depPkg}@${args.react}`);
-            // YOLO
-            templateVars.reactPeerVersion = `^${args.react}`;
-        } else {
-            // TODO Get from npm so we don't have to manually update on major releases
-            templateVars.reactPeerVersion = '16.x';
-        }
+    let copyEslintTemplate = callback => callback();
+    if (args.eslint === 'zillow') {
+        const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
+        copyEslintTemplate = callback =>
+            copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
+    }
 
-        let copyEslintTemplate = callback => callback();
-        if (args.eslint === 'zillow') {
-            const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
-            copyEslintTemplate = callback =>
-                copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
-        }
-
-        runSeries(
-            [
-                callback => copyTemplate(templateDir, targetDir, templateVars, callback),
-                copyEslintTemplate,
-                callback =>
-                    install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
-                callback =>
-                    install(dependencies, { cwd: targetDir, save: true, dev: false }, callback),
-                callback => initGit(args, targetDir, callback),
-            ],
-            cb
-        );
-    });
+    runSeries(
+        [
+            callback => copyTemplate(templateDir, targetDir, templateVars, callback),
+            copyEslintTemplate,
+            callback =>
+                install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
+            callback => install(dependencies, { cwd: targetDir, save: true, dev: false }, callback),
+            callback => initGit(args, targetDir, callback),
+        ],
+        cb
+    );
 }
 
 export default (argv, callback) => {

@@ -2,7 +2,8 @@
   "name": "{{name}}",
   "version": "1.0.0",
   "description": "{{name}} React component",
-  "main": "lib/index.js",{{esModulesPackageConfig}}
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
     "css",
     "es",
