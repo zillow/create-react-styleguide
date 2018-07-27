@@ -16,7 +16,7 @@ import resolve from 'resolve';
  *  // Comma-separated list of nwb plugin names (allowing for typos)
  *  plugin?: string,
  */
-export function getArgsPlugins(args) {
+function getArgsPlugins(args) {
     const plugins = args.plugins || args.plugin;
     if (!plugins) {
         return [];
@@ -41,7 +41,7 @@ export function getArgsPlugins(args) {
  * save?: boolean,
  */
 // eslint-disable-next-line consistent-return
-export function install(
+export default function(
     // npm package names, which may be in package@version format
     packages,
     options,
@@ -98,7 +98,7 @@ export function install(
 /**
  * Join multiple items with a penultimate "and".
  */
-export function joinAnd(array, lastClause = 'and') {
+function joinAnd(array, lastClause = 'and') {
     if (array.length === 0) {
         return '';
     }
@@ -106,17 +106,4 @@ export function joinAnd(array, lastClause = 'and') {
         return String(array[0]);
     }
     return `${array.slice(0, -1).join(', ')} ${lastClause} ${array[array.length - 1]}`;
-}
-
-/**
- * Better typeof.
- */
-export function typeOf(o) {
-    if (Number.isNaN(o)) {
-        return 'nan';
-    }
-    return Object.prototype.toString
-        .call(o)
-        .slice(8, -1)
-        .toLowerCase();
 }
