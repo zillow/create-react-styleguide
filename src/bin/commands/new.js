@@ -11,10 +11,8 @@ import ora from 'ora';
 import copyTemplateDir from 'copy-template-dir';
 import runSeries from 'run-series';
 import inquirer from 'inquirer';
-import { typeOf, install, toSource } from '../util/utils';
+import { typeOf, install } from '../util/utils';
 import pkg from '../../../package.json';
-
-const CONFIG_FILE_NAME = 'nwb.config.js';
 
 /**
  * Copy a project template and log created files if successful.
@@ -138,13 +136,6 @@ function initGit(args, cwd, cb) {
 }
 
 /**
- * Write an nwb config file.
- */
-function writeConfigFile(dir, config, cb) {
-    fs.writeFile(path.join(dir, CONFIG_FILE_NAME), `module.exports = ${toSource(config)}\n`, cb);
-}
-
-/**
  * Create an npm module project skeleton.
  */
 function createModuleProject(args, name, targetDir, cb) {
@@ -159,15 +150,12 @@ function createModuleProject(args, name, targetDir, cb) {
         devDependencies.push('jest-emotion');
     }
 
-    const externals = { react: 'React' };
-    const projectType = 'react-component';
-
     getNpmModulePrefs(args, (err, prefs) => {
         if (err) {
             cb(err);
             return;
         }
-        const { umd, esModules } = prefs;
+        const { esModules } = prefs;
 
         let templateDir = path.join(__dirname, '../../../templates/inline-styles');
         if (args.styles === 'emotion') {
@@ -185,13 +173,6 @@ function createModuleProject(args, name, targetDir, cb) {
             createReactStyleguideVersion: pkg.version,
             huskyConfig:
                 args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
-        };
-        const nwbConfig = {
-            type: projectType,
-            npm: {
-                esModules,
-                umd: umd ? { global: umd, externals } : false,
-            },
         };
 
         // CBA making this part generic until it's needed
@@ -215,7 +196,6 @@ function createModuleProject(args, name, targetDir, cb) {
             [
                 callback => copyTemplate(templateDir, targetDir, templateVars, callback),
                 copyEslintTemplate,
-                callback => writeConfigFile(targetDir, nwbConfig, callback),
                 callback =>
                     install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
                 callback =>
