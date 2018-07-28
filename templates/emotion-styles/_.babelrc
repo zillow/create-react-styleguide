@@ -1,0 +1,8 @@
+{
+    "env": {
+        "es": {
+            "presets": [["zillow", { "modules": false }]]
+        }
+    },
+    "presets": ["zillow"]
+}

@@ -85,7 +85,7 @@ function initGit(args, cwd, cb) {
  * Create an npm module project skeleton.
  */
 function createModuleProject(args, name, targetDir, cb) {
-    let devDependencies = ['react', 'react-dom', 'create-react-styleguide', 'husky@next'];
+    let devDependencies = ['react', 'react-dom', 'create-react-styleguide', 'babel-preset-zillow', 'husky@next'];
     if (args.eslint === 'zillow') {
         devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
     }
