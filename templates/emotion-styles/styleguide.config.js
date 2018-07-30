@@ -4,5 +4,5 @@ const createStyleguideConfig = require('create-react-styleguide').createStylegui
 module.exports = Object.assign(createStyleguideConfig(), {
     styleguideComponents: {
         Wrapper: path.join(__dirname, 'src/styleguidist/components/ThemeWrapper'),
-    }
+    },
 });

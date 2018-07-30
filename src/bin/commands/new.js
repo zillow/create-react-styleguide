@@ -98,6 +98,7 @@ function createModuleProject(args, name, targetDir, cb) {
     let devDependencies = ['react', 'react-dom', 'create-react-styleguide'];
     if (args.eslint === 'zillow') {
         devDependencies.push('eslint-plugin-zillow');
+        devDependencies.push('eslint-plugin-jest');
     }
 
     const dependencies = ['prop-types'];
@@ -129,6 +130,9 @@ function createModuleProject(args, name, targetDir, cb) {
                     ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
                     : '',
             createReactStyleguideVersion: pkg.version,
+            huskyVersion: '^1.0.0-rc.13',
+            huskyConfig:
+                args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
         };
         const nwbConfig = {
             type: projectType,

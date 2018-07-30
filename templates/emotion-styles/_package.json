@@ -23,6 +23,11 @@
     "test:watch": "create-react-styleguide script test:watch",
     "prepublishOnly": "create-react-styleguide script prepublishOnly"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "{{huskyConfig}}"
+    }
+  },
   "dependencies": {
   },
   "peerDependencies": {
@@ -30,7 +35,8 @@
   },
   "devDependencies": {
     "create-react-styleguide": "{{createReactStyleguideVersion}}",
-    "jest-emotion": "{{jestEmotionVersion}}"
+    "jest-emotion": "{{jestEmotionVersion}}",
+    "husky": "{{huskyVersion}}"
   },
   "author": "",
   "homepage": "",
