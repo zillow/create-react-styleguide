@@ -8,23 +8,6 @@ import ora from 'ora';
 import resolve from 'resolve';
 
 /**
- * Get a list of nwb plugin names passed as arguments.
- *
- *  <args>:
- *  // comma-separated list of nwb plugin names
- *  plugins?: string,
- *  // Comma-separated list of nwb plugin names (allowing for typos)
- *  plugin?: string,
- */
-function getArgsPlugins(args) {
-    const plugins = args.plugins || args.plugin;
-    if (!plugins) {
-        return [];
-    }
-    return plugins.split(',').map(name => name.replace(/^(nwb-)?/, 'nwb-'));
-}
-
-/**
  * Install packages from npm.
  *
  * <options>:
@@ -47,14 +30,7 @@ export default function(
     options,
     cb
 ) {
-    const { args = null, check = false, cwd = process.cwd(), dev = false, save = false } = options;
-
-    // If the command being run allows users to specify an nwb plugins option by
-    // providing the args object here, make sure they're installed.
-    if (args) {
-        // eslint-disable-next-line no-param-reassign
-        packages = packages.concat(getArgsPlugins(args));
-    }
+    const { check = false, cwd = process.cwd(), dev = false, save = false } = options;
 
     if (check) {
         // eslint-disable-next-line no-param-reassign
