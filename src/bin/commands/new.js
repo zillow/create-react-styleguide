@@ -2,16 +2,13 @@
  * This is a fork of nwb's createProject to support a new react styleguide template.
  * https://github.com/insin/nwb/blob/v0.22.0/src/createProject.js
  */
-
-import { exec } from 'child_process';
-import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import ora from 'ora';
 import copyTemplateDir from 'copy-template-dir';
 import runSeries from 'run-series';
 import install from '../util/install';
 import pkg from '../../../package.json';
+import { initGit, initialCommit } from '../util/git';
 
 /**
  * Copy a project template and log created files if successful.
@@ -28,56 +25,6 @@ function copyTemplate(templateDir, targetDir, templateVars, cb) {
             console.log(`  ${chalk.green('create')} ${relativePath}`);
         });
         cb();
-    });
-}
-
-/**
- * Initialise a Git repository if the user has Git, unless there's already one
- * present or the user has asked us could we not.
- */
-function initGit(args, cwd, cb) {
-    // Allow git init to be disabled with a --no-git flag
-    if (args.git === false) {
-        process.nextTick(cb);
-        return;
-    }
-    // Bail if a git repo already exists (e.g. init in an existing repo)
-    if (fs.existsSync(path.join(cwd, '.git'))) {
-        process.nextTick(cb);
-        return;
-    }
-
-    exec('git --version', { cwd, stdio: 'ignore' }, err => {
-        if (err) {
-            cb();
-            return;
-        }
-        const spinner = ora('Initing Git repo').start();
-        runSeries(
-            [
-                callback => exec('git init', { cwd }, callback),
-                callback => exec('git add .', { cwd }, callback),
-                callback =>
-                    exec(
-                        `git commit -m "Initial commit from create-react-styleguide v${
-                            pkg.version
-                        }"`,
-                        { cwd },
-                        callback
-                    ),
-            ],
-            error => {
-                if (error) {
-                    spinner.fail();
-                    // eslint-disable-next-line no-console
-                    console.log(chalk.red(error.message));
-                    cb();
-                    return;
-                }
-                spinner.succeed();
-                cb();
-            }
-        );
     });
 }
 
@@ -138,10 +85,11 @@ function createModuleProject(args, name, targetDir, cb) {
         [
             callback => copyTemplate(templateDir, targetDir, templateVars, callback),
             copyEslintTemplate,
+            callback => initGit(args, targetDir, callback),
             callback =>
                 install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
             callback => install(dependencies, { cwd: targetDir, save: true, dev: false }, callback),
-            callback => initGit(args, targetDir, callback),
+            callback => initialCommit(args, targetDir, callback),
         ],
         cb
     );
