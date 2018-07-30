@@ -41,7 +41,7 @@ function initGit(args, cwd, cb) {
         process.nextTick(cb);
         return;
     }
-    // Bail if a git repo already exists (e.g. nwb init in an existing repo)
+    // Bail if a git repo already exists (e.g. init in an existing repo)
     if (fs.existsSync(path.join(cwd, '.git'))) {
         process.nextTick(cb);
         return;
