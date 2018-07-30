@@ -95,15 +95,15 @@ function writeConfigFile(dir, config, cb) {
  * Create an npm module project skeleton.
  */
 function createModuleProject(args, name, targetDir, cb) {
-    let devDependencies = ['react', 'react-dom', 'create-react-styleguide'];
+    let devDependencies = ['react', 'react-dom', 'create-react-styleguide', 'husky@next'];
     if (args.eslint === 'zillow') {
-        devDependencies.push('eslint-plugin-zillow');
-        devDependencies.push('eslint-plugin-jest');
+        devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
     }
 
     const dependencies = ['prop-types'];
     if (args.styles === 'emotion') {
         dependencies.push('emotion', 'react-emotion', 'emotion-theming');
+        devDependencies.push('jest-emotion');
     }
 
     const externals = { react: 'React' };
@@ -130,7 +130,6 @@ function createModuleProject(args, name, targetDir, cb) {
                     ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
                     : '',
             createReactStyleguideVersion: pkg.version,
-            huskyVersion: '^1.0.0-rc.13',
             huskyConfig:
                 args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
         };
@@ -150,10 +149,6 @@ function createModuleProject(args, name, targetDir, cb) {
         } else {
             // TODO Get from npm so we don't have to manually update on major releases
             templateVars.reactPeerVersion = '16.x';
-        }
-
-        if (args.styles === 'emotion') {
-            templateVars.jestEmotionVersion = `^9.2`;
         }
 
         let copyEslintTemplate = callback => callback();
