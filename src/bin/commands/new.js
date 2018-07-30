@@ -85,7 +85,13 @@ function initGit(args, cwd, cb) {
  * Create an npm module project skeleton.
  */
 function createModuleProject(args, name, targetDir, cb) {
-    let devDependencies = ['react', 'react-dom', 'create-react-styleguide', 'babel-preset-zillow', 'husky@next'];
+    let devDependencies = [
+        'react',
+        'react-dom',
+        'create-react-styleguide',
+        'babel-preset-zillow',
+        'husky@next',
+    ];
     if (args.eslint === 'zillow') {
         devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
     }
@@ -108,8 +114,7 @@ function createModuleProject(args, name, targetDir, cb) {
                 ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
                 : '',
         createReactStyleguideVersion: pkg.version,
-        huskyConfig:
-            args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
+        huskyConfig: args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
     };
 
     // CBA making this part generic until it's needed
