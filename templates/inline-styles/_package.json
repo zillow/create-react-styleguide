@@ -33,8 +33,7 @@
     "react": "{{reactPeerVersion}}"
   },
   "devDependencies": {
-    "create-react-styleguide": "{{createReactStyleguideVersion}}",
-    "husky": "{{huskyVersion}}"
+    "create-react-styleguide": "{{createReactStyleguideVersion}}"
   },
   "author": "",
   "homepage": "",
