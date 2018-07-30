@@ -11,10 +11,6 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
                     include: [path.join(process.cwd(), 'src')],
                     use: {
                         loader: 'babel-loader',
-                        options: {
-                            presets: ['babel-preset-react', 'babel-preset-env'],
-                            plugins: ['transform-class-properties', 'transform-object-rest-spread'],
-                        },
                     },
                 },
             ],
