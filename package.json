@@ -29,13 +29,8 @@
     }
   },
   "files": [
-    "docs",
     "lib",
-    "templates",
-    "express.js",
-    "polyfills.js",
-    "index.js",
-    "util"
+    "templates"
   ],
   "engines": {
     "node": ">=6.11.5"
@@ -49,14 +44,9 @@
     "eslint": "^4.19.1",
     "glob": "^7.1.2",
     "jest": "^23.4.1",
-    "inquirer": "^6.0.0",
-    "nodemon": "^1.18.2",
     "nwb": "^0.21.5",
     "ora": "^2.1.0",
     "prettier": "^1.13.7",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
     "react-styleguidist": "^7.0.9",
     "resolve": "^1.8.1",
     "rimraf": "^2.6.2",
