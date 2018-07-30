@@ -1,8 +1,9 @@
+/* global document */
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 import Button from '../src';
-import ThemeWrapper from '../src/styleguidist/components/ThemeWrapper';
+import ThemeWrapper from '../styleguidist/components/ThemeWrapper';
 
 describe('Themed Button', () => {
     let node;

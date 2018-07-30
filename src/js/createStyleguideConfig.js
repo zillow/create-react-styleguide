@@ -8,7 +8,10 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
             rules: [
                 {
                     test: /\.jsx?$/,
-                    include: [path.join(process.cwd(), 'src')],
+                    include: [
+                        path.join(process.cwd(), 'src'),
+                        path.join(process.cwd(), 'styleguidist'),
+                    ],
                     use: {
                         loader: 'babel-loader',
                     },
