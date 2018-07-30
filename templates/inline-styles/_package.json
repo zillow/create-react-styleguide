@@ -22,13 +22,19 @@
     "test:watch": "create-react-styleguide script test:watch",
     "prepublishOnly": "create-react-styleguide script prepublishOnly"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "{{huskyConfig}}"
+    }
+  },
   "dependencies": {
   },
   "peerDependencies": {
     "react": "{{reactPeerVersion}}"
   },
   "devDependencies": {
-    "create-react-styleguide": "{{createReactStyleguideVersion}}"
+    "create-react-styleguide": "{{createReactStyleguideVersion}}",
+    "husky": "{{huskyVersion}}"
   },
   "author": "",
   "homepage": "",
