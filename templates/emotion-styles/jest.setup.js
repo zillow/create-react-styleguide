@@ -1,5 +1,3 @@
-/* global expect */
-/* eslint-disable zillow/import/no-extraneous-dependencies */
 import { createSerializer } from 'jest-emotion';
 import * as emotion from 'emotion';
 import Enzyme from 'enzyme';
