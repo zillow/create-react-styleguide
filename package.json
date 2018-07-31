@@ -36,6 +36,7 @@
     "node": ">=6.11.5"
   },
   "dependencies": {
+    "babel-loader": "^7.1.5",
     "chalk": "^2.4.1",
     "copy-template-dir": "^1.4.0",
     "cross-spawn": "^6.0.5",
