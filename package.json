@@ -48,6 +48,7 @@
     "resolve": "^1.8.1",
     "rimraf": "^2.6.2",
     "run-series": "^1.1.8",
+    "webpack": "^4.16.3",
     "yargs": "^12.0.1"
   },
   "devDependencies": {
