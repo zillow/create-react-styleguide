@@ -5,7 +5,7 @@ import ora from 'ora';
 import noop from '../../util/noop';
 
 const currentDir = process.cwd();
-const dirs = ['lib', 'es', 'styleguide'];
+const dirs = ['lib', 'es', 'styleguide', 'coverage'];
 
 export default (argv, callback = noop) => {
     runSeries(
