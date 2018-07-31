@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 
-const StyledButton = styled('button')(props => props.theme.Button);
+export const StyledButton = styled('button')(props => props.theme.Button);
 const Button = props => <StyledButton {...props} />;
 
 Button.propTypes = {

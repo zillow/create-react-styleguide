@@ -12,7 +12,7 @@ const createJestConfig = () => ({
         },
     },
     testMatch: ['<rootDir>/**/__tests__/**/*.test.js', '<rootDir>/**/*.test.js'],
-    testEnvironment: 'jsdom',
+    testEnvironment: 'node',
 });
 
 export default createJestConfig;

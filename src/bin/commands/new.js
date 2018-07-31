@@ -38,6 +38,8 @@ function createModuleProject(args, name, targetDir, cb) {
         'create-react-styleguide',
         'babel-preset-zillow',
         'husky@next',
+        'enzyme',
+        'enzyme-to-json',
     ];
     if (args.eslint === 'zillow') {
         devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
@@ -69,9 +71,13 @@ function createModuleProject(args, name, targetDir, cb) {
         devDependencies = devDependencies.map(depPkg => `${depPkg}@${args.react}`);
         // YOLO
         templateVars.reactPeerVersion = `^${args.react}`;
+
+        // Grab the react version for enzyme adapter
+        devDependencies.push(`enzyme-adapter-react-${args.react.match(/[^.]*/i)[0]}`);
     } else {
         // TODO Get from npm so we don't have to manually update on major releases
         templateVars.reactPeerVersion = '16.x';
+        devDependencies.push('enzyme-adapter-react-16');
     }
 
     let copyEslintTemplate = callback => callback();
