@@ -13,6 +13,7 @@ const createJestConfig = () => ({
     },
     testMatch: ['<rootDir>/**/__tests__/**/*.test.js', '<rootDir>/**/*.test.js'],
     testEnvironment: 'node',
+    setupTestFrameworkScriptFile: '<rootDir>/test-setup/setup-globals.js',
 });
 
 export default createJestConfig;
