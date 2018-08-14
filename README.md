@@ -37,6 +37,10 @@ module.exports = {
     styleguides: [
         '@zillow/my-first-component-library',
         '@zillow/my-second-component-library'
+    ],
+    // {array} An array of paths to be included by the babel-loader (`src` and `styleguidist` will be included by default).
+    babelIncludes: [
+         path.join(__dirname, 'path/to/folder')
     ]
 };
 ```

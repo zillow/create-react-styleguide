@@ -3,6 +3,7 @@ import getCRSConfig from './getCRSConfig';
 import linkStyleguides from './linkStyleguides';
 
 const createStyleguideConfig = (options = getCRSConfig()) => {
+    const babelIncludes = options.babelIncludes || [];
     const webpackConfig = {
         module: {
             rules: [
@@ -11,7 +12,7 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
                     include: [
                         path.join(process.cwd(), 'src'),
                         path.join(process.cwd(), 'styleguidist'),
-                    ],
+                    ].concat(babelIncludes),
                     use: {
                         loader: 'babel-loader',
                     },
