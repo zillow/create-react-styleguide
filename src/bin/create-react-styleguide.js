@@ -2,9 +2,11 @@
 
 import yargs from 'yargs';
 
+const onCommandComplete = code => process.exit(code);
+
 const commandHandler = argv => {
     // eslint-disable-next-line
-    require(`./commands/${argv._[0]}`)(argv);
+    require(`./commands/${argv._[0]}`)(argv, onCommandComplete);
 };
 
 // eslint-disable-next-line no-unused-expressions

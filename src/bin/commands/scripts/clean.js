@@ -11,9 +11,9 @@ export default (argv, callback = noop) => {
     runSeries(
         dirs.map(dir => cb => {
             const spinner = ora(`Deleting ${dir}`).start();
-            rimraf(path.join(currentDir, dir), {}, () => {
+            rimraf(path.join(currentDir, dir), {}, error => {
                 spinner.succeed();
-                cb();
+                cb(error);
             });
         }),
         callback

@@ -1,4 +1,4 @@
-export default argv => {
+export default (argv, callback) => {
     // eslint-disable-next-line
-    require(`./scripts/${argv.script.replace(':', '_')}`)(argv);
+    require(`./scripts/${argv.script.replace(':', '_')}`)(argv, callback);
 };
