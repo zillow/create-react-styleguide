@@ -50,7 +50,7 @@ module.exports = {
         '@zillow/my-first-component-library',
         '@zillow/my-second-component-library'
     ]
-}
+};
 ```
 
 That's it! Running `npm start` will now show components from all linked libraries.
