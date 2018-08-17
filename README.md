@@ -26,6 +26,9 @@ Generated projects include the following npm scripts out of the box:
 | npm run eslint | Run eslint on all .js and .jsx files in the `src` folder |
 | npm run eslint:fix | Run eslint with the `--fix` option |
 | npm test | Run unit tests |
+| npm run test:watch | Run unit tests while watching for changes |
+| npm run test:coverage | Run unit tests with code coverage |
+| npm run test:update | Update unit test snapshots |
 
 ## crs.config.js
 
