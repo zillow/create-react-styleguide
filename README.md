@@ -58,9 +58,9 @@ From the master project, first install the published CRS module. Second, you wil
 
 ## Describe your styleguide with `STYLEGUIDE.md`
 
-![Customized style guide](assets/customize.png)
+By default, we expose some meta data from your `package.json` file at the top of your style guide. At the very least, make sure you set the `"version"`, `"author"`, and `"homepage"` properties. You can further describe your library with an optional `STYLEGUIDE.md` file at the root of your project. This will be shown at the top of your living styleguide just below the `package.json` meta data. This additional information is super helpful when [linking multiple styleguides](#linking-multiple-styleguides).
 
-By default, we expose some meta data from your `package.json` file at the top of your style guide. At the very least, make sure you set the `"version"`, `"author"`, and `"homepage"` properties. You can further describe your library with an optional `STYLEGUIDE.md` file at the root of your project. This will be shown at the top of your living styleguide just below the `package.json` meta data. This additional information is super helpful when [Linking multiple styleguides].
+![Customized style guide](assets/customize.png)
 
 ## Under the covers
 
