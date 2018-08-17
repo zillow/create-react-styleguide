@@ -62,4 +62,6 @@ This is an optional file at the root of your project that describes your compone
 
 ## Under the covers
 
-`create-react-styleguide` leverages [nwb](https://github.com/insin/nwb) under the covers for its build and testing tasks. [react-styleguidist](https://react-styleguidist.js.org/) is used for the living style guide.
+`create-react-styleguide` leverages [react-styleguidist](https://react-styleguidist.js.org/) under the covers for its living style guide. 
+
+Builds are created by simple running the `src` directory through [Babel](https://babeljs.io/) using whatever configuration is in your `.babelrc` file. By default, the `.babelrc` file includes a default env that builds CommonJS modules, and an `"es"` config that builds ES modules compatible with tree shaking.
