@@ -58,6 +58,8 @@ From the master project, first install the published CRS module. Second, you wil
 
 ## STYLEGUIDE.md
 
+![Customized style guide](assets/customize.png)
+
 This is an optional file at the root of your project that describes your component library as a whole. This will be shown at the top of your living styleguide, and at the beginning of your section wherever this styleguide is linked.
 
 ## Under the covers
