@@ -42,7 +42,18 @@ A useful feature of create-react-styleguide is the ability to link multiple CRS 
 
 For a styleguide to be linked, it must first be published to npm. Running `npm publish` will build and publish your component library so that it can be consumed by the master project.
 
-From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed. That's it! Running `npm start` will now show components from all linked libraries.
+From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed. 
+
+```javascript
+module.exports = {
+    styleguides: [
+        '@zillow/my-first-component-library',
+        '@zillow/my-second-component-library'
+    ]
+}
+```
+
+That's it! Running `npm start` will now show components from all linked libraries.
 
 ![Linked style guide](assets/linked.png)
 
