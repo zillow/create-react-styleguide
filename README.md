@@ -36,6 +36,24 @@ By default, we expose some meta data from your `package.json` file at the top of
 
 ![Customized style guide](assets/customized.png)
 
+## Adding SVG support
+
+You can add SVG support with the [inline-react-svg](https://github.com/airbnb/babel-plugin-inline-react-svg) babel plugin. `npm i --save-dev babel-plugin-inline-react-svg` and then update your `.babelrc` file as follows:
+
+```diff
+ {
+     "env": {
+         "es": {
+             "presets": [["zillow", { "modules": false }]]
+         }
+     },
+     "presets": ["zillow"],
++    "plugins": ["inline-react-svg"]
+ }
+ ```
+ 
+ You should now be able to import and use SVGs as if they were react components!
+
 ## Linking multiple styleguides
 
 A useful feature of create-react-styleguide is the ability to link multiple CRS component libraries into a single project. This means that separate teams can manage and own their own individual CRS libraries, and then bring them all together into a master project for broader visibility.
