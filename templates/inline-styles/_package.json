@@ -6,7 +6,6 @@
   "module": "es/index.js",
   "sideEffects": false,
   "files": [
-    "css",
     "es",
     "lib",
     "src",
