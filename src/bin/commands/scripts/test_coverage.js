@@ -1,5 +1,3 @@
-const jest = require('jest');
+import test from './test';
 
-export default () => {
-    jest.run(['--coverage']);
-};
+export default (argv, callback) => test(argv, callback, ['--coverage']);

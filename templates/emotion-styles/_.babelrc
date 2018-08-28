@@ -1,8 +1,11 @@
 {
+    "presets": [["zillow", { "modules": false }]],
     "env": {
-        "es": {
-            "presets": [["zillow", { "modules": false }]]
+        "cjs": {
+            "presets": ["zillow"]
+        },
+        "test": {
+            "presets": ["zillow"]
         }
-    },
-    "presets": ["zillow"]
+    }
 }
