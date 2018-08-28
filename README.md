@@ -43,15 +43,15 @@ You can add SVG support with the [inline-react-svg](https://github.com/airbnb/ba
 ```diff
  {
      "env": {
-         "es": {
-             "presets": [["zillow", { "modules": false }]]
+         "cjs": {
+             "presets": ["zillow"]
          }
      },
-     "presets": ["zillow"],
+     "presets": [["zillow", { "modules": false }]],
 +    "plugins": ["inline-react-svg"]
  }
  ```
- 
+
  You should now be able to import and use SVGs as if they were react components!
 
 ## Linking multiple styleguides
@@ -60,7 +60,7 @@ A useful feature of create-react-styleguide is the ability to link multiple CRS 
 
 For a styleguide to be linked, it must first be published to npm. Running `npm publish` will build and publish your component library so that it can be consumed by the master project.
 
-From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed. 
+From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed.
 
 ```javascript
 module.exports = {
@@ -95,6 +95,6 @@ module.exports = {
 
 ## Under the covers
 
-`create-react-styleguide` leverages [react-styleguidist](https://react-styleguidist.js.org/) under the covers for its living style guide. 
+`create-react-styleguide` leverages [react-styleguidist](https://react-styleguidist.js.org/) under the covers for its living style guide.
 
-Builds are created by simple running the `src` directory through [Babel](https://babeljs.io/) using whatever configuration is in your `.babelrc` file. By default, the `.babelrc` file includes a default env that builds CommonJS modules, and an `"es"` config that builds ES modules compatible with tree shaking.
+Builds are created by simple running the `src` directory through [Babel](https://babeljs.io/) using whatever configuration is in your `.babelrc` file. The build will run twice, once with the default configuration which builds ES modules compatible with tree shaking, and once with the `"cjs"` env configuration which builds CommonJS modules.

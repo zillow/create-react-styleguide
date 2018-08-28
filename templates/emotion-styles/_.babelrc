@@ -1,8 +1,8 @@
 {
     "env": {
-        "es": {
-            "presets": [["zillow", { "modules": false }]]
+        "cjs": {
+            "presets": ["zillow"]
         }
     },
-    "presets": ["zillow"]
+    "presets": [["zillow", { "modules": false }]]
 }
