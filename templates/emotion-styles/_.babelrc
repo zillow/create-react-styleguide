@@ -2,6 +2,9 @@
     "env": {
         "cjs": {
             "presets": ["zillow"]
+        },
+        "test": {
+            "presets": ["zillow"]
         }
     },
     "presets": [["zillow", { "modules": false }]]

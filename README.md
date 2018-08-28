@@ -45,6 +45,9 @@ You can add SVG support with the [inline-react-svg](https://github.com/airbnb/ba
      "env": {
          "cjs": {
              "presets": ["zillow"]
+         },
+         "test": {
+             "presets": ["zillow"]
          }
      },
      "presets": [["zillow", { "modules": false }]],
