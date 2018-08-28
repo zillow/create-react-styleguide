@@ -1,5 +1,3 @@
-const jest = require('jest');
+import test from './test';
 
-export default () => {
-    jest.run(['-u']);
-};
+export default (argv, callback) => test(argv, callback, ['--updateSnapshot']);
