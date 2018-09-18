@@ -50,8 +50,8 @@ yargs
     })
     .option('styles', {
         desc: 'The styling library to use when creating a new project',
-        default: 'emotion',
-        choices: ['emotion', 'none'],
+        default: 'styled-components',
+        choices: ['styled-components', 'emotion', 'none'],
     })
     .option('eslint', {
         desc: 'Add eslint configuration when creating a new project',

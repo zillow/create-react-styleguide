@@ -46,13 +46,18 @@ function createModuleProject(args, name, targetDir, cb) {
     }
 
     const dependencies = ['prop-types'];
-    if (args.styles === 'emotion') {
+    if (args.styles === 'styled-components') {
+        dependencies.push('styled-components');
+        devDependencies.push('jest-styled-components');
+    } else if (args.styles === 'emotion') {
         dependencies.push('emotion', 'react-emotion', 'emotion-theming');
         devDependencies.push('jest-emotion');
     }
 
     let templateDir = path.join(__dirname, '../../../templates/inline-styles');
-    if (args.styles === 'emotion') {
+    if (args.styles === 'styled-components') {
+        templateDir = path.join(__dirname, '../../../templates/styled-components-styles');
+    } else if (args.styles === 'emotion') {
         templateDir = path.join(__dirname, '../../../templates/emotion-styles');
     }
 
