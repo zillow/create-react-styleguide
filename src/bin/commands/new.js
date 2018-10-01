@@ -37,7 +37,7 @@ function createModuleProject(args, name, targetDir, cb) {
         'react-dom',
         'create-react-styleguide',
         'babel-preset-zillow',
-        'husky@next',
+        'husky',
         'enzyme',
         'enzyme-to-json',
     ];
