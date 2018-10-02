@@ -1,5 +1,6 @@
 {
     "presets": [["zillow", { "modules": false }]],
+    "plugins": ["emotion"],
     "env": {
         "cjs": {
             "presets": ["zillow"]

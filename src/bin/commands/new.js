@@ -48,10 +48,10 @@ function createModuleProject(args, name, targetDir, cb) {
     const dependencies = ['prop-types'];
     if (args.styles === 'styled-components') {
         dependencies.push('styled-components');
-        devDependencies.push('jest-styled-components');
+        devDependencies.push('babel-plugin-styled-components', 'jest-styled-components');
     } else if (args.styles === 'emotion') {
         dependencies.push('emotion', 'react-emotion', 'emotion-theming');
-        devDependencies.push('jest-emotion');
+        devDependencies.push('babel-plugin-emotion', 'jest-emotion');
     }
 
     let templateDir = path.join(__dirname, '../../../templates/inline-styles');
