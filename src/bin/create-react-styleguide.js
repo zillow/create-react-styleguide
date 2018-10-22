@@ -48,6 +48,11 @@ yargs
         },
         handler: commandHandler,
     })
+    .option('stable', {
+        desc:
+            'By default, the latest version of all project dependencies are installed. If that does not work for some reason, you can use this to revert to the last known stable configuration (use this with caution as this can quickly become out-of-date).',
+        default: false,
+    })
     .option('styles', {
         desc: 'The styling library to use when creating a new project',
         default: 'styled-components',

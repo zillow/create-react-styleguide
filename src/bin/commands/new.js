@@ -10,6 +10,31 @@ import install from '../util/install';
 import pkg from '../../../package.json';
 import { initGit, initialCommit } from '../util/git';
 
+const STABLE_VERSIONS = {
+    // dependencies
+    'prop-types': '15.6.2',
+    'styled-components': '4.0.2',
+    emotion: '9.2.12',
+    'react-emotion': '9.2.12',
+    'emotion-theming': '9.2.9',
+    // devDependencies
+    react: '16.5.2',
+    'react-dom': '16.5.2',
+    'babel-preset-zillow': '1.0.0',
+    husky: '1.1.2',
+    enzyme: '3.7.0',
+    'enzyme-to-json': '3.3.4',
+    'eslint-plugin-zillow': '1.0.0',
+    'eslint-plugin-jest': '21.25.1',
+    'babel-plugin-styled-components': '1.8.0',
+    'jest-styled-components': '6.2.2',
+    'babel-plugin-emotion': '9.2.11',
+    'jest-emotion': '9.2.11',
+    'enzyme-adapter-react-16': '1.6.0',
+    // Always use the latest version of create-react-styleguide
+    'create-react-styleguide': '',
+};
+
 /**
  * Copy a project template and log created files if successful.
  */
@@ -45,7 +70,7 @@ function createModuleProject(args, name, targetDir, cb) {
         devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
     }
 
-    const dependencies = ['prop-types'];
+    let dependencies = ['prop-types'];
     if (args.styles === 'styled-components') {
         dependencies.push('styled-components');
         devDependencies.push('babel-plugin-styled-components', 'jest-styled-components');
@@ -71,25 +96,29 @@ function createModuleProject(args, name, targetDir, cb) {
         huskyConfig: args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
     };
 
-    // CBA making this part generic until it's needed
-    if (args.react) {
-        devDependencies = devDependencies.map(depPkg => `${depPkg}@${args.react}`);
-        // YOLO
-        templateVars.reactPeerVersion = `^${args.react}`;
-
-        // Grab the react version for enzyme adapter
-        devDependencies.push(`enzyme-adapter-react-${args.react.match(/[^.]*/i)[0]}`);
-    } else {
-        // TODO Get from npm so we don't have to manually update on major releases
-        templateVars.reactPeerVersion = '16.x';
-        devDependencies.push('enzyme-adapter-react-16');
-    }
+    // TODO Get from npm so we don't have to manually update on major releases
+    templateVars.reactPeerVersion = '16.x';
+    devDependencies.push('enzyme-adapter-react-16');
 
     let copyEslintTemplate = callback => callback();
     if (args.eslint === 'zillow') {
         const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
         copyEslintTemplate = callback =>
             copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
+    }
+
+    // By default, the latest version of all dependencies are installed.
+    // If for some reason that fails, we can fall back to a previously known stable release.
+    if (args.stable) {
+        const versionMap = dep => {
+            const version = STABLE_VERSIONS[dep];
+            if (version) {
+                return `${dep}@${version}`;
+            }
+            return dep;
+        };
+        devDependencies = devDependencies.map(versionMap);
+        dependencies = dependencies.map(versionMap);
     }
 
     runSeries(
