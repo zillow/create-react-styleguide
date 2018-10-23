@@ -1,16 +1,22 @@
 # create-react-styleguide
 
-`create-react-styleguide` (a la [`create-react-app`](https://github.com/facebook/create-react-app)) is a tool for quickly generating style guides and component libraries. Generate your first project with the following command:
+`create-react-styleguide` (a la [`create-react-app`](https://github.com/facebook/create-react-app)) is a tool for quickly generating style guides and component libraries.
+
+## Quickstart
+
+Generate your first project with the following command:
 
 ```
 npx create-react-styleguide new my-new-styleguide
 ```
 
-Projects are generated and configured with working style guide documentation. To view your new living style guide, run the following and visit http://localhost:6060:
+Projects are generated and configured with working style guide documentation. To start your style guide server run the following:
 
 ```
 cd my-new-styleguide && npm start
 ```
+
+Finally visit http://localhost:6060 to view your living style guide!
 
 ## npm scripts
 
