@@ -14,23 +14,16 @@ const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.6.2',
     'styled-components': '4.0.3',
-    emotion: '9.2.12',
-    'react-emotion': '9.2.12',
-    'emotion-theming': '9.2.9',
     // devDependencies
+    'babel-plugin-styled-components': '1.8.0',
+    'babel-preset-zillow': '2.0.0',
+    'eslint-plugin-jest': '22.0.0',
+    'eslint-plugin-zillow': '2.0.0',
+    husky: '1.1.3',
+    'jest-styled-components': '6.2.2',
     react: '16.6.1',
     'react-dom': '16.6.1',
-    'babel-preset-zillow': '2.0.0',
-    husky: '1.1.3',
-    enzyme: '3.7.0',
-    'enzyme-to-json': '3.3.4',
-    'eslint-plugin-zillow': '2.0.0',
-    'eslint-plugin-jest': '22.0.0',
-    'babel-plugin-styled-components': '1.8.0',
-    'jest-styled-components': '6.2.2',
-    'babel-plugin-emotion': '9.2.11',
-    'jest-emotion': '9.2.11',
-    'enzyme-adapter-react-16': '1.6.0',
+    'react-test-renderer': '16.6.1',
     // Always use the latest version of create-react-styleguide
     'create-react-styleguide': '',
 };
@@ -63,8 +56,7 @@ function createModuleProject(args, name, targetDir, cb) {
         'create-react-styleguide',
         'babel-preset-zillow',
         'husky',
-        'enzyme',
-        'enzyme-to-json',
+        'react-test-renderer',
     ];
     if (args.eslint === 'zillow') {
         devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
@@ -74,16 +66,11 @@ function createModuleProject(args, name, targetDir, cb) {
     if (args.styles === 'styled-components') {
         dependencies.push('styled-components');
         devDependencies.push('babel-plugin-styled-components', 'jest-styled-components');
-    } else if (args.styles === 'emotion') {
-        dependencies.push('emotion', 'react-emotion', 'emotion-theming');
-        devDependencies.push('babel-plugin-emotion', 'jest-emotion');
     }
 
     let templateDir = path.join(__dirname, '../../../templates/inline-styles');
     if (args.styles === 'styled-components') {
-        templateDir = path.join(__dirname, '../../../templates/styled-components-styles');
-    } else if (args.styles === 'emotion') {
-        templateDir = path.join(__dirname, '../../../templates/emotion-styles');
+        templateDir = path.join(__dirname, '../../../templates/styled-components');
     }
 
     const templateVars = {
@@ -98,7 +85,6 @@ function createModuleProject(args, name, targetDir, cb) {
 
     // TODO Get from npm so we don't have to manually update on major releases
     templateVars.reactPeerVersion = '16.x';
-    devDependencies.push('enzyme-adapter-react-16');
 
     let copyEslintTemplate = callback => callback();
     if (args.eslint === 'zillow') {
