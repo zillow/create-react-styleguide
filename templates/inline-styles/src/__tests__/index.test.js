@@ -1,31 +1,29 @@
 import React from 'react';
-import toJson from 'enzyme-to-json';
-import { shallow } from 'enzyme';
-
+import renderer from 'react-test-renderer';
 import Button from '..';
 
 describe('Button', () => {
     it('displays a primary button', () => {
-        const tree = shallow(<Button>Click Me!</Button>);
-        expect(toJson(tree)).toMatchSnapshot();
+        const component = renderer.create(<Button>Click Me!</Button>);
+        expect(component.toJSON()).toMatchSnapshot();
     });
 
     it('displays a primary button with outline', () => {
-        const tree = shallow(<Button outline>Click Me!</Button>);
-        expect(toJson(tree)).toMatchSnapshot();
+        const component = renderer.create(<Button outline>Click Me!</Button>);
+        expect(component.toJSON()).toMatchSnapshot();
     });
 
     it('displays a secondary button', () => {
-        const tree = shallow(<Button type="secondary">⊙_ʘ</Button>);
-        expect(toJson(tree)).toMatchSnapshot();
+        const component = renderer.create(<Button type="secondary">⊙_ʘ</Button>);
+        expect(component.toJSON()).toMatchSnapshot();
     });
 
     it('displays a secondary button with outline', () => {
-        const tree = shallow(
+        const component = renderer.create(
             <Button type="secondary" outline>
                 ⊙_ʘ
             </Button>
         );
-        expect(toJson(tree)).toMatchSnapshot();
+        expect(component.toJSON()).toMatchSnapshot();
     });
 });

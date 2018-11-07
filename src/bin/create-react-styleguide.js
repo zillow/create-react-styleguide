@@ -56,7 +56,7 @@ yargs
     .option('styles', {
         desc: 'The styling library to use when creating a new project',
         default: 'styled-components',
-        choices: ['styled-components', 'emotion', 'none'],
+        choices: ['styled-components', 'none'],
     })
     .option('eslint', {
         desc: 'Add eslint configuration when creating a new project',
