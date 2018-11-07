@@ -13,15 +13,15 @@ import { initGit, initialCommit } from '../util/git';
 const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.6.2',
-    'styled-components': '4.0.2',
+    'styled-components': '4.0.3',
     emotion: '9.2.12',
     'react-emotion': '9.2.12',
     'emotion-theming': '9.2.9',
     // devDependencies
-    react: '16.5.2',
-    'react-dom': '16.5.2',
+    react: '16.6.1',
+    'react-dom': '16.6.1',
     'babel-preset-zillow': '1.0.0',
-    husky: '1.1.2',
+    husky: '1.1.3',
     enzyme: '3.7.0',
     'enzyme-to-json': '3.3.4',
     'eslint-plugin-zillow': '1.0.0',
