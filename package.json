@@ -15,7 +15,7 @@
   "scripts": {
     "build": "npm run lint && rimraf lib && babel src --out-dir lib --quiet",
     "build:watch": "rimraf lib && babel src --watch --out-dir lib",
-    "lint": "eslint *.js src tests",
+    "lint": "eslint src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run build && npm run test:all",
     "test:coverage": "npm run build && cross-env NODE_ENV=test NWB_TEST=true nyc mocha tests/*-test.js tests/commands/*-test.js",
@@ -36,32 +36,32 @@
     "node": ">=6.11.5"
   },
   "dependencies": {
-    "babel-cli": "6.26.0",
-    "babel-loader": "7.1.5",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "babel-loader": "^8.0.4",
     "chalk": "2.4.1",
     "copy-template-dir": "1.4.0",
     "cross-spawn": "6.0.5",
-    "eslint": "4.19.1",
+    "eslint": "^5.8.0",
     "glob": "7.1.3",
-    "jest": "23.6.0",
+    "jest": "^23.6.0",
     "ora": "3.0.0",
-    "prettier": "1.14.3",
-    "react-styleguidist": "7.3.11",
+    "prettier": "^1.15.1",
+    "react-styleguidist": "^8.0.3",
     "resolve": "1.8.1",
     "rimraf": "2.6.2",
     "run-parallel": "1.1.9",
     "run-series": "1.1.8",
-    "webpack": "4.21.0",
+    "webpack": "^4.25.1",
     "yargs": "12.0.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-plugin-add-module-exports": "^1.0.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.1.4",
-    "eslint-plugin-zillow": "^1.0.0",
-    "husky": "^1.1.2",
+    "eslint-plugin-zillow": "^2.0.0",
+    "husky": "^1.1.3",
     "mocha": "^5.1.1",
     "nyc": "^13.1.0"
   },
@@ -80,7 +80,7 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "loose": true,
           "targets": {
@@ -88,8 +88,7 @@
           }
         }
       ],
-      "stage-2",
-      "react"
+      "@babel/preset-react"
     ],
     "plugins": [
       "add-module-exports"
