@@ -1,11 +1,3 @@
 {
-  "extends": "plugin:zillow/recommended",
-  "overrides": [{
-    "files": [ "**/*.test.js"],
-    "env": {
-        "jest": true,
-        "jest/globals": true
-    },
-    "plugins": ["jest"]
-  }]
+  "extends": ["plugin:zillow/recommended", "plugin:zillow/jest"]
 }
