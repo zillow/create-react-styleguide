@@ -35,8 +35,8 @@
   "devDependencies": {
     "create-react-styleguide": "{{createReactStyleguideVersion}}"
   },
-  "author": "",
-  "homepage": "",
+  "author": "{{author}}",
+  "homepage": "{{homepage}}",
   "license": "MIT",
   "repository": "",
   "keywords": [

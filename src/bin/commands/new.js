@@ -9,6 +9,7 @@ import runSeries from 'run-series';
 import install from '../util/install';
 import pkg from '../../../package.json';
 import { initGit, initialCommit } from '../util/git';
+import inquirer from 'inquirer';
 
 const STABLE_VERSIONS = {
     // dependencies
@@ -49,7 +50,7 @@ function copyTemplate(templateDir, targetDir, templateVars, cb) {
 /**
  * Create an npm module project skeleton.
  */
-function createModuleProject(args, name, targetDir, cb) {
+function createModuleProject(args, name, targetDir, cliAnswers, cb) {
     let devDependencies = [
         'react',
         'react-dom',
@@ -75,6 +76,8 @@ function createModuleProject(args, name, targetDir, cb) {
 
     const templateVars = {
         name,
+        author: cliAnswers.author,
+        homepage: cliAnswers.homepage,
         eslintPackageConfig:
             args.eslint === 'zillow'
                 ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
@@ -120,5 +123,18 @@ function createModuleProject(args, name, targetDir, cb) {
 }
 
 export default (argv, callback) => {
-    createModuleProject(argv, argv.projectDirectory, argv.projectDirectory, callback);
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'author',
+            message: 'author:',
+        },
+        {
+            type: 'input',
+            name: 'homepage',
+            message: 'homepage:',
+        }
+    ]).then(answers => {
+        createModuleProject(argv, argv.projectDirectory, argv.projectDirectory, answers, callback);
+    });
 };
