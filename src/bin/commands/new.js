@@ -13,17 +13,17 @@ import { initGit, initialCommit } from '../util/git';
 const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.6.2',
-    'styled-components': '4.0.3',
+    'styled-components': '4.1.3',
     // devDependencies
-    'babel-plugin-styled-components': '1.8.0',
-    'babel-preset-zillow': '2.0.0',
-    'eslint-plugin-jest': '22.0.0',
-    'eslint-plugin-zillow': '2.0.0',
-    husky: '1.1.3',
-    'jest-styled-components': '6.2.2',
-    react: '16.6.1',
-    'react-dom': '16.6.1',
-    'react-test-renderer': '16.6.1',
+    'babel-plugin-styled-components': '1.10.0',
+    'babel-preset-zillow': '2.1.1',
+    'eslint-plugin-jest': '22.2.1',
+    'eslint-plugin-zillow': '2.2.1',
+    husky: '1.3.1',
+    'jest-styled-components': '6.3.1',
+    react: '16.7.0',
+    'react-dom': '16.7.0',
+    'react-test-renderer': '16.7.0',
     // Always use the latest version of create-react-styleguide
     'create-react-styleguide': '',
 };
@@ -93,19 +93,17 @@ function createModuleProject(args, name, targetDir, cb) {
             copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
     }
 
-    // By default, the latest version of all dependencies are installed.
+    // By default, the latest caret version of all dependencies are installed.
     // If for some reason that fails, we can fall back to a previously known stable release.
-    if (args.stable) {
-        const versionMap = dep => {
-            const version = STABLE_VERSIONS[dep];
-            if (version) {
-                return `${dep}@${version}`;
-            }
-            return dep;
-        };
-        devDependencies = devDependencies.map(versionMap);
-        dependencies = dependencies.map(versionMap);
-    }
+    const versionMap = dep => {
+        const version = STABLE_VERSIONS[dep];
+        if (version) {
+            return `${dep}@${args.stable ? '' : '^'}${version}`;
+        }
+        return dep;
+    };
+    devDependencies = devDependencies.map(versionMap);
+    dependencies = dependencies.map(versionMap);
 
     runSeries(
         [

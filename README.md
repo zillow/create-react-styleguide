@@ -28,7 +28,7 @@ npx create-react-styleguide --help
 
 #### `--stable`
 
-By default, the project will be built with the latest version of all dependencies. If this configuration fails, use the `--stable` flag to generate with a known working configuration.
+By default, the project will be built with the latest caret (^) version of all dependencies. If this configuration fails, use the `--stable` flag to generate with a known working configuration.
 
 ```
 npx create-react-styleguide new my-new-styleguide --stable
