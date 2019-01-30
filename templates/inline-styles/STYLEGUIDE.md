@@ -1,0 +1,2 @@
+Provide a custom introduction to your styleguide by editing the `STYLEGUIDE.md` file in your project.
+[Read more about styleguide customization options.](https://github.com/zillow/create-react-styleguide#describe-your-styleguide-with-styleguidemd)
