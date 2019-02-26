@@ -15,6 +15,6 @@ export default function createJestConfig() {
         testMatch: ['<rootDir>/**/__tests__/**/*.test.js', '<rootDir>/**/*.test.js'],
         testEnvironment: 'node',
         testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/', '<rootDir>/es/'],
-        setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
+        setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     };
 }
