@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.1](https://github.com/zillow/create-react-styleguide/compare/v3.0.0...v3.0.1) (2019-03-14)
+
+
+### Bug Fixes
+
+* **jest:** Migrate setup to new config field ([57a4c59](https://github.com/zillow/create-react-styleguide/commit/57a4c59))
+* convert jest config into function declaration ([3d87118](https://github.com/zillow/create-react-styleguide/commit/3d87118))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/zillow/create-react-styleguide/compare/2.0.0...v3.0.0) (2019-01-30)
 
