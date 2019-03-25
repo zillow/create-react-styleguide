@@ -4,7 +4,7 @@ const glob = require('glob');
 
 const currentPath = process.cwd();
 const README_NAME = 'STYLEGUIDE.md';
-const COMPONENTS = 'src/components/**/[A-Z]*.jsx';
+const COMPONENTS = 'src/**/components/**/[A-Z]*.{js,jsx,ts,tsx}';
 
 const getAuthor = author => {
     if (typeof author === 'string') {
