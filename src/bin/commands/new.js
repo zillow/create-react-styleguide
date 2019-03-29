@@ -17,9 +17,9 @@ const STABLE_VERSIONS = {
     'styled-components': '4.1.3',
     // devDependencies
     'babel-plugin-styled-components': '1.10.0',
-    'babel-preset-zillow': '2.1.1',
+    'babel-preset-zillow': '4.0.3',
     'eslint-plugin-jest': '22.2.1',
-    'eslint-plugin-zillow': '2.2.1',
+    'eslint-plugin-zillow': '3.1.0',
     husky: '1.3.1',
     'jest-styled-components': '6.3.1',
     react: '16.7.0',
