@@ -60,22 +60,22 @@ By default, we expose some meta data from your `package.json` file at the top of
 
 ## Adding SVG support
 
-You can add SVG support with the [inline-react-svg](https://github.com/airbnb/babel-plugin-inline-react-svg) babel plugin. `npm i --save-dev babel-plugin-inline-react-svg` and then update your `.babelrc` file as follows:
+You can add SVG support with the [inline-react-svg](https://github.com/airbnb/babel-plugin-inline-react-svg) babel plugin. `npm i --save-dev babel-plugin-inline-react-svg` and then update your `babel.config.js` file as follows:
 
 ```diff
- {
-     "presets": [["zillow", { "modules": false }]],
-+    "plugins": ["inline-react-svg"],
-     "env": {
-         "cjs": {
-             "presets": ["zillow"]
+ module.exports = {
+     presets: [['zillow', { modules: false }]],
++    plugins: ['inline-react-svg'],
+     env: {
+         cjs: {
+             presets: ['zillow']
          },
-         "test": {
-             "presets": ["zillow"]
+         test: {
+             presets: ['zillow']
          }
      }
- }
- ```
+ };
+```
 
  You should now be able to import and use SVGs as if they were react components!
 
