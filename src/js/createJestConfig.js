@@ -1,5 +1,5 @@
-module.exports = function createJestConfig() {
-    return {
+module.exports = function createJestConfig(config) {
+    const newConfig = {
         collectCoverage: false,
         collectCoverageFrom: ['src/**/*.js', 'src/**/*.jsx'],
         coveragePathIgnorePatterns: [],
@@ -16,5 +16,13 @@ module.exports = function createJestConfig() {
         testEnvironment: 'node',
         testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/', '<rootDir>/es/'],
         setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+        ...config,
     };
+
+    if (process.env.DEBUG) {
+        // eslint-disable-next-line no-console
+        console.log('createJestConfig object:', JSON.stringify(newConfig, null, 4));
+    }
+
+    return newConfig;
 };
