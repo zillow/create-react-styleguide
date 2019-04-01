@@ -2,14 +2,14 @@
  * This is a fork of nwb's createProject to support a new react styleguide template.
  * https://github.com/insin/nwb/blob/v0.22.0/src/createProject.js
  */
-import path from 'path';
-import chalk from 'chalk';
-import copyTemplateDir from 'copy-template-dir';
-import runSeries from 'run-series';
-import install from '../util/install';
-import pkg from '../../../package.json';
-import { initGit, initialCommit } from '../util/git';
-import inquirer from 'inquirer';
+const path = require('path');
+const chalk = require('chalk');
+const copyTemplateDir = require('copy-template-dir');
+const runSeries = require('run-series');
+const install = require('../util/install');
+const pkg = require('../../../package.json');
+const { initGit, initialCommit } = require('../util/git');
+const inquirer = require('inquirer');
 
 const STABLE_VERSIONS = {
     // dependencies
@@ -122,19 +122,27 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
     );
 }
 
-export default (argv, callback) => {
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'author',
-            message: 'author:',
-        },
-        {
-            type: 'input',
-            name: 'homepage',
-            message: 'homepage:',
-        }
-    ]).then(answers => {
-        createModuleProject(argv, argv.projectDirectory, argv.projectDirectory, answers, callback);
-    });
+module.exports = (argv, callback) => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'author',
+                message: 'author:',
+            },
+            {
+                type: 'input',
+                name: 'homepage',
+                message: 'homepage:',
+            },
+        ])
+        .then(answers => {
+            createModuleProject(
+                argv,
+                argv.projectDirectory,
+                argv.projectDirectory,
+                answers,
+                callback
+            );
+        });
 };

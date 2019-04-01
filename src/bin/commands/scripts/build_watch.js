@@ -1,3 +1,3 @@
-import build from './build';
+const build = require('./build');
 
-export default (argv, callback) => build(argv, callback, true);
+module.exports = (argv, callback) => build(argv, callback, true);

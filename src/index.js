@@ -1,3 +1,7 @@
-// eslint-disable-next-line zillow/import/prefer-default-export
-export { default as createStyleguideConfig } from './js/createStyleguideConfig';
-export { default as createJestConfig } from './js/createJestConfig';
+const createStyleguideConfig = require('./js/createStyleguideConfig');
+const createJestConfig = require('./js/createJestConfig');
+
+module.exports = {
+    createStyleguideConfig,
+    createJestConfig,
+};

@@ -1,9 +1,11 @@
-import path from 'path';
+const path = require('path');
 
 const currentPath = process.cwd();
 const binPath = path.join(currentPath, 'node_modules/.bin');
 
-export const eslint = path.join(binPath, 'eslint');
-export const styleguidist = path.join(binPath, 'styleguidist');
-export const babel = path.join(binPath, 'babel');
-export const jest = path.join(binPath, 'jest');
+module.exports = {
+    eslint: path.join(binPath, 'eslint'),
+    styleguidist: path.join(binPath, 'styleguidist'),
+    babel: path.join(binPath, 'babel'),
+    jest: path.join(binPath, 'jest'),
+};

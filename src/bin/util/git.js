@@ -1,10 +1,10 @@
-import { exec } from 'child_process';
-import fs from 'fs';
-import ora from 'ora';
-import path from 'path';
-import chalk from 'chalk';
-import runSeries from 'run-series';
-import pkg from '../../../package.json';
+const { exec } = require('child_process');
+const fs = require('fs');
+const ora = require('ora');
+const path = require('path');
+const chalk = require('chalk');
+const runSeries = require('run-series');
+const pkg = require('../../../package.json');
 
 /**
 + * Run git related commands
@@ -34,7 +34,7 @@ function runGitCommands(args, cwd, cb, commands, message) {
  * Initialise a Git repository if the user has Git, unless there's already one
  * present or the user has asked us could we not.
  */
-export function initGit(args, cwd, cb) {
+function initGit(args, cwd, cb) {
     // Allow git init to be disabled with a --no-git flag
     if (args.git === false) {
         process.nextTick(cb);
@@ -58,7 +58,7 @@ export function initGit(args, cwd, cb) {
 /**
  * Perform initial commit unless user has asked us to not init git
  */
-export function initialCommit(args, cwd, cb) {
+function initialCommit(args, cwd, cb) {
     // Exit if git init is disabled
     if (args.git === false) {
         process.nextTick(cb);
@@ -81,3 +81,8 @@ export function initialCommit(args, cwd, cb) {
         'Adding initial commit in Git repo'
     );
 }
+
+module.exports = {
+    initGit,
+    initialCommit,
+};

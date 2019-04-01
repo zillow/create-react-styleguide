@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
+const yargs = require('yargs');
 
 const onCommandComplete = code => process.exit(code);
 

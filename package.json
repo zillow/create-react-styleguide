@@ -13,20 +13,21 @@
   },
   "main": "./lib/index.js",
   "scripts": {
-    "build": "npm run lint && rimraf lib && babel src --out-dir lib --quiet",
-    "build:watch": "rimraf lib && babel src --watch --out-dir lib",
-    "lint": "eslint src/**/*.js",
-    "lint:fix": "npm run lint -- --fix",
-    "test": "npm run build && npm run test:all",
-    "test:coverage": "npm run build && cross-env NODE_ENV=test NWB_TEST=true nyc mocha tests/*-test.js tests/commands/*-test.js",
-    "test:all": "cross-env NODE_ENV=test NWB_TEST=true mocha --require babel-register tests/*-test.js tests/commands/*-test.js",
-    "test:watch": "cross-env NODE_ENV=test NWB_TEST=true mocha --require babel-register --watch tests/*-test.js",
-    "prepublish": "npm run build",
+    "build": "src/bin/create-react-styleguide.js script build",
+    "build:watch": "src/bin/create-react-styleguide.js script build:watch",
+    "clean": "src/bin/create-react-styleguide.js script clean",
+    "eslint": "src/bin/create-react-styleguide.js script eslint",
+    "eslint:fix": "src/bin/create-react-styleguide.js script eslint:fix",
+    "test": "src/bin/create-react-styleguide.js script test",
+    "test:coverage": "src/bin/create-react-styleguide.js script test:coverage",
+    "test:update": "src/bin/create-react-styleguide.js script test:update",
+    "test:watch": "src/bin/create-react-styleguide.js script test:watch",
+    "prepublishOnly": "src/bin/create-react-styleguide.js script prepublishOnly",
     "release": "standard-version"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run eslint && npm run test"
     }
   },
   "files": [
@@ -38,34 +39,29 @@
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.4.0",
     "babel-loader": "^8.0.5",
     "chalk": "^2.4.2",
     "copy-template-dir": "1.4.0",
     "cross-spawn": "6.0.5",
-    "eslint": "^5.12.1",
+    "eslint": "^5.16.0",
     "glob": "7.1.3",
-    "jest": "^24.0.0",
-    "ora": "3.0.0",
-    "prettier": "^1.16.2",
+    "inquirer": "^6.2.2",
+    "jest": "^24.5.0",
+    "ora": "^3.2.0",
+    "prettier": "^1.16.4",
     "react-styleguidist": "^8.0.6",
     "resolve": "^1.10.0",
     "rimraf": "^2.6.3",
     "run-parallel": "1.1.9",
     "run-series": "1.1.8",
-    "webpack": "^4.29.0",
-    "yargs": "^12.0.5"
+    "webpack": "^4.29.6",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-react": "^7.0.0",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "cross-env": "^5.1.4",
-    "eslint-plugin-zillow": "^2.2.1",
+    "babel-preset-zillow": "^4.0.3",
+    "eslint-plugin-zillow": "^3.1.0",
     "husky": "^1.3.1",
-    "inquirer": "^6.2.1",
-    "mocha": "^5.1.1",
-    "nyc": "^13.1.0",
     "standard-version": "^4.4.0"
   },
   "repository": {
@@ -79,51 +75,5 @@
     "style guide",
     "component library",
     "tooling"
-  ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "loose": true,
-          "targets": {
-            "node": "6.11.5"
-          }
-        }
-      ],
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "add-module-exports"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          [
-            "istanbul",
-            {
-              "include": "src"
-            }
-          ]
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "extends": "plugin:zillow/recommended",
-    "env": {
-      "browser": true
-    }
-  },
-  "nyc": {
-    "instrument": false,
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "require": [
-      "babel-core/register"
-    ],
-    "sourceMap": false
-  }
+  ]
 }

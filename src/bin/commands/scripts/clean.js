@@ -1,13 +1,13 @@
-import path from 'path';
-import runSeries from 'run-series';
-import rimraf from 'rimraf';
-import ora from 'ora';
-import noop from '../../util/noop';
+const path = require('path');
+const runSeries = require('run-series');
+const rimraf = require('rimraf');
+const ora = require('ora');
+const noop = require('../../util/noop');
 
 const currentDir = process.cwd();
 const dirs = ['lib', 'es', 'styleguide', 'coverage'];
 
-export default (argv, callback = noop) => {
+module.exports = (argv, callback = noop) => {
     runSeries(
         dirs.map(dir => cb => {
             const spinner = ora(`Deleting ${dir}`).start();
