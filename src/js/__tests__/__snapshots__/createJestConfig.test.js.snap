@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createJestConfig can be called without arguments 1`] = `
+Object {
+  "collectCoverage": false,
+  "collectCoverageFrom": Array [
+    "src/**/*.js",
+    "src/**/*.jsx",
+  ],
+  "coveragePathIgnorePatterns": Array [],
+  "coverageReporters": Array [
+    "cobertura",
+    "html",
+    "text",
+  ],
+  "coverageThreshold": Object {
+    "global": Object {
+      "branches": 75,
+      "functions": 80,
+      "lines": 70,
+      "statements": 70,
+    },
+  },
+  "setupFilesAfterEnv": Array [
+    "<rootDir>/jest.setup.js",
+  ],
+  "testEnvironment": "node",
+  "testMatch": Array [
+    "<rootDir>/**/__tests__/**/*.test.js",
+    "<rootDir>/**/*.test.js",
+  ],
+  "testPathIgnorePatterns": Array [
+    "/node_modules/",
+    "<rootDir>/lib/",
+    "<rootDir>/es/",
+  ],
+}
+`;
+
+exports[`createJestConfig shallow merges config 1`] = `
+Object {
+  "collectCoverage": false,
+  "collectCoverageFrom": Array [
+    "src/**/*.js",
+    "src/**/*.jsx",
+  ],
+  "coveragePathIgnorePatterns": Array [],
+  "coverageReporters": Array [
+    "cobertura",
+    "html",
+    "text",
+  ],
+  "coverageThreshold": Object {
+    "global": Object {
+      "branches": 75,
+      "functions": 80,
+      "lines": 70,
+      "statements": 70,
+    },
+  },
+  "setupFilesAfterEnv": Array [],
+  "testEnvironment": "node",
+  "testMatch": Array [
+    "<rootDir>/**/__tests__/**/*.test.js",
+    "<rootDir>/**/*.test.js",
+  ],
+  "testPathIgnorePatterns": Array [
+    "/node_modules/",
+    "<rootDir>/lib/",
+    "<rootDir>/es/",
+  ],
+}
+`;
