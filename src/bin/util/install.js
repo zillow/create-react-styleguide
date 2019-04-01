@@ -3,9 +3,9 @@
  * https://github.com/insin/nwb/blob/v0.22.0/src/utils.js
  */
 
-import spawn from 'cross-spawn';
-import ora from 'ora';
-import resolve from 'resolve';
+const spawn = require('cross-spawn');
+const ora = require('ora');
+const resolve = require('resolve');
 
 /**
  * Install packages from npm.
@@ -24,7 +24,7 @@ import resolve from 'resolve';
  * save?: boolean,
  */
 // eslint-disable-next-line consistent-return
-export default function(
+module.exports = function install(
     // npm package names, which may be in package@version format
     packages,
     options,
@@ -69,7 +69,7 @@ export default function(
         spinner.succeed();
         cb();
     });
-}
+};
 
 /**
  * Join multiple items with a penultimate "and".

@@ -1,10 +1,10 @@
-import runSeries from 'run-series';
-import runParallel from 'run-parallel';
-import { spawn } from 'child_process';
-import { babel } from '../../util/executables';
-import noop from '../../util/noop';
+const runSeries = require('run-series');
+const runParallel = require('run-parallel');
+const { spawn } = require('child_process');
+const { babel } = require('../../util/executables');
+const noop = require('../../util/noop');
 
-export default (argv, callback = noop, watch = false) => {
+module.exports = (argv, callback = noop, watch = false) => {
     let runner = runSeries;
     const cjsOptions = ['src', '--out-dir', 'lib', '--copy-files'];
     const esmOptions = ['src', '--out-dir', 'es', '--copy-files'];
@@ -19,9 +19,7 @@ export default (argv, callback = noop, watch = false) => {
             cb => {
                 spawn(babel, cjsOptions, {
                     stdio: 'inherit',
-                    env: Object.assign({}, process.env, {
-                        BABEL_ENV: 'cjs',
-                    }),
+                    env: { ...process.env, BABEL_ENV: 'cjs' },
                 }).on('close', cb);
             },
             // Build ES modules (default)

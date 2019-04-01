@@ -1,4 +1,4 @@
-export default function createJestConfig() {
+module.exports = function createJestConfig() {
     return {
         collectCoverage: false,
         collectCoverageFrom: ['src/**/*.js', 'src/**/*.jsx'],
@@ -17,4 +17,4 @@ export default function createJestConfig() {
         testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/', '<rootDir>/es/'],
         setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     };
-}
+};

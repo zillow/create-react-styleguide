@@ -1,10 +1,10 @@
-import runSeries from 'run-series';
-import eslint from './eslint';
-import test from './test';
-import clean from './clean';
-import build from './build';
+const runSeries = require('run-series');
+const eslint = require('./eslint');
+const test = require('./test');
+const clean = require('./clean');
+const build = require('./build');
 
-export default (argv, callback) => {
+module.exports = (argv, callback) => {
     runSeries(
         [
             cb => eslint(argv, cb),

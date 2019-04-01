@@ -1,3 +1,3 @@
-import test from './test';
+const test = require('./test');
 
-export default (argv, callback) => test(argv, callback, ['--watch']);
+module.exports = (argv, callback) => test(argv, callback, ['--watch']);

@@ -1,6 +1,6 @@
-import path from 'path';
-import getCRSConfig from './getCRSConfig';
-import linkStyleguides from './linkStyleguides';
+const path = require('path');
+const getCRSConfig = require('./getCRSConfig');
+const linkStyleguides = require('./linkStyleguides');
 
 const createStyleguideConfig = (options = getCRSConfig()) => {
     const babelIncludes = options.babelIncludes || [];
@@ -28,4 +28,4 @@ const createStyleguideConfig = (options = getCRSConfig()) => {
     return linkStyleguides(options, styleguideConfig);
 };
 
-export default createStyleguideConfig;
+module.exports = createStyleguideConfig;
