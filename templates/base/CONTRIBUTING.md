@@ -16,6 +16,8 @@
 
 - `npm run test:coverage` will run the tests and produce a coverage report in `coverage/`.
 
+- `npm run test:update` will update the test snapshots.
+
 - `npm run test:watch` will run the tests on every change.
 
 ## Building
