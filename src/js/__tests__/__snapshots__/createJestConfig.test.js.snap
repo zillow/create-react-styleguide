@@ -21,9 +21,6 @@ Object {
       "statements": 70,
     },
   },
-  "setupFilesAfterEnv": Array [
-    "<rootDir>/jest.setup.js",
-  ],
   "testEnvironment": "node",
   "testMatch": Array [
     "<rootDir>/**/__tests__/**/*.test.js",

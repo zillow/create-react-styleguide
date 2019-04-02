@@ -15,7 +15,6 @@ module.exports = function createJestConfig(config) {
         testMatch: ['<rootDir>/**/__tests__/**/*.test.js', '<rootDir>/**/*.test.js'],
         testEnvironment: 'node',
         testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/', '<rootDir>/es/'],
-        setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
         ...config,
     };
 

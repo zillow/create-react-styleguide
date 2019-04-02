@@ -69,6 +69,8 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
         devDependencies.push('babel-plugin-styled-components', 'jest-styled-components');
     }
 
+    const baseTemplateDir = path.join(__dirname, '../../../templates/base');
+
     let templateDir = path.join(__dirname, '../../../templates/inline-styles');
     if (args.styles === 'styled-components') {
         templateDir = path.join(__dirname, '../../../templates/styled-components');
@@ -110,6 +112,7 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
 
     runSeries(
         [
+            callback => copyTemplate(baseTemplateDir, targetDir, templateVars, callback),
             callback => copyTemplate(templateDir, targetDir, templateVars, callback),
             copyEslintTemplate,
             callback => initGit(args, targetDir, callback),
