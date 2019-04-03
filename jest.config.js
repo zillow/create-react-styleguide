@@ -1,9 +1,6 @@
 const { createJestConfig } = require('./src');
 
-const config = createJestConfig({
-    // Do not use jest.setup.js
-    setupFilesAfterEnv: [],
-});
+const config = createJestConfig();
 config.testPathIgnorePatterns.push('<rootDir>/templates/');
 
 module.exports = config;
