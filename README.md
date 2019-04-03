@@ -1,6 +1,6 @@
 # create-react-styleguide
 
-`create-react-styleguide` (a la [`create-react-app`](https://github.com/facebook/create-react-app)) is a tool for quickly generating style guides and component libraries.
+`create-react-styleguide` (a la [`create-react-app`](https://github.com/facebook/create-react-app)) is a tool for quickly generating styleguides and component libraries.
 
 ## Quickstart
 
@@ -10,13 +10,13 @@ Generate your first project with the following command:
 npx create-react-styleguide new my-new-styleguide
 ```
 
-Projects are generated and configured with working style guide documentation. To start your style guide server run the following:
+Projects are generated and configured with working styleguide documentation. To start your styleguide server run the following:
 
 ```
 cd my-new-styleguide && npm start
 ```
 
-Finally visit http://localhost:6060 to view your living style guide!
+Finally visit http://localhost:6060 to view your living styleguide!
 
 ## Options
 
@@ -40,21 +40,21 @@ Generated projects include the following npm scripts out of the box:
 
 | Script    | Description |
 | --------- | ----------- |
-| npm start | Start the style guide server on http://localhost:6060 |
+| npm start | Start the styleguide server on http://localhost:6060 |
 | npm run build | Build the component library to the `lib` folder |
+| npm run build:styleguide | Build the styleguide to the `styleguide` folder |
 | npm run build:watch | Watch the `src` folder for changes and run the build script |
-| npm run build:styleguide | Build the style guide to the `styleguide` folder |
 | npm run clean | Clean generated folders |
 | npm run eslint | Run eslint on all .js and .jsx files in the `src` folder |
 | npm run eslint:fix | Run eslint with the `--fix` option |
 | npm test | Run unit tests |
-| npm run test:watch | Run unit tests while watching for changes |
 | npm run test:coverage | Run unit tests with code coverage |
 | npm run test:update | Update unit test snapshots |
+| npm run test:watch | Run unit tests while watching for changes |
 
-## Describe your styleguide with `STYLEGUIDE.md`
+## Document your styleguide
 
-By default, we expose some meta data from your `package.json` file at the top of your style guide. At the very least, make sure you set the `"version"`, `"homepage"`, and `"author"` properties. You can further describe your library with an optional `STYLEGUIDE.md` file at the root of your project. This will be shown at the top of your living styleguide just below the `package.json` meta data. This additional information is super helpful when [linking multiple styleguides](#linking-multiple-styleguides).
+By default, we expose some meta data from your `package.json` file at the top of your styleguide -- at the very least, make sure you set the `"version"`, `"homepage"`, and `"author"` properties. You can further document your library with markdown files using the [`sections`](https://react-styleguidist.js.org/docs/configuration.html#sections-1) configuration from [React Styleguidist](https://react-styleguidist.js.org/). By convention, additional markdown documentation should go in the `docs` folder so that they get properly packaged when [linking multiple styleguides](#linking-multiple-styleguides).
 
 ![Customized style guide](assets/customized.png)
 
@@ -85,37 +85,59 @@ A useful feature of create-react-styleguide is the ability to link multiple CRS 
 
 For a styleguide to be linked, it must first be published to npm. Running `npm publish` will build and publish your component library so that it can be consumed by the master project.
 
-From the master project, first install the published CRS module. Second, you will want to add a [crs.config.js](#crsconfigjs) file (if it does not already exist), and update the `styleguides` property to include the name of the module you just installed.
+From the master project, first install the published CRS module. Second, you will want to add a `styleguides` property to the options of your [`createStyleguideConfig`](#createstyleguideconfigconfig-options) function in `styleguide.config.js`.
 
-```javascript
-module.exports = {
-    styleguides: [
-        '@zillow/my-first-component-library',
-        '@zillow/my-second-component-library'
-    ]
-};
+```diff
+ const { createStyleguideConfig } = require('create-react-styleguide');
+
+ module.exports = createStyleguideConfig({
+     /* your own config shallowly merged here */
++}, {
++    styleguides: [
++        '@zillow/my-first-component-library',
++        '@zillow/my-second-component-library'
++    ]
+ });
 ```
 
 That's it! Running `npm start` will now show components from all linked libraries.
 
 ![Linked style guide](assets/linked.png)
 
-## crs.config.js
+## Node API
 
-crs.config.js is an optional configuration file that can be added to the root of your project for further customization.
+Require the module:
 
 ```javascript
-module.exports = {
-    // {array} An array of CRS npm modules (the module must be installed as a dependency to your project)
-    styleguides: [
-        '@zillow/my-first-component-library',
-        '@zillow/my-second-component-library'
-    ],
-    // {array} An array of paths to be included by the babel-loader (`src` and `styleguidist` will be included by default).
-    babelIncludes: [
-         path.join(__dirname, 'path/to/folder')
-    ]
-};
+const { createStyelguideConfig, createJestConfig } = require('create-react-styleguide');
+```
+
+#### `createStyleguideConfig(config, options)`
+
+Creates a [React Styleguidist configuration object](https://react-styleguidist.js.org/docs/configuration.html) with some default configuration.
+
+* `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
+* `options.styleguides [array]` - An array of CRS npm modules (the module must be installed as a dependency to your project)
+* `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
+* `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
+* `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
+
+#### `createJestConfig(config)`
+
+Creates a [Jest configuration object](https://jestjs.io/docs/en/configuration) with some default configuration.
+
+* `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
+
+#### `DEBUG=true` environment variable
+
+Both `createStyleguideConfig` and `createJestConfig` will log their results to the console when the `DEBUG=true` environment variable is set. A quick way to see the configuration these functions are creating is to run the following:
+
+```
+DEBUG=true node styleguide.config.js
+```
+or
+```
+DEBUG=true node jest.config.js
 ```
 
 ## Under the covers
