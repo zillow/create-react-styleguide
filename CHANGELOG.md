@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Migrating to 4.x
 
+* Update your markdown examples for the 9.x release of react-styleguidist: https://github.com/styleguidist/react-styleguidist/releases/tag/v9.0.0
 * Move the `styleguidist` folder into `src` (clean up referenced paths)
     - The babel configuration has been simplified such that there is no longer a separate `include` path for the `styleguidist` folder.
 * Move `styleguides` configuration option from `crs.config.js` to `styleguide.config.js`, and delete the `crs.config.js` file
