@@ -112,4 +112,41 @@ the `DEBUG=true` environmental variable.
 <a name="2.0.0"></a>
 # 2.0.0 (2018-11-12)
 
-See [releases](https://github.com/zillow/create-react-styleguide/releases) for previous changes
+
+### Major changes
+
+* Update to babel 7
+* Swap enzyme for react-test-renderer in test template
+* Drop support for bootstrapping with emotion styles
+
+
+### Migration notes for existing projects
+
+* Install the latest babel preset
+
+    ```
+    npm i babel-preset-zillow@latest
+    ```
+
+* Install the latest eslint plugin
+
+    ```
+    npm i eslint-plugin-zillow@latest
+    ```
+
+* Update .eslintrc
+
+    ```diff
+    {
+    +  "extends": ["plugin:zillow/recommended", "plugin:zillow/jest"]
+    -  "extends": "plugin:zillow/recommended",
+    -  "overrides": [{
+    -    "files": [ "**/*.test.js"],
+    -    "env": {
+    -      "jest": true,
+    -      "jest/globals": true
+    -    },
+    -    "plugins": ["jest"]
+    -  }]
+    }
+    ```
