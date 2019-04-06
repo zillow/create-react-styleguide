@@ -27,7 +27,7 @@ const resolvePaths = (section, basePath) => {
         });
     }
     ['content', 'components'].forEach(key => {
-        if (section[key]) {
+        if (section[key] && section[key].charAt(0) !== '/') {
             // eslint-disable-next-line no-param-reassign
             section[key] = path.join(basePath, section[key]);
         }
@@ -77,24 +77,47 @@ const linkStyleguides = (config, opts) => {
         }
     }
 
-    const styleguides = options.styleguides || [];
+    let styleguides = options.styleguides || [];
+
+    // Only link styleguides one level deep,
+    // i.e. do not link styleguides from a linked styleguide
+    if (process.env.creatingStyleguideConfig > 2) {
+        styleguides = [];
+    }
+
     styleguides.forEach(module => {
-        const basePath = path.join(workingDir, `node_modules/${module}`);
+        const modulePath = path.join(workingDir, `node_modules/${module}`);
+        const configPath = path.join(modulePath, 'styleguide.config.js');
 
-        // Update the working directory to the basePath to grab the correct
-        // pacakage.json info.
-        process.chdir(basePath);
+        let styleguideConfig;
+        if (fs.existsSync(configPath)) {
+            // Update the working directory to the childPath to grab the correct pacakage.json info.
+            process.chdir(modulePath);
 
-        // eslint-disable-next-line global-require, zillow/import/no-dynamic-require
-        const styleguide = require(path.join(basePath, 'styleguide.config.js'));
-        const linkedSections = styleguide.sections || [];
-        linkedSections.forEach(section => resolvePaths(section, basePath));
+            try {
+                // eslint-disable-next-line global-require, zillow/import/no-dynamic-require
+                styleguideConfig = require(configPath);
+            } catch (error) {
+                // could not load styleguide.config.js
+            }
+        }
+
+        if (!styleguideConfig) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                `Warning: could not load configuration for module "${module}", make sure the module is installed and styleguide.config.js is configured correctly\n`
+            );
+            return;
+        }
+
+        const linkedSections = styleguideConfig.sections || [];
+        linkedSections.forEach(section => resolvePaths(section, modulePath));
         sections = sections.concat(linkedSections);
 
         config.webpackConfig.module.rules[0].include.push(
             // Use realpath to resolve symlinks
             // https://github.com/webpack/webpack/issues/1643
-            fs.realpathSync(path.join(workingDir, `node_modules/${module}/src`))
+            fs.realpathSync(path.join(modulePath, 'src'))
         );
 
         // Reset working dir
@@ -116,6 +139,10 @@ const linkStyleguides = (config, opts) => {
 };
 
 module.exports = (config, options) => {
+    // Monitor and limit the depth at which we link styleguides to direct children only.
+    process.env.creatingStyleguideConfig = process.env.creatingStyleguideConfig || 0;
+    process.env.creatingStyleguideConfig += 1;
+
     const styleguideConfig = linkStyleguides(
         {
             webpackConfig: {
