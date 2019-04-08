@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/zillow/create-react-styleguide/compare/v4.0.0...v4.0.1) (2019-04-08)
+
+
+### Bug Fixes
+
+* do not link the styleguides of a linked styleguide ([ea42ea8](https://github.com/zillow/create-react-styleguide/commit/ea42ea8))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/zillow/create-react-styleguide/compare/v3.1.1...v4.0.0) (2019-04-05)
 
