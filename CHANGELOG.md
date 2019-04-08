@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/zillow/create-react-styleguide/compare/v4.0.2...v4.0.3) (2019-04-08)
+
+
+### Bug Fixes
+
+* correctly resolve paths when sections defines an array of components globs ([04e1ed9](https://github.com/zillow/create-react-styleguide/commit/04e1ed9))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/zillow/create-react-styleguide/compare/v4.0.1...v4.0.2) (2019-04-08)
 
