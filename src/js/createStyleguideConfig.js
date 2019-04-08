@@ -27,9 +27,21 @@ const resolvePaths = (section, basePath) => {
         });
     }
     ['content', 'components'].forEach(key => {
-        if (section[key] && section[key].charAt(0) !== '/') {
-            // eslint-disable-next-line no-param-reassign
-            section[key] = path.join(basePath, section[key]);
+        const val = section[key];
+        if (val) {
+            if (typeof val === 'string' && val.charAt(0) !== '/') {
+                // eslint-disable-next-line no-param-reassign
+                section[key] = path.join(basePath, val);
+            }
+            // components key supports an array of paths
+            if (Array.isArray(val)) {
+                for (let i = 0; i < val.length; i += 1) {
+                    if (typeof val[i] === 'string' && val[i].charAt(0) !== '/') {
+                        // eslint-disable-next-line no-param-reassign
+                        val[i] = path.join(basePath, val[i]);
+                    }
+                }
+            }
         }
     });
 };
