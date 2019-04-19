@@ -104,6 +104,25 @@ That's it! Running `npm start` will now show components from all linked librarie
 
 ![Linked style guide](assets/linked.png)
 
+## Deploying your styleguide to GitHub Pages
+
+Install the `gh-pages` module:
+
+```
+npm i --save-dev gh-pages
+```
+
+Add the following scripts to your `package.json`:
+
+```diff
+ "scripts": {
++  "predeploy": "npm run build:styleguide",
++  "deploy": "gh-pages -d styleguide"
+ }
+```
+
+Running `npm run deploy` will now deploy your styleguide to Github Pages!
+
 ## Node API
 
 Require the module:
