@@ -20,9 +20,9 @@ const STABLE_VERSIONS = {
     'babel-preset-zillow': '4.0.3',
     'eslint-plugin-jest': '22.2.1',
     'eslint-plugin-zillow': '3.1.0',
-    husky: '1.3.1',
+    'husky': '1.3.1',
     'jest-styled-components': '6.3.1',
-    react: '16.7.0',
+    'react': '16.7.0',
     'react-dom': '16.7.0',
     'react-test-renderer': '16.7.0',
     // Always use the latest version of create-react-styleguide
