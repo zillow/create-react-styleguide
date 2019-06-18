@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.5](https://github.com/zillow/create-react-styleguide/compare/v4.0.4...v4.0.5) (2019-06-18)
+
+
+### Build System
+
+* **npm:** update outdated npm dependencies ([e507c16](https://github.com/zillow/create-react-styleguide/commit/e507c16))
+
+
+
 ### [4.0.4](https://github.com/zillow/create-react-styleguide/compare/v4.0.3...v4.0.4) (2019-05-14)
 
 
