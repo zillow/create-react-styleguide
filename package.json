@@ -45,22 +45,22 @@
     "copy-template-dir": "1.4.0",
     "cross-spawn": "6.0.5",
     "eslint": "^5.16.0",
-    "inquirer": "^6.3.1",
+    "inquirer": "^6.4.1",
     "jest": "^24.8.0",
     "ora": "^3.4.0",
     "prettier": "^1.18.2",
-    "react-styleguidist": "^9.1.7",
-    "resolve": "^1.11.0",
+    "react-styleguidist": "^9.1.10",
+    "resolve": "^1.11.1",
     "rimraf": "^2.6.3",
     "run-parallel": "1.1.9",
     "run-series": "1.1.8",
-    "webpack": "^4.34.0",
+    "webpack": "^4.35.0",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
     "babel-preset-zillow": "^4.1.0",
     "eslint-plugin-zillow": "^3.2.0",
-    "husky": "^2.4.1",
+    "husky": "^2.5.0",
     "standard-version": "^6.0.1"
   },
   "repository": {
