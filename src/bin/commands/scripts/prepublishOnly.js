@@ -4,14 +4,14 @@ const test = require('./test');
 const clean = require('./clean');
 const build = require('./build');
 
-module.exports = (argv, callback) => {
+module.exports = options => {
     runSeries(
         [
-            cb => eslint(argv, cb),
-            cb => test(argv, cb),
-            cb => clean(argv, cb),
-            cb => build(argv, cb),
+            cb => eslint({ ...options, callback: cb }),
+            cb => test({ ...options, callback: cb }),
+            cb => clean({ ...options, callback: cb }),
+            cb => build({ ...options, callback: cb }),
         ],
-        callback
+        options.callback
     );
 };

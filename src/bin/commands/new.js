@@ -125,7 +125,7 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
     );
 }
 
-module.exports = (argv, callback) => {
+module.exports = ({ argv, callback }) => {
     inquirer
         .prompt([
             {

@@ -1,3 +1,3 @@
 const build = require('./build');
 
-module.exports = (argv, callback) => build(argv, callback, true);
+module.exports = options => build({ ...options, flags: ['--watch', ...options.flags] });
