@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/zillow/create-react-styleguide/compare/v4.0.6...v5.0.0) (2019-07-03)
+
+
+### Bug Fixes
+
+* correctly interpret the `--stable` flag as a boolean ([556b5a0](https://github.com/zillow/create-react-styleguide/commit/556b5a0))
+
+
+### Build System
+
+* **npm:** update dependencies, notably eslint@6.x ([d1fd0f4](https://github.com/zillow/create-react-styleguide/commit/d1fd0f4))
+
+
+### Features
+
+* allow passing flags to npm scripts with `--` ([6e5b505](https://github.com/zillow/create-react-styleguide/commit/6e5b505))
+* update stable dependencies when bootstrapping a new project ([a6e0c34](https://github.com/zillow/create-react-styleguide/commit/a6e0c34))
+
+
+### BREAKING CHANGES
+
+* **npm:** eslint has been upgraded to 6.x, see the migration notes here:
+https://eslint.org/docs/user-guide/migrating-to-6.0.0
+
+
+
 ### [4.0.6](https://github.com/zillow/create-react-styleguide/compare/v4.0.5...v4.0.6) (2019-06-24)
 
 
