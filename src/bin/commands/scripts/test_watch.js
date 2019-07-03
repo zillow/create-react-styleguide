@@ -1,3 +1,3 @@
 const test = require('./test');
 
-module.exports = (argv, callback) => test(argv, callback, ['--watch']);
+module.exports = options => test({ ...options, flags: ['--watch', ...options.flags] });

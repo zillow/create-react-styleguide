@@ -1,9 +1,3 @@
-const { spawn } = require('child_process');
-const { eslint } = require('../../util/executables');
-const noop = require('../../util/noop');
+const eslint = require('./eslint');
 
-module.exports = (argv, callback = noop) => {
-    spawn(eslint, ['**/*.{js,jsx}', '--fix'], {
-        stdio: 'inherit',
-    }).on('close', callback);
-};
+module.exports = options => eslint({ ...options, flags: ['--fix', ...options.flags] });

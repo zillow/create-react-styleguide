@@ -4,15 +4,11 @@ const { spawn } = require('child_process');
 const { babel } = require('../../util/executables');
 const noop = require('../../util/noop');
 
-module.exports = (argv, callback = noop, watch = false) => {
-    let runner = runSeries;
-    const cjsOptions = ['src', '--out-dir', 'lib', '--copy-files'];
-    const esmOptions = ['src', '--out-dir', 'es', '--copy-files'];
-    if (watch) {
-        runner = runParallel;
-        cjsOptions.push('--watch');
-        esmOptions.push('--watch');
-    }
+module.exports = ({ callback = noop, flags }) => {
+    const cjsOptions = ['src', '--out-dir', 'lib', '--copy-files', ...flags];
+    const esmOptions = ['src', '--out-dir', 'es', '--copy-files', ...flags];
+
+    const runner = flags.indexOf('--watch') >= 0 ? runParallel : runSeries;
     runner(
         [
             // Build CommonJS modules

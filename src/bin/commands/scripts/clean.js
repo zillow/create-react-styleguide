@@ -7,7 +7,7 @@ const noop = require('../../util/noop');
 const currentDir = process.cwd();
 const dirs = ['lib', 'es', 'styleguide', 'coverage'];
 
-module.exports = (argv, callback = noop) => {
+module.exports = ({ callback = noop }) => {
     runSeries(
         dirs.map(dir => cb => {
             const spinner = ora(`Deleting ${dir}`).start();

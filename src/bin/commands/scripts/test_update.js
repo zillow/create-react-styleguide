@@ -1,3 +1,3 @@
 const test = require('./test');
 
-module.exports = (argv, callback) => test(argv, callback, ['--updateSnapshot']);
+module.exports = options => test({ ...options, flags: ['--updateSnapshot', ...options.flags] });
