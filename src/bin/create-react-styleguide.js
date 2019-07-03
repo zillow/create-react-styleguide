@@ -51,6 +51,7 @@ yargs
     .option('stable', {
         desc:
             'By default, the latest version of all project dependencies are installed. If that does not work for some reason, you can use this to revert to the last known stable configuration (use this with caution as this can quickly become out-of-date).',
+        type: 'boolean',
         default: false,
     })
     .option('styles', {
