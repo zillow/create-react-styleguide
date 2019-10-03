@@ -13,6 +13,14 @@ const getAuthor = author => {
     return false;
 };
 
+const getCurrentDepth = () => {
+    // process.env values are _always_ stored as strings, regardless of input type
+    if (process.env.creatingStyleguideConfig) {
+        return Number.parseInt(process.env.creatingStyleguideConfig, 10);
+    }
+    return 0;
+};
+
 const getPackageInfo = pkg => ({
     name: pkg.name,
     description: `| Version | Homepage | Author |\n| - | - | - |\n| ${
@@ -73,6 +81,7 @@ const linkStyleguides = (config, opts) => {
         ...(config.sections ? config.sections : []),
         ...(componentsSection ? [componentsSection] : []),
     ];
+
     if (options.packageSection) {
         // eslint-disable-next-line global-require, zillow/import/no-dynamic-require
         const pkg = require(path.join(workingDir, 'package.json'));
@@ -93,7 +102,7 @@ const linkStyleguides = (config, opts) => {
 
     // Only link styleguides one level deep,
     // i.e. do not link styleguides from a linked styleguide
-    if (process.env.creatingStyleguideConfig > 2) {
+    if (getCurrentDepth() > 2) {
         styleguides = [];
     }
 
@@ -152,8 +161,7 @@ const linkStyleguides = (config, opts) => {
 
 module.exports = (config, options) => {
     // Monitor and limit the depth at which we link styleguides to direct children only.
-    process.env.creatingStyleguideConfig = process.env.creatingStyleguideConfig || 0;
-    process.env.creatingStyleguideConfig += 1;
+    process.env.creatingStyleguideConfig = `${getCurrentDepth() + 1}`;
 
     const webpackConfig = {
         module: {
