@@ -155,25 +155,26 @@ module.exports = (config, options) => {
     process.env.creatingStyleguideConfig = process.env.creatingStyleguideConfig || 0;
     process.env.creatingStyleguideConfig += 1;
 
-    const styleguideConfig = linkStyleguides(
-        {
-            webpackConfig: {
-                module: {
-                    rules: [
-                        {
-                            test: /\.jsx?$/,
-                            include: [path.join(process.cwd(), 'src')],
-                            use: {
-                                loader: 'babel-loader',
-                            },
-                        },
-                    ],
+    const webpackConfig = {
+        module: {
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    include: [path.join(process.cwd(), 'src')],
+                    use: {
+                        loader: 'babel-loader',
+                    },
                 },
-            },
-            ...config,
+            ],
         },
-        options
-    );
+    };
+
+    const baseConfig = {
+        webpackConfig,
+        ...config,
+    };
+
+    const styleguideConfig = linkStyleguides(baseConfig, options);
 
     if (process.env.DEBUG) {
         // eslint-disable-next-line no-console
