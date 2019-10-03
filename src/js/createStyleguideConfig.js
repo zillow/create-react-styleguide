@@ -174,6 +174,11 @@ module.exports = (config, options) => {
         ...config,
     };
 
+    if (process.env.PORT) {
+        // the default is 6060, and provided upstream
+        baseConfig.serverPort = Number.parseInt(process.env.PORT, 10);
+    }
+
     const styleguideConfig = linkStyleguides(baseConfig, options);
 
     if (process.env.DEBUG) {
