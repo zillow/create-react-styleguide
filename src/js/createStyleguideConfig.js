@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const resolvePkg = require('resolve-pkg');
 
 const COMPONENTS = 'src/components/**/[A-Z]*.{js,jsx,ts,tsx}';
 
@@ -176,6 +177,22 @@ module.exports = (config, options) => {
             ],
         },
     };
+
+    // only the root should alias singletons
+    if (process.env.creatingStyleguideConfig === '1') {
+        webpackConfig.resolve = {
+            alias: ['react', 'react-dom', 'styled-components'].reduce((acc, name) => {
+                // resolvePkg does not throw if it cannot resolve, merely returns undefined
+                const realPath = resolvePkg(name);
+
+                if (realPath) {
+                    acc[name] = realPath;
+                }
+
+                return acc;
+            }, {}),
+        };
+    }
 
     const baseConfig = {
         webpackConfig,
