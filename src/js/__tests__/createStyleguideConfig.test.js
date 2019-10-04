@@ -34,3 +34,26 @@ describe('webpackConfig.resolve.alias', () => {
         expect(createStyleguideConfig()).not.toHaveProperty('webpackConfig.resolve.alias');
     });
 });
+
+describe('IE 11 support for styleguidist artifacts', () => {
+    it('is configured at root level', () => {
+        const { webpackConfig } = createStyleguideConfig();
+        expect(webpackConfig.module.rules[1]).toHaveProperty('use.options.presets', [
+            [
+                '@babel/preset-env',
+                {
+                    modules: 'commonjs',
+                    targets: {
+                        ie: '11',
+                    },
+                },
+            ],
+        ]);
+    });
+
+    it('is not configured in nested executions', () => {
+        process.env.creatingStyleguideConfig = '1';
+        const { webpackConfig } = createStyleguideConfig();
+        expect(webpackConfig.module.rules).toHaveLength(1);
+    });
+});

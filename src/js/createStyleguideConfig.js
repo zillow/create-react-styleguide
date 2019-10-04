@@ -180,6 +180,28 @@ module.exports = (config, options) => {
 
     // only the root should alias singletons
     if (getCurrentDepth() === 1) {
+        // IE 11 support for styleguidist-generated artifacts
+        webpackConfig.module.rules.push({
+            test: /\.jsx?$/,
+            include: /node_modules\/(?=(acorn-jsx|estree-walker|regexpu-core|unicode-match-property-ecmascript|unicode-match-property-value-ecmascript|react-dev-utils|ansi-styles|ansi-regex|chalk|strip-ansi)\/).*/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                modules: 'commonjs',
+                                targets: {
+                                    ie: '11',
+                                },
+                            },
+                        ],
+                    ],
+                },
+            },
+        });
+
         webpackConfig.resolve = {
             alias: ['react', 'react-dom', 'styled-components'].reduce((acc, name) => {
                 // resolvePkg does not throw if it cannot resolve, merely returns undefined
