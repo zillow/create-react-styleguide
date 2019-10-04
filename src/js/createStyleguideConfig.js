@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const resolvePkg = require('resolve-pkg');
 
 const COMPONENTS = 'src/components/**/[A-Z]*.{js,jsx,ts,tsx}';
 
@@ -11,6 +12,14 @@ const getAuthor = author => {
         return author.name;
     }
     return false;
+};
+
+const getCurrentDepth = () => {
+    // process.env values are _always_ stored as strings, regardless of input type
+    if (process.env.creatingStyleguideConfig) {
+        return Number.parseInt(process.env.creatingStyleguideConfig, 10);
+    }
+    return 0;
 };
 
 const getPackageInfo = pkg => ({
@@ -73,6 +82,7 @@ const linkStyleguides = (config, opts) => {
         ...(config.sections ? config.sections : []),
         ...(componentsSection ? [componentsSection] : []),
     ];
+
     if (options.packageSection) {
         // eslint-disable-next-line global-require, zillow/import/no-dynamic-require
         const pkg = require(path.join(workingDir, 'package.json'));
@@ -93,7 +103,7 @@ const linkStyleguides = (config, opts) => {
 
     // Only link styleguides one level deep,
     // i.e. do not link styleguides from a linked styleguide
-    if (process.env.creatingStyleguideConfig > 2) {
+    if (getCurrentDepth() > 2) {
         styleguides = [];
     }
 
@@ -152,28 +162,49 @@ const linkStyleguides = (config, opts) => {
 
 module.exports = (config, options) => {
     // Monitor and limit the depth at which we link styleguides to direct children only.
-    process.env.creatingStyleguideConfig = process.env.creatingStyleguideConfig || 0;
-    process.env.creatingStyleguideConfig += 1;
+    process.env.creatingStyleguideConfig = `${getCurrentDepth() + 1}`;
 
-    const styleguideConfig = linkStyleguides(
-        {
-            webpackConfig: {
-                module: {
-                    rules: [
-                        {
-                            test: /\.jsx?$/,
-                            include: [path.join(process.cwd(), 'src')],
-                            use: {
-                                loader: 'babel-loader',
-                            },
-                        },
-                    ],
+    const webpackConfig = {
+        module: {
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    include: [path.join(process.cwd(), 'src')],
+                    use: {
+                        loader: 'babel-loader',
+                    },
                 },
-            },
-            ...config,
+            ],
         },
-        options
-    );
+    };
+
+    // only the root should alias singletons
+    if (getCurrentDepth() === 1) {
+        webpackConfig.resolve = {
+            alias: ['react', 'react-dom', 'styled-components'].reduce((acc, name) => {
+                // resolvePkg does not throw if it cannot resolve, merely returns undefined
+                const realPath = resolvePkg(name);
+
+                if (realPath) {
+                    acc[name] = realPath;
+                }
+
+                return acc;
+            }, {}),
+        };
+    }
+
+    const baseConfig = {
+        webpackConfig,
+        ...config,
+    };
+
+    if (process.env.PORT) {
+        // the default is 6060, and provided upstream
+        baseConfig.serverPort = Number.parseInt(process.env.PORT, 10);
+    }
+
+    const styleguideConfig = linkStyleguides(baseConfig, options);
 
     if (process.env.DEBUG) {
         // eslint-disable-next-line no-console
