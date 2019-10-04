@@ -131,7 +131,7 @@ Require the module:
 const { createStyelguideConfig, createJestConfig } = require('create-react-styleguide');
 ```
 
-#### `createStyleguideConfig(config, options)`
+### `createStyleguideConfig(config, options)`
 
 Creates a [React Styleguidist configuration object](https://react-styleguidist.js.org/docs/configuration.html) with some default configuration.
 
@@ -141,15 +141,17 @@ Creates a [React Styleguidist configuration object](https://react-styleguidist.j
 -   `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
 -   `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
 
-#### `createJestConfig(config)`
+### `createJestConfig(config)`
 
 Creates a [Jest configuration object](https://jestjs.io/docs/en/configuration) with some default configuration.
 
 -   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
 
-#### `DEBUG=true` environment variable
+## Environment Variables
 
-Both `createStyleguideConfig` and `createJestConfig` will log their results to the console when the `DEBUG=true` environment variable is set. A quick way to see the configuration these functions are creating is to run the following:
+### `DEBUG`
+
+Both `createStyleguideConfig` and `createJestConfig` will log their results to the console when the `DEBUG` environment variable is set to any non-empty value (such as `true` or `1`). A quick way to see the configuration these functions are creating is to run the following:
 
 ```
 DEBUG=true node styleguide.config.js
