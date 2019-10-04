@@ -43,6 +43,7 @@
     "acorn": "^6.3.0",
     "babel-loader": "^8.0.6",
     "chalk": "^2.4.2",
+    "circular-dependency-plugin": "^5.2.0",
     "copy-template-dir": "1.4.0",
     "cross-spawn": "6.0.5",
     "eslint": "^6.5.1",

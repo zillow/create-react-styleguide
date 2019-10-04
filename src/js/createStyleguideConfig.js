@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const resolvePkg = require('resolve-pkg');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const COMPONENTS = 'src/components/**/[A-Z]*.{js,jsx,ts,tsx}';
 
@@ -176,9 +177,10 @@ module.exports = (config, options) => {
                 },
             ],
         },
+        plugins: [],
     };
 
-    // only the root should alias singletons
+    // only the root should alias singletons or check circularity
     if (getCurrentDepth() === 1) {
         // IE 11 support for styleguidist-generated artifacts
         webpackConfig.module.rules.push({
@@ -214,6 +216,14 @@ module.exports = (config, options) => {
                 return acc;
             }, {}),
         };
+
+        webpackConfig.plugins.push(
+            new CircularDependencyPlugin({
+                exclude: /node_modules/,
+                failOnError: true,
+                cwd: process.cwd(),
+            })
+        );
     }
 
     const baseConfig = {

@@ -1,5 +1,19 @@
 const { createStyleguideConfig } = require('../..');
 
+// normalize cwd in snapshots
+const CWD_REGEXP = new RegExp(process.cwd());
+
+expect.addSnapshotSerializer({
+    test(val) {
+        return typeof val === 'string' && CWD_REGEXP.test(val);
+    },
+    serialize(val, config, indentation, depth) {
+        const str = val.replace(CWD_REGEXP, '__CWD__');
+        // top-level strings don't need quotes, but nested ones do (object properties, etc)
+        return depth ? `"${str}"` : str;
+    },
+});
+
 afterEach(() => {
     // this value should not bleed between tests
     delete process.env.creatingStyleguideConfig;
@@ -55,5 +69,30 @@ describe('IE 11 support for styleguidist artifacts', () => {
         process.env.creatingStyleguideConfig = '1';
         const { webpackConfig } = createStyleguideConfig();
         expect(webpackConfig.module.rules).toHaveLength(1);
+    });
+});
+
+describe('circular-dependency-plugin', () => {
+    it('is configured at root level', () => {
+        const { webpackConfig } = createStyleguideConfig();
+        expect(webpackConfig).toHaveProperty('plugins');
+        expect(webpackConfig.plugins[0]).toMatchInlineSnapshot(`
+            CircularDependencyPlugin {
+              "options": Object {
+                "allowAsyncCycles": false,
+                "cwd": "__CWD__",
+                "exclude": /node_modules/,
+                "failOnError": true,
+                "include": /\\.\\*/,
+                "onDetected": false,
+              },
+            }
+        `);
+    });
+
+    it('is not configured in nested executions', () => {
+        process.env.creatingStyleguideConfig = '1';
+        const { webpackConfig } = createStyleguideConfig();
+        expect(webpackConfig.plugins).toStrictEqual([]);
     });
 });
