@@ -179,7 +179,7 @@ module.exports = (config, options) => {
     };
 
     // only the root should alias singletons
-    if (process.env.creatingStyleguideConfig === '1') {
+    if (getCurrentDepth() === 1) {
         webpackConfig.resolve = {
             alias: ['react', 'react-dom', 'styled-components'].reduce((acc, name) => {
                 // resolvePkg does not throw if it cannot resolve, merely returns undefined
