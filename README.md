@@ -38,19 +38,19 @@ npx create-react-styleguide new my-new-styleguide --stable
 
 Generated projects include the following npm scripts out of the box:
 
-| Script    | Description |
-| --------- | ----------- |
-| npm start | Start the styleguide server on http://localhost:6060 |
-| npm run build | Build the component library to the `lib` folder |
-| npm run build:styleguide | Build the styleguide to the `styleguide` folder |
-| npm run build:watch | Watch the `src` folder for changes and run the build script |
-| npm run clean | Clean generated folders |
-| npm run eslint | Run eslint on all .js and .jsx files in the `src` folder |
-| npm run eslint:fix | Run eslint with the `--fix` option |
-| npm test | Run unit tests |
-| npm run test:coverage | Run unit tests with code coverage |
-| npm run test:update | Update unit test snapshots |
-| npm run test:watch | Run unit tests while watching for changes |
+| Script                   | Description                                                 |
+| ------------------------ | ----------------------------------------------------------- |
+| npm start                | Start the styleguide server on http://localhost:6060        |
+| npm run build            | Build the component library to the `lib` folder             |
+| npm run build:styleguide | Build the styleguide to the `styleguide` folder             |
+| npm run build:watch      | Watch the `src` folder for changes and run the build script |
+| npm run clean            | Clean generated folders                                     |
+| npm run eslint           | Run eslint on all .js and .jsx files in the `src` folder    |
+| npm run eslint:fix       | Run eslint with the `--fix` option                          |
+| npm test                 | Run unit tests                                              |
+| npm run test:coverage    | Run unit tests with code coverage                           |
+| npm run test:update      | Update unit test snapshots                                  |
+| npm run test:watch       | Run unit tests while watching for changes                   |
 
 ## Document your styleguide
 
@@ -77,7 +77,7 @@ You can add SVG support with the [inline-react-svg](https://github.com/airbnb/ba
  };
 ```
 
- You should now be able to import and use SVGs as if they were react components!
+You should now be able to import and use SVGs as if they were react components!
 
 ## Linking multiple styleguides
 
@@ -135,17 +135,17 @@ const { createStyelguideConfig, createJestConfig } = require('create-react-style
 
 Creates a [React Styleguidist configuration object](https://react-styleguidist.js.org/docs/configuration.html) with some default configuration.
 
-* `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
-* `options.styleguides [array]` - An array of CRS npm modules (the module must be installed as a dependency to your project)
-* `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
-* `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
-* `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
+-   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
+-   `options.styleguides [array]` - An array of CRS npm modules (the module must be installed as a dependency to your project)
+-   `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
+-   `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
+-   `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
 
 #### `createJestConfig(config)`
 
 Creates a [Jest configuration object](https://jestjs.io/docs/en/configuration) with some default configuration.
 
-* `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
+-   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
 
 #### `DEBUG=true` environment variable
 
@@ -154,7 +154,9 @@ Both `createStyleguideConfig` and `createJestConfig` will log their results to t
 ```
 DEBUG=true node styleguide.config.js
 ```
+
 or
+
 ```
 DEBUG=true node jest.config.js
 ```
