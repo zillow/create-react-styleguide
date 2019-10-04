@@ -163,6 +163,14 @@ or
 DEBUG=true node jest.config.js
 ```
 
+### `PORT`
+
+By default, `npm start` will run the `react-styleguidist` server on its default port, `6060`. To change this, set the `PORT` environment variable to your custom value:
+
+```
+PORT=12345 npm start
+```
+
 ## Under the covers
 
 `create-react-styleguide` leverages [react-styleguidist](https://react-styleguidist.js.org/) under the covers for its living style guide.
