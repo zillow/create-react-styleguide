@@ -150,7 +150,7 @@ const linkStyleguides = (config, opts) => {
     }
 
     // https://github.com/styleguidist/react-styleguidist/issues/1137
-    if (sections.length === 1) {
+    if (isRootConfig() && sections.length === 1) {
         config.sections.push({});
     }
 
