@@ -15,13 +15,9 @@ const getAuthor = author => {
     return false;
 };
 
-const getCurrentDepth = () => {
-    // process.env values are _always_ stored as strings, regardless of input type
-    if (process.env.creatingStyleguideConfig) {
-        return Number.parseInt(process.env.creatingStyleguideConfig, 10);
-    }
-    return 0;
-};
+const isRootConfig = () =>
+    // this env var is only _set_ in the root, and read everywhere else with different CWDs
+    path.relative(process.env.creatingStyleguideConfig, process.cwd()) === '';
 
 const getPackageInfo = pkg => ({
     name: pkg.name,
@@ -104,7 +100,7 @@ const linkStyleguides = (config, opts) => {
 
     // Only link styleguides one level deep,
     // i.e. do not link styleguides from a linked styleguide
-    if (getCurrentDepth() > 2) {
+    if (!isRootConfig()) {
         styleguides = [];
     }
 
@@ -163,7 +159,9 @@ const linkStyleguides = (config, opts) => {
 
 module.exports = (config, options) => {
     // Monitor and limit the depth at which we link styleguides to direct children only.
-    process.env.creatingStyleguideConfig = `${getCurrentDepth() + 1}`;
+    if (typeof process.env.creatingStyleguideConfig === 'undefined') {
+        process.env.creatingStyleguideConfig = process.cwd();
+    }
 
     const webpackConfig = {
         module: {
@@ -181,7 +179,7 @@ module.exports = (config, options) => {
     };
 
     // only the root should alias singletons or check circularity
-    if (getCurrentDepth() === 1) {
+    if (isRootConfig()) {
         // IE 11 support for styleguidist-generated artifacts
         webpackConfig.module.rules.push({
             test: /\.jsx?$/,

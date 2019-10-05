@@ -44,7 +44,7 @@ describe('webpackConfig.resolve.alias', () => {
     });
 
     it('is not configured in nested executions', () => {
-        process.env.creatingStyleguideConfig = '1';
+        process.env.creatingStyleguideConfig = __dirname;
         expect(createStyleguideConfig()).not.toHaveProperty('webpackConfig.resolve.alias');
     });
 });
@@ -66,7 +66,7 @@ describe('IE 11 support for styleguidist artifacts', () => {
     });
 
     it('is not configured in nested executions', () => {
-        process.env.creatingStyleguideConfig = '1';
+        process.env.creatingStyleguideConfig = __dirname;
         const { webpackConfig } = createStyleguideConfig();
         expect(webpackConfig.module.rules).toHaveLength(1);
     });
@@ -91,7 +91,7 @@ describe('circular-dependency-plugin', () => {
     });
 
     it('is not configured in nested executions', () => {
-        process.env.creatingStyleguideConfig = '1';
+        process.env.creatingStyleguideConfig = __dirname;
         const { webpackConfig } = createStyleguideConfig();
         expect(webpackConfig.plugins).toStrictEqual([]);
     });
