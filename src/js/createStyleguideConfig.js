@@ -236,9 +236,18 @@ module.exports = (config, options) => {
 
     const styleguideConfig = linkStyleguides(baseConfig, options);
 
+    // istanbul ignore next: irrelevant
     if (process.env.DEBUG) {
         // eslint-disable-next-line no-console
-        console.log('createStyleguideConfig object:', JSON.stringify(styleguideConfig, null, 4));
+        console.log('\ncreateStyleguideConfig (isRootConfig = %j)', isRootConfig());
+
+        // eslint-disable-next-line no-console
+        console.dir(styleguideConfig, {
+            breakLength: Infinity,
+            compact: false,
+            colors: true,
+            depth: 10,
+        });
     }
 
     return styleguideConfig;
