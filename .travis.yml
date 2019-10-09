@@ -1,0 +1,12 @@
+# don't build tags, it's redundant
+if: tag IS blank
+language: node_js
+node_js:
+  - "12"
+  - "10"
+env:
+  global:
+    - NO_UPDATE_NOTIFIER=1
+    - HUSKY_SKIP_INSTALL=1
+matrix:
+  fast_finish: true
