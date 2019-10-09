@@ -1,6 +1,8 @@
 const { createJestConfig } = require('./src');
 
 const config = createJestConfig();
-config.testPathIgnorePatterns.push('<rootDir>/templates/');
 
-module.exports = config;
+module.exports = {
+    ...config,
+    testPathIgnorePatterns: [...config.testPathIgnorePatterns, '<rootDir>/templates/'],
+};
