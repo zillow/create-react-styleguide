@@ -1,5 +1,8 @@
 # create-react-styleguide
 
+[![npm version](https://img.shields.io/npm/v/create-react-styleguide.svg)](https://www.npmjs.com/package/create-react-styleguide)
+[![Build Status](https://travis-ci.org/zillow/create-react-styleguide.svg?branch=master)](https://travis-ci.org/zillow/create-react-styleguide)
+
 `create-react-styleguide` (a la [`create-react-app`](https://github.com/facebook/create-react-app)) is a tool for quickly generating styleguides and component libraries.
 
 ## Quickstart
