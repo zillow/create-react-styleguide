@@ -110,8 +110,8 @@ const linkStyleguides = (config, opts) => {
         styleguides = [];
     }
 
-    styleguides.forEach(module => {
-        const modulePath = path.join(workingDir, `node_modules/${module}`);
+    styleguides.forEach(moduleName => {
+        const modulePath = path.join(workingDir, `node_modules/${moduleName}`);
         const configPath = path.join(modulePath, 'styleguide.config.js');
 
         let styleguideConfig;
@@ -130,7 +130,7 @@ const linkStyleguides = (config, opts) => {
         if (!styleguideConfig) {
             // eslint-disable-next-line no-console
             console.warn(
-                `Warning: could not load configuration for module "${module}", make sure the module is installed and styleguide.config.js is configured correctly\n`
+                `Warning: could not load configuration for module "${moduleName}", make sure the module is installed and styleguide.config.js is configured correctly\n`
             );
             return;
         }
