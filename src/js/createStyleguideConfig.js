@@ -238,16 +238,20 @@ module.exports = (config, options) => {
 
     // istanbul ignore next: irrelevant
     if (process.env.DEBUG) {
-        // eslint-disable-next-line no-console
-        console.log('\ncreateStyleguideConfig (isRootConfig = %j)', isRootConfig());
-
-        // eslint-disable-next-line no-console
-        console.dir(styleguideConfig, {
+        // eslint-disable-next-line global-require
+        require('util').inspect.defaultOptions = {
             breakLength: Infinity,
             compact: false,
-            colors: true,
+            // 'colors' defaults to true when TTY is interactive
             depth: 10,
-        });
+        };
+
+        // eslint-disable-next-line no-console
+        console.log(
+            'createStyleguideConfig (isRootConfig = %j)\n%O',
+            isRootConfig(),
+            styleguideConfig
+        );
     }
 
     return styleguideConfig;
