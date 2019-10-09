@@ -252,6 +252,12 @@ module.exports = (config, options) => {
             isRootConfig(),
             styleguideConfig
         );
+
+        // inject trailing newline when config is nested
+        if (!isRootConfig()) {
+            // eslint-disable-next-line no-console
+            console.log();
+        }
     }
 
     return styleguideConfig;
