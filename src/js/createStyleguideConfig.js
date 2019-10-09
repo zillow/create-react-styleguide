@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const resolvePkg = require('resolve-pkg');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const COMPONENTS = 'src/components/**/[A-Z]*.{js,jsx,ts,tsx}';
 
@@ -14,13 +15,9 @@ const getAuthor = author => {
     return false;
 };
 
-const getCurrentDepth = () => {
-    // process.env values are _always_ stored as strings, regardless of input type
-    if (process.env.creatingStyleguideConfig) {
-        return Number.parseInt(process.env.creatingStyleguideConfig, 10);
-    }
-    return 0;
-};
+const isRootConfig = () =>
+    // this env var is only _set_ in the root, and read everywhere else with different CWDs
+    path.relative(process.env.creatingStyleguideConfig, process.cwd()) === '';
 
 const getPackageInfo = pkg => ({
     name: pkg.name,
@@ -40,14 +37,20 @@ const resolvePaths = (section, basePath) => {
         if (val) {
             if (typeof val === 'string' && val.charAt(0) !== '/') {
                 // eslint-disable-next-line no-param-reassign
-                section[key] = path.join(basePath, val);
+                section[key] = path.join(
+                    path.relative(process.env.creatingStyleguideConfig, basePath),
+                    val
+                );
             }
             // components key supports an array of paths
             if (Array.isArray(val)) {
                 for (let i = 0; i < val.length; i += 1) {
                     if (typeof val[i] === 'string' && val[i].charAt(0) !== '/') {
                         // eslint-disable-next-line no-param-reassign
-                        val[i] = path.join(basePath, val[i]);
+                        val[i] = path.join(
+                            path.relative(process.env.creatingStyleguideConfig, basePath),
+                            val[i]
+                        );
                     }
                 }
             }
@@ -103,12 +106,12 @@ const linkStyleguides = (config, opts) => {
 
     // Only link styleguides one level deep,
     // i.e. do not link styleguides from a linked styleguide
-    if (getCurrentDepth() > 2) {
+    if (!isRootConfig()) {
         styleguides = [];
     }
 
-    styleguides.forEach(module => {
-        const modulePath = path.join(workingDir, `node_modules/${module}`);
+    styleguides.forEach(moduleName => {
+        const modulePath = path.join(workingDir, `node_modules/${moduleName}`);
         const configPath = path.join(modulePath, 'styleguide.config.js');
 
         let styleguideConfig;
@@ -127,7 +130,7 @@ const linkStyleguides = (config, opts) => {
         if (!styleguideConfig) {
             // eslint-disable-next-line no-console
             console.warn(
-                `Warning: could not load configuration for module "${module}", make sure the module is installed and styleguide.config.js is configured correctly\n`
+                `Warning: could not load configuration for module "${moduleName}", make sure the module is installed and styleguide.config.js is configured correctly\n`
             );
             return;
         }
@@ -153,7 +156,7 @@ const linkStyleguides = (config, opts) => {
     }
 
     // https://github.com/styleguidist/react-styleguidist/issues/1137
-    if (sections.length === 1) {
+    if (isRootConfig() && sections.length === 1) {
         config.sections.push({});
     }
 
@@ -162,7 +165,9 @@ const linkStyleguides = (config, opts) => {
 
 module.exports = (config, options) => {
     // Monitor and limit the depth at which we link styleguides to direct children only.
-    process.env.creatingStyleguideConfig = `${getCurrentDepth() + 1}`;
+    if (typeof process.env.creatingStyleguideConfig === 'undefined') {
+        process.env.creatingStyleguideConfig = process.cwd();
+    }
 
     const webpackConfig = {
         module: {
@@ -176,10 +181,33 @@ module.exports = (config, options) => {
                 },
             ],
         },
+        plugins: [],
     };
 
-    // only the root should alias singletons
-    if (getCurrentDepth() === 1) {
+    // only the root should alias singletons or check circularity
+    if (isRootConfig()) {
+        // IE 11 support for styleguidist-generated artifacts
+        webpackConfig.module.rules.push({
+            test: /\.jsx?$/,
+            include: /node_modules\/(?=(acorn-jsx|estree-walker|regexpu-core|unicode-match-property-ecmascript|unicode-match-property-value-ecmascript|react-dev-utils|ansi-styles|ansi-regex|chalk|strip-ansi)\/).*/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                modules: 'commonjs',
+                                targets: {
+                                    ie: '11',
+                                },
+                            },
+                        ],
+                    ],
+                },
+            },
+        });
+
         webpackConfig.resolve = {
             alias: ['react', 'react-dom', 'styled-components'].reduce((acc, name) => {
                 // resolvePkg does not throw if it cannot resolve, merely returns undefined
@@ -192,6 +220,14 @@ module.exports = (config, options) => {
                 return acc;
             }, {}),
         };
+
+        webpackConfig.plugins.push(
+            new CircularDependencyPlugin({
+                exclude: /node_modules/,
+                failOnError: true,
+                cwd: process.cwd(),
+            })
+        );
     }
 
     const baseConfig = {
@@ -206,9 +242,28 @@ module.exports = (config, options) => {
 
     const styleguideConfig = linkStyleguides(baseConfig, options);
 
+    // istanbul ignore next: irrelevant
     if (process.env.DEBUG) {
+        // eslint-disable-next-line global-require
+        require('util').inspect.defaultOptions = {
+            breakLength: Infinity,
+            compact: false,
+            // 'colors' defaults to true when TTY is interactive
+            depth: 10,
+        };
+
         // eslint-disable-next-line no-console
-        console.log('createStyleguideConfig object:', JSON.stringify(styleguideConfig, null, 4));
+        console.log(
+            'createStyleguideConfig (isRootConfig = %j)\n%O',
+            isRootConfig(),
+            styleguideConfig
+        );
+
+        // inject trailing newline when config is nested
+        if (!isRootConfig()) {
+            // eslint-disable-next-line no-console
+            console.log();
+        }
     }
 
     return styleguideConfig;
