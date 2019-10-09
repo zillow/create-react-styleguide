@@ -37,14 +37,20 @@ const resolvePaths = (section, basePath) => {
         if (val) {
             if (typeof val === 'string' && val.charAt(0) !== '/') {
                 // eslint-disable-next-line no-param-reassign
-                section[key] = path.join(basePath, val);
+                section[key] = path.join(
+                    path.relative(process.env.creatingStyleguideConfig, basePath),
+                    val
+                );
             }
             // components key supports an array of paths
             if (Array.isArray(val)) {
                 for (let i = 0; i < val.length; i += 1) {
                     if (typeof val[i] === 'string' && val[i].charAt(0) !== '/') {
                         // eslint-disable-next-line no-param-reassign
-                        val[i] = path.join(basePath, val[i]);
+                        val[i] = path.join(
+                            path.relative(process.env.creatingStyleguideConfig, basePath),
+                            val[i]
+                        );
                     }
                 }
             }

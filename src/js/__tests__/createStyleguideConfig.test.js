@@ -177,7 +177,7 @@ describe('config.sections', () => {
     });
 
     describe('with linked styleguides', () => {
-        it('resolves nested component globs absolutely', () => {
+        it('resolves nested component globs relative to parent cwd', () => {
             setup({
                 'node_modules': {
                     'my-linked-styleguide': Dir({
@@ -249,13 +249,13 @@ describe('config.sections', () => {
                     "name": "my-linked-styleguide",
                     "sections": Array [
                       Object {
-                        "content": "<CWD>/node_modules/my-linked-styleguide/docs/introduction.md",
+                        "content": "node_modules/my-linked-styleguide/docs/introduction.md",
                         "name": "Linked Introduction",
                       },
                       Object {
                         "components": Array [
-                          "<CWD>/node_modules/my-linked-styleguide/src/components/**/[A-Z]*.{js,jsx}",
-                          "<CWD>/node_modules/my-linked-styleguide/packages/**/src/[A-Z]*.{js,jsx}",
+                          "node_modules/my-linked-styleguide/src/components/**/[A-Z]*.{js,jsx}",
+                          "node_modules/my-linked-styleguide/packages/**/src/[A-Z]*.{js,jsx}",
                         ],
                         "name": "Linked Components",
                       },
