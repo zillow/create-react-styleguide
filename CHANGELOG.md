@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/zillow/create-react-styleguide/compare/v5.0.0...v5.1.0) (2019-10-23)
+
+
+### Bug Fixes
+
+* **deps:** Add direct acorn@6 dependency to match transitive peer ([c2c09ab](https://github.com/zillow/create-react-styleguide/commit/c2c09ab))
+* Avoid passing empty objects repeatedly to root config.sections ([4dc6599](https://github.com/zillow/create-react-styleguide/commit/4dc6599))
+* Correct math on depth tracking via env var ([04c1a8e](https://github.com/zillow/create-react-styleguide/commit/04c1a8e))
+* Inject newline after child styleguide logging only ([024111d](https://github.com/zillow/create-react-styleguide/commit/024111d))
+* Resolve linked styleguide section globs relative to CWD, same as top-level styleguide ([9fdc25c](https://github.com/zillow/create-react-styleguide/commit/9fdc25c))
+
+
+### Features
+
+* **styleguidist:** Configure `serverPort` when `process.env.PORT` is set ([2ac88b4](https://github.com/zillow/create-react-styleguide/commit/2ac88b4))
+* Bump dependencies ([a319b26](https://github.com/zillow/create-react-styleguide/commit/a319b26))
+* **webpack:** Add IE11 support to styleguidist-generated website ([9961967](https://github.com/zillow/create-react-styleguide/commit/9961967))
+* **webpack:** Always resolve singleton packages to the root ([55cfa8f](https://github.com/zillow/create-react-styleguide/commit/55cfa8f))
+* **webpack:** Check for circular dependencies in local styleguide components ([da4d70b](https://github.com/zillow/create-react-styleguide/commit/da4d70b))
+* Make `createStyleguideConfig` DEBUG output fancier ([b48bf58](https://github.com/zillow/create-react-styleguide/commit/b48bf58))
+
+
+### Tests
+
+* Add fixture-based tests of section config generation ([eee0c68](https://github.com/zillow/create-react-styleguide/commit/eee0c68))
+
+
+
 ## [5.0.0](https://github.com/zillow/create-react-styleguide/compare/v4.0.6...v5.0.0) (2019-07-03)
 
 
