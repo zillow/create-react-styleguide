@@ -14,17 +14,17 @@ const inquirer = require('inquirer');
 const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.7.2',
-    'styled-components': '4.3.2',
+    'styled-components': '4.4.1',
     // devDependencies
     'babel-plugin-styled-components': '1.10.6',
-    'babel-preset-zillow': '4.1.0',
-    'eslint-plugin-jest': '22.7.1',
-    'eslint-plugin-zillow': '3.3.1',
-    'husky': '3.0.0',
-    'jest-styled-components': '6.3.3',
-    'react': '16.8.6',
-    'react-dom': '16.8.6',
-    'react-test-renderer': '16.8.6',
+    'babel-preset-zillow': '4.2.0',
+    'eslint-plugin-jest': '23.0.4',
+    'eslint-plugin-zillow': '3.5.1',
+    'husky': '3.1.0',
+    'jest-styled-components': '6.3.4',
+    'react': '16.12.0',
+    'react-dom': '16.12.0',
+    'react-test-renderer': '16.12.0',
     // Always use the latest version of create-react-styleguide
     'create-react-styleguide': '',
 };
