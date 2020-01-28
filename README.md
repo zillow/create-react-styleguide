@@ -131,7 +131,7 @@ Running `npm run deploy` will now deploy your styleguide to Github Pages!
 Require the module:
 
 ```javascript
-const { createStyelguideConfig, createJestConfig } = require('create-react-styleguide');
+const { createStyleguideConfig, createJestConfig } = require('create-react-styleguide');
 ```
 
 ### `createStyleguideConfig(config, options)`
