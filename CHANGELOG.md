@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/zillow/create-react-styleguide/compare/v5.2.0...v6.0.0) (2020-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Prettier 2.0 has some changes in formatting that may break your existing linting/tests/snapshots.
+https://prettier.io/blog/2020/03/21/2.0.0.html
+
+### Build System
+
+* update outdated dependencies including prettier@^2 ([5a91140](https://github.com/zillow/create-react-styleguide/commit/5a91140c9134201fcc7516dd4c046577559e5d2f))
+
 ## [5.2.0](https://github.com/zillow/create-react-styleguide/compare/v5.1.0...v5.2.0) (2020-02-14)
 
 
