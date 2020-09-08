@@ -21,9 +21,9 @@ const isRootConfig = () =>
 
 const getPackageInfo = pkg => ({
     name: pkg.name,
-    description: `| Version | Homepage | Author |\n| - | - | - |\n| ${
-        pkg.version
-    } | ${pkg.homepage || 'not specified'} | ${getAuthor(pkg.author) || 'not specified'} |`,
+    description: `| Version | Homepage | Author |\n| - | - | - |\n| ${pkg.version} | ${
+        pkg.homepage || 'not specified'
+    } | ${getAuthor(pkg.author) || 'not specified'} |`,
 });
 
 const resolvePaths = (section, basePath) => {

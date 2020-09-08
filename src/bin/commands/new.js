@@ -14,14 +14,14 @@ const inquirer = require('inquirer');
 const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.7.2',
-    'styled-components': '4.4.1',
+    'styled-components': '5.2.0',
     // devDependencies
     'babel-plugin-styled-components': '1.10.7',
     'babel-preset-zillow': '4.2.0',
-    'eslint-plugin-jest': '23.7.0',
+    'eslint-plugin-jest': '24.0.0',
     'eslint-plugin-zillow': '3.5.1',
     'husky': '4.2.3',
-    'jest-styled-components': '6.3.4',
+    'jest-styled-components': '7.0.3',
     'react': '16.12.0',
     'react-dom': '16.12.0',
     'react-test-renderer': '16.12.0',

@@ -58,11 +58,14 @@ const Button = css`
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     ${props => (!props.outline && props.type === 'primary' ? ButtonPrimary : ButtonDefault)}
-    ${props => (props.outline && props.type === 'primary' ? ButtonPrimaryOutline : '')}
-    ${props => (props.outline && props.type !== 'primary' ? ButtonDefaultOutline : '')}
+    ${props =>
+        props.outline && props.type === 'primary' ? ButtonPrimaryOutline : ''}
+    ${props =>
+        props.outline && props.type !== 'primary' ? ButtonDefaultOutline : ''}
 `;
 
 export default {
