@@ -1,5 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import theme from '../themes';
+import ThemeBootstrap from '../themes/ThemeBootstrap';
 
-export default props => <ThemeProvider {...props} theme={theme} />;
+export default props => <ThemeProvider {...props} theme={ThemeBootstrap} />;

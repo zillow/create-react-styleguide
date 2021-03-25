@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders a primary button 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.c0:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+  color: #fff;
+}
+
+<button
+  className="c0"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a primary outline button 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  background-color: transparent;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.c0:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+<button
+  className="c0"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a secondary button 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  background-color: #6c747d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+.c0:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+  color: #fff;
+}
+
+<button
+  className="c0"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a secondary outline button 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  background-color: transparent;
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.c0:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+
+<button
+  className="c0"
+>
+  Click Me!
+</button>
+`;

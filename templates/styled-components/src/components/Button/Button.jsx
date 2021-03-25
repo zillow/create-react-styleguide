@@ -1,23 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { ButtonMixin } from '../../mixins/ButtonMixin';
 
 export const StyledButton = styled.button`
-    ${props => props.theme.Button};
+    ${ButtonMixin}
 `;
-const Button = props => <StyledButton {...props} />;
+
+/**
+ * A simple wrapper around a native
+ * [`button`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) element.
+ */
+const Button = React.forwardRef((props, ref) => <StyledButton ref={ref} {...props} />);
+
+Button.displayName = 'Button';
 
 Button.propTypes = {
     /** Button content */
     children: PropTypes.node.isRequired,
     /** Button type */
-    type: PropTypes.oneOf(['primary', 'secondary']),
+    variant: PropTypes.oneOf(['primary', 'secondary']),
     /** Enable outline buttons */
     outline: PropTypes.bool,
 };
 
 Button.defaultProps = {
-    type: 'primary',
+    variant: 'primary',
     outline: false,
 };
 

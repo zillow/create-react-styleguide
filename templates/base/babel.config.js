@@ -1,11 +1,11 @@
 module.exports = {
-    presets: [['zillow', { modules: false }]],
+    presets: [['babel-preset-zillow', { modules: false }]],
     env: {
         cjs: {
-            presets: ['zillow'],
+            presets: ['babel-preset-zillow'],
         },
         test: {
-            presets: ['zillow'],
+            presets: ['babel-preset-zillow'],
         },
     },
 };
