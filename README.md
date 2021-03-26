@@ -143,6 +143,7 @@ Creates a [React Styleguidist configuration object](https://react-styleguidist.j
 -   `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
 -   `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
 -   `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
+-   `options.ie11Transforms [array]` - An array of additional modules that need babel transforms for IE11 compatibility ([#1327](https://github.com/styleguidist/react-styleguidist/pull/1327))
 
 ### `createJestConfig(config)`
 
