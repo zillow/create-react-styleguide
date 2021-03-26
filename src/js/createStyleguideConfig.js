@@ -163,7 +163,7 @@ const linkStyleguides = (config, opts) => {
     return config;
 };
 
-module.exports = (config, options) => {
+module.exports = (config = {}, options = {}) => {
     // Monitor and limit the depth at which we link styleguides to direct children only.
     if (typeof process.env.creatingStyleguideConfig === 'undefined') {
         process.env.creatingStyleguideConfig = process.cwd();
@@ -187,9 +187,23 @@ module.exports = (config, options) => {
     // only the root should alias singletons or check circularity
     if (isRootConfig()) {
         // IE 11 support for styleguidist-generated artifacts
+        // https://github.com/styleguidist/react-styleguidist/pull/1327#issuecomment-483928457
+        const ie11ModuleTransforms = [
+            'acorn-jsx',
+            'estree-walker',
+            'regexpu-core',
+            'unicode-match-property-ecmascript',
+            'unicode-match-property-value-ecmascript',
+            'react-dev-utils',
+            'ansi-styles',
+            'ansi-regex',
+            'chalk',
+            'strip-ansi',
+            ...(options.ie11ModuleTransforms || []),
+        ];
         webpackConfig.module.rules.push({
             test: /\.jsx?$/,
-            include: /node_modules\/(?=(acorn-jsx|estree-walker|regexpu-core|unicode-match-property-ecmascript|unicode-match-property-value-ecmascript|react-dev-utils|ansi-styles|ansi-regex|chalk|strip-ansi)\/).*/,
+            include: new RegExp(`node_modules/(?=(${ie11ModuleTransforms.join('|')})/).*`),
             use: {
                 loader: 'babel-loader',
                 options: {
