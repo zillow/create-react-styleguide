@@ -1,19 +1,23 @@
 module.exports = function createJestConfig(config) {
     const newConfig = {
+        // Avoid polluting global cache directory
+        cacheDirectory: './node_modules/.cache/jest',
+        clearMocks: true,
         collectCoverage: false,
         collectCoverageFrom: ['src/**/*.js', 'src/**/*.jsx'],
-        coveragePathIgnorePatterns: [],
+        coveragePathIgnorePatterns: ['<rootDir>/src/styleguidist/'],
         coverageReporters: ['cobertura', 'html', 'text'],
         coverageThreshold: {
             global: {
-                branches: 75,
-                functions: 80,
-                lines: 70,
-                statements: 70,
+                branches: 100,
+                functions: 100,
+                lines: 100,
+                statements: 100,
             },
         },
+        modulePathIgnorePatterns: ['<rootDir>/lib/', '<rootDir>/es/'],
+        testEnvironment: 'jsdom',
         testMatch: ['<rootDir>/**/__tests__/**/*.test.js', '<rootDir>/**/*.test.js'],
-        testEnvironment: 'node',
         testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/', '<rootDir>/es/'],
         ...config,
     };
