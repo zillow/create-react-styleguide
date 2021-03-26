@@ -14,17 +14,17 @@ const inquirer = require('inquirer');
 const STABLE_VERSIONS = {
     // dependencies
     'prop-types': '15.7.2',
-    'styled-components': '5.2.0',
+    'styled-components': '5.2.2',
     // devDependencies
-    'babel-plugin-styled-components': '1.10.7',
-    'babel-preset-zillow': '4.2.0',
-    'eslint-plugin-jest': '24.0.0',
-    'eslint-plugin-zillow': '3.5.1',
-    'husky': '4.2.3',
+    'babel-plugin-styled-components': '1.12.0',
+    'babel-preset-zillow': '4.4.0',
+    'eslint-plugin-jest': '24.3.2',
+    'eslint-plugin-zillow': '4.0.0',
+    'husky': '4.3.8',
     'jest-styled-components': '7.0.3',
-    'react': '16.12.0',
-    'react-dom': '16.12.0',
-    'react-test-renderer': '16.12.0',
+    'react': '17.0.2',
+    'react-dom': '17.0.2',
+    'react-test-renderer': '17.0.2',
     // Always use the latest version of create-react-styleguide
     'create-react-styleguide': '',
 };
@@ -89,7 +89,7 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
     };
 
     // TODO Get from npm so we don't have to manually update on major releases
-    templateVars.reactPeerVersion = '16.x';
+    templateVars.reactPeerVersion = '^16 || ^17';
 
     let copyEslintTemplate = callback => callback();
     if (args.eslint === 'zillow') {
