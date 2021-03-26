@@ -2,12 +2,16 @@
 
 exports[`createJestConfig can be called without arguments 1`] = `
 Object {
+  "cacheDirectory": "./node_modules/.cache/jest",
+  "clearMocks": true,
   "collectCoverage": false,
   "collectCoverageFrom": Array [
     "src/**/*.js",
     "src/**/*.jsx",
   ],
-  "coveragePathIgnorePatterns": Array [],
+  "coveragePathIgnorePatterns": Array [
+    "<rootDir>/src/styleguidist/",
+  ],
   "coverageReporters": Array [
     "cobertura",
     "html",
@@ -15,13 +19,17 @@ Object {
   ],
   "coverageThreshold": Object {
     "global": Object {
-      "branches": 75,
-      "functions": 80,
-      "lines": 70,
-      "statements": 70,
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100,
     },
   },
-  "testEnvironment": "node",
+  "modulePathIgnorePatterns": Array [
+    "<rootDir>/lib/",
+    "<rootDir>/es/",
+  ],
+  "testEnvironment": "jsdom",
   "testMatch": Array [
     "<rootDir>/**/__tests__/**/*.test.js",
     "<rootDir>/**/*.test.js",
@@ -36,12 +44,16 @@ Object {
 
 exports[`createJestConfig shallow merges config 1`] = `
 Object {
+  "cacheDirectory": "./node_modules/.cache/jest",
+  "clearMocks": true,
   "collectCoverage": false,
   "collectCoverageFrom": Array [
     "src/**/*.js",
     "src/**/*.jsx",
   ],
-  "coveragePathIgnorePatterns": Array [],
+  "coveragePathIgnorePatterns": Array [
+    "<rootDir>/src/styleguidist/",
+  ],
   "coverageReporters": Array [
     "cobertura",
     "html",
@@ -49,14 +61,18 @@ Object {
   ],
   "coverageThreshold": Object {
     "global": Object {
-      "branches": 75,
-      "functions": 80,
-      "lines": 70,
-      "statements": 70,
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100,
     },
   },
+  "modulePathIgnorePatterns": Array [
+    "<rootDir>/lib/",
+    "<rootDir>/es/",
+  ],
   "setupFilesAfterEnv": Array [],
-  "testEnvironment": "node",
+  "testEnvironment": "jsdom",
   "testMatch": Array [
     "<rootDir>/**/__tests__/**/*.test.js",
     "<rootDir>/**/*.test.js",
