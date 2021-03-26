@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders a primary button 1`] = `
+<button
+  style={
+    Object {
+      "backgroundColor": "#007bff",
+      "border": "1px solid transparent",
+      "borderColor": "#007bff",
+      "borderRadius": ".25rem",
+      "color": "#fff",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontSize": "1rem",
+      "fontWeight": "400",
+      "lineHeight": "1.5",
+      "padding": ".375rem .75rem",
+      "textAlign": "center",
+      "userSelect": "none",
+      "verticalAlign": "middle",
+      "whiteSpace": "nowrap",
+    }
+  }
+  type="button"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a primary button with outline 1`] = `
+<button
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "backgroundImage": "none",
+      "border": "1px solid transparent",
+      "borderColor": "#007bff",
+      "borderRadius": ".25rem",
+      "color": "#007bff",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontSize": "1rem",
+      "fontWeight": "400",
+      "lineHeight": "1.5",
+      "padding": ".375rem .75rem",
+      "textAlign": "center",
+      "userSelect": "none",
+      "verticalAlign": "middle",
+      "whiteSpace": "nowrap",
+    }
+  }
+  type="button"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a secondary button 1`] = `
+<button
+  style={
+    Object {
+      "backgroundColor": "#6c757d",
+      "border": "1px solid transparent",
+      "borderColor": "#6c757d",
+      "borderRadius": ".25rem",
+      "color": "#fff",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontSize": "1rem",
+      "fontWeight": "400",
+      "lineHeight": "1.5",
+      "padding": ".375rem .75rem",
+      "textAlign": "center",
+      "userSelect": "none",
+      "verticalAlign": "middle",
+      "whiteSpace": "nowrap",
+    }
+  }
+  type="button"
+>
+  Click Me!
+</button>
+`;
+
+exports[`Button renders a secondary button with outline 1`] = `
+<button
+  style={
+    Object {
+      "backgroundColor": "transparent",
+      "backgroundImage": "none",
+      "border": "1px solid transparent",
+      "borderColor": "#6c757d",
+      "borderRadius": ".25rem",
+      "color": "#6c757d",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontSize": "1rem",
+      "fontWeight": "400",
+      "lineHeight": "1.5",
+      "padding": ".375rem .75rem",
+      "textAlign": "center",
+      "userSelect": "none",
+      "verticalAlign": "middle",
+      "whiteSpace": "nowrap",
+    }
+  }
+  type="button"
+>
+  Click Me!
+</button>
+`;
