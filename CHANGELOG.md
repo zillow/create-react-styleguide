@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/zillow/create-react-styleguide/compare/v6.0.0...v7.0.0) (2021-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* default `coverageThreshold` is now `100`, default `testEnvironment` is now `jsdom`,
+`clearMocks` is now enabled by default
+
+### Features
+
+* update inline-styles template ([83bcd8c](https://github.com/zillow/create-react-styleguide/commit/83bcd8c1b2696bdac78b63828a490c1c307e143f))
+* **createStyleguideConfig:** add `ie11ModuleTransforms` option ([5cd3c73](https://github.com/zillow/create-react-styleguide/commit/5cd3c7378d5aa55b92e8b471486235fc8a925aba))
+* update default jest config ([96f6f20](https://github.com/zillow/create-react-styleguide/commit/96f6f20eeb624b182c4732a241063e19de3e2c5a))
+* update styled-components template ([786c253](https://github.com/zillow/create-react-styleguide/commit/786c253b3fb6f491e0d39ac8e616e7e8422f4da8))
+
 ## [6.0.0](https://github.com/zillow/create-react-styleguide/compare/v5.2.0...v6.0.0) (2020-09-08)
 
 
