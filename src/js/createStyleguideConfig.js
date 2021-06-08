@@ -182,6 +182,9 @@ module.exports = (config = {}, options = {}) => {
             ],
         },
         plugins: [],
+        // Recommended choice for development builds with high quality SourceMaps.
+        // https://webpack.js.org/configuration/devtool/
+        devtool: 'eval-source-map',
     };
 
     // only the root should alias singletons or check circularity
