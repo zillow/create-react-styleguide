@@ -62,4 +62,9 @@ yargs
         desc: 'Add eslint configuration when creating a new project',
         default: 'zillow',
         choices: ['zillow', 'none'],
+    })
+    .option('legacy-peer-deps', {
+        desc: 'Use "--legacy-peer-deps" when doing an "npm install"',
+        type: 'boolean',
+        default: false,
     }).argv;

@@ -117,8 +117,17 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
             copyEslintTemplate,
             callback => initGit(args, targetDir, callback),
             callback =>
-                install(devDependencies, { cwd: targetDir, save: true, dev: true }, callback),
-            callback => install(dependencies, { cwd: targetDir, save: true, dev: false }, callback),
+                install(
+                    devDependencies,
+                    { cwd: targetDir, save: true, dev: true, legacyPeerDeps: args.legacyPeerDeps },
+                    callback
+                ),
+            callback =>
+                install(
+                    dependencies,
+                    { cwd: targetDir, save: true, dev: false, legacyPeerDeps: args.legacyPeerDeps },
+                    callback
+                ),
             callback => initialCommit(args, targetDir, callback),
         ],
         cb

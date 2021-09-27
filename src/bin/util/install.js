@@ -30,7 +30,13 @@ module.exports = function install(
     options,
     cb
 ) {
-    const { check = false, cwd = process.cwd(), dev = false, save = false } = options;
+    const {
+        check = false,
+        cwd = process.cwd(),
+        dev = false,
+        save = false,
+        legacyPeerDeps = false,
+    } = options;
 
     if (check) {
         // eslint-disable-next-line no-param-reassign
@@ -51,6 +57,10 @@ module.exports = function install(
     }
 
     let npmArgs = ['install', '--silent', '--no-progress', '--no-package-lock'];
+
+    if (legacyPeerDeps) {
+        npmArgs.push('--legacy-peer-deps');
+    }
 
     if (save) {
         npmArgs.push(`--save${dev ? '-dev' : ''}`);
