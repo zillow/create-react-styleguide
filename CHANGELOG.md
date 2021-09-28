@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.1.0](https://github.com/zillow/create-react-styleguide/compare/v7.0.1...v7.1.0) (2021-09-28)
+
+
+### Features
+
+* add support for `--legacy-peer-deps` when installing dependencies ([22ee588](https://github.com/zillow/create-react-styleguide/commit/22ee588b8c210a504b32e6c270270de9d41867ab))
+
 ### [7.0.1](https://github.com/zillow/create-react-styleguide/compare/v7.0.0...v7.0.1) (2021-06-08)
 
 
