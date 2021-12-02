@@ -26,12 +26,6 @@
     "release": "standard-version",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run eslint && npm run test"
-    }
-  },
   "files": [
     "lib",
     "templates"
