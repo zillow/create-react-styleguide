@@ -4,7 +4,7 @@ const ora = require('ora');
 const path = require('path');
 const chalk = require('chalk');
 const runSeries = require('run-series');
-const pkg = require('../../../package.json');
+const pkg = require('../../package.json');
 
 /**
 + * Run git related commands
