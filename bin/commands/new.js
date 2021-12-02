@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const copyTemplateDir = require('copy-template-dir');
 const runSeries = require('run-series');
 const install = require('../util/install');
-const pkg = require('../../../package.json');
+const pkg = require('../../package.json');
 const { initGit, initialCommit } = require('../util/git');
 const inquirer = require('inquirer');
 
