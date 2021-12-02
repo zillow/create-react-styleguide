@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs');
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
 
 const onCommandComplete = code => process.exit(code);
 
@@ -10,24 +11,23 @@ const commandHandler = argv => {
 };
 
 // eslint-disable-next-line no-unused-expressions
-yargs
-    .wrap(120)
+yargs(hideBin(process.argv))
     .usage('Usage: create-react-styleguide <command> [options]')
-    .command({
-        command: 'new <project-directory>',
-        desc: 'Create a new project in the given directory',
-        builder: y => {
+    .demandCommand(1)
+    .command(
+        'new <project-directory>',
+        'Create a new project in the given directory',
+        y =>
             y.positional('project-directory', {
                 describe: 'The directory to create',
                 type: 'string',
-            });
-        },
-        handler: commandHandler,
-    })
-    .command({
-        command: 'script <script>',
-        desc: 'Run the given create-react-styleguide script',
-        builder: y => {
+            }),
+        argv => commandHandler(argv)
+    )
+    .command(
+        'script <script>',
+        'Run the given create-react-styleguide script',
+        y =>
             y.positional('script', {
                 describe: 'The script to run',
                 choices: [
@@ -44,10 +44,9 @@ yargs
                     'test:watch',
                     'prepublishOnly',
                 ],
-            });
-        },
-        handler: commandHandler,
-    })
+            }),
+        argv => commandHandler(argv)
+    )
     .option('stable', {
         desc: 'By default, the latest version of all project dependencies are installed. If that does not work for some reason, you can use this to revert to the last known stable configuration (use this with caution as this can quickly become out-of-date).',
         type: 'boolean',
