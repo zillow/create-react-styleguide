@@ -3,77 +3,43 @@
  * https://github.com/insin/nwb/blob/v0.22.0/src/createProject.js
  */
 const path = require('path');
-const chalk = require('chalk');
-const copyTemplateDir = require('copy-template-dir');
 const runSeries = require('run-series');
+const semver = require('semver');
 const install = require('../util/install');
 const pkg = require('../../package.json');
 const { initGit, initialCommit } = require('../util/git');
 const inquirer = require('inquirer');
+const copyTemplate = require('../util/copy-template');
 
-const STABLE_VERSIONS = {
-    // dependencies
-    'prop-types': '15.7.2',
-    'styled-components': '5.2.2',
-    // devDependencies
-    'babel-plugin-styled-components': '1.12.0',
-    'babel-preset-zillow': '4.4.0',
-    'eslint-plugin-jest': '24.3.2',
-    'eslint-plugin-zillow': '4.0.0',
-    'husky': '4.3.8',
-    'jest-styled-components': '7.0.3',
-    'react': '17.0.2',
-    'react-dom': '17.0.2',
-    'react-test-renderer': '17.0.2',
-    // Always use the latest version of create-react-styleguide
-    'create-react-styleguide': '',
+const STABLE_DEPENDENCIES = {
+    'prop-types': pkg.devDependencies['prop-types'],
+    'react': pkg.devDependencies.react,
+    'react-dom': pkg.devDependencies['react-dom'],
+    'styled-components': pkg.devDependencies['styled-components'],
 };
 
-/**
- * Copy a project template and log created files if successful.
- */
-function copyTemplate(templateDir, targetDir, templateVars, cb) {
-    copyTemplateDir(templateDir, targetDir, templateVars, (err, createdFiles) => {
-        if (err) {
-            cb(err);
-            return;
-        }
-        createdFiles.sort().forEach(createdFile => {
-            const relativePath = path.relative(targetDir, createdFile);
-            // eslint-disable-next-line no-console
-            console.log(`  ${chalk.green('create')} ${relativePath}`);
-        });
-        cb();
-    });
-}
+const STABLE_DEV_DEPENDENCIES = {
+    'create-react-styleguide': pkg.version,
+    'husky': '4.3.8',
+    'react-test-renderer': pkg.devDependencies['react-test-renderer'],
+};
 
 /**
  * Create an npm module project skeleton.
  */
 function createModuleProject(args, name, targetDir, cliAnswers, cb) {
-    let devDependencies = [
-        'react',
-        'react-dom',
-        'create-react-styleguide',
-        'babel-preset-zillow',
-        'husky',
-        'react-test-renderer',
-    ];
-    if (args.eslint === 'zillow') {
-        devDependencies.push('eslint-plugin-zillow', 'eslint-plugin-jest');
+    let dependencies = Object.keys(STABLE_DEPENDENCIES);
+    let devDependencies = Object.keys(STABLE_DEV_DEPENDENCIES);
+
+    if (args.styles !== 'styled-components') {
+        dependencies = dependencies.filter(dep => dep !== 'styled-components');
     }
 
-    let dependencies = ['prop-types'];
-    if (args.styles === 'styled-components') {
-        dependencies.push('styled-components');
-        devDependencies.push('babel-plugin-styled-components', 'jest-styled-components');
-    }
+    const baseTemplateDir = path.join(__dirname, '../../templates/base');
 
-    const baseTemplateDir = path.join(__dirname, '../../../templates/base');
-
-    let templateDir = path.join(__dirname, '../../../templates/inline-styles');
+    let templateDir = path.join(__dirname, '../../templates/inline-styles');
     if (args.styles === 'styled-components') {
-        templateDir = path.join(__dirname, '../../../templates/styled-components');
+        templateDir = path.join(__dirname, '../../templates/styled-components');
     }
 
     const templateVars = {
@@ -84,16 +50,12 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
             args.eslint === 'zillow'
                 ? '\n    "eslint": "create-react-styleguide script eslint",\n    "eslint:fix": "create-react-styleguide script eslint:fix",'
                 : '',
-        createReactStyleguideVersion: pkg.version,
         huskyConfig: args.eslint === 'zillow' ? 'npm run eslint && npm run test' : 'npm run test',
     };
 
-    // TODO Get from npm so we don't have to manually update on major releases
-    templateVars.reactPeerVersion = '^16 || ^17';
-
     let copyEslintTemplate = callback => callback();
     if (args.eslint === 'zillow') {
-        const eslintTemplateDir = path.join(__dirname, '../../../templates/zillow-eslint');
+        const eslintTemplateDir = path.join(__dirname, '../../templates/zillow-eslint');
         copyEslintTemplate = callback =>
             copyTemplate(eslintTemplateDir, targetDir, templateVars, callback);
     }
@@ -101,7 +63,7 @@ function createModuleProject(args, name, targetDir, cliAnswers, cb) {
     // By default, the latest caret version of all dependencies are installed.
     // If for some reason that fails, we can fall back to a previously known stable release.
     const versionMap = dep => {
-        const version = STABLE_VERSIONS[dep];
+        const version = semver.clean({ ...STABLE_DEPENDENCIES, ...STABLE_DEV_DEPENDENCIES }[dep]);
         if (version) {
             return `${dep}@${args.stable ? '' : '^'}${version}`;
         }
