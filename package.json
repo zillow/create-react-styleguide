@@ -22,7 +22,7 @@
     "test:watch": "./bin/index.js script test:watch",
     "prepublishOnly": "./bin/index.js script prepublishOnly",
     "release": "standard-version",
-    "prepare": "husky install"
+    "prepare": "node ./prepare.js"
   },
   "files": [
     "bin",
