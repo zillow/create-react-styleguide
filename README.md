@@ -29,7 +29,7 @@ You can see all options for project generation with the following command:
 npx create-react-styleguide --help
 ```
 
-#### `--stable`
+### `--stable`
 
 By default, the project will be built with the latest caret (^) version of all dependencies. If this configuration fails, use the `--stable` flag to generate with a known working configuration.
 
@@ -37,14 +37,14 @@ By default, the project will be built with the latest caret (^) version of all d
 npx create-react-styleguide new my-new-styleguide --stable
 ```
 
-## npm scripts
+## NPM Scripts
 
 Generated projects include the following npm scripts out of the box:
 
 | Script                   | Description                                                 |
 | ------------------------ | ----------------------------------------------------------- |
 | npm start                | Start the styleguide server on http://localhost:6060        |
-| npm run build            | Build the component library to the `lib` folder             |
+| npm run build            | Build the component library to the `dist` folder            |
 | npm run build:styleguide | Build the styleguide to the `styleguide` folder             |
 | npm run build:watch      | Watch the `src` folder for changes and run the build script |
 | npm run clean            | Clean generated folders                                     |
@@ -55,36 +55,96 @@ Generated projects include the following npm scripts out of the box:
 | npm run test:update      | Update unit test snapshots                                  |
 | npm run test:watch       | Run unit tests while watching for changes                   |
 
-## Document your styleguide
+## Document Styleguide
 
 By default, we expose some meta data from your `package.json` file at the top of your styleguide -- at the very least, make sure you set the `"version"`, `"homepage"`, and `"author"` properties. You can further document your library with markdown files using the [`sections`](https://react-styleguidist.js.org/docs/configuration.html#sections-1) configuration from [React Styleguidist](https://react-styleguidist.js.org/). By convention, additional markdown documentation should go in the `docs` folder so that they get properly packaged when [linking multiple styleguides](#linking-multiple-styleguides).
 
 ![Customized style guide](assets/customized.png)
 
-## Adding SVG support
+## Modify Rollup Config
 
-You can add SVG support with the [inline-react-svg](https://github.com/airbnb/babel-plugin-inline-react-svg) babel plugin. `npm i --save-dev babel-plugin-inline-react-svg` and then update your `babel.config.js` file as follows:
+You can customize Rollup configuration to your requirements. In example, you can update `rollup.config.js` with a sample plugin and a banner for each output file.
 
 ```diff
- module.exports = {
-     presets: [['zillow', { modules: false }]],
-+    plugins: ['inline-react-svg'],
-     env: {
-         cjs: {
-             presets: ['zillow']
-         },
-         test: {
-             presets: ['zillow']
-         }
-     }
- };
+const { rollupConfig } = require('create-react-styleguide');
++const sampleRollupPlugin = require('sample-rollup-plugin');
+
+module.exports = {
+    ...rollupConfig,
+
++    output: {
++        ...rollupConfig.output,
++        banner: '/* (c) My Company Inc. */',
++    },
+
++    plugins: [
++        ...rollupConfig.plugins,
++        sampleRollupPlugin(),
++    ],
+};
+```
+
+## Modify Babel Config
+
+You can customize Babel configuration to your requirements. In example, you can add SVG support with the [inline-react-svg](https://github.com/airbnb/babel-plugin-inline-react-svg) babel plugin. `npm i --save-dev babel-plugin-inline-react-svg` and then update `babel.config.js` file as follows:
+
+```diff
+const { babelConfig } = require('create-react-styleguide');
+
+module.exports = {
+    ...babelConfig,
++    plugins: [
++        ...babelConfig.plugins,
++        'inline-react-svg',
++    ],
+};
 ```
 
 You should now be able to import and use SVGs as if they were react components!
 
-## Linking multiple styleguides
+## Modify Jest Config
 
-A useful feature of create-react-styleguide is the ability to link multiple CRS component libraries into a single project. This means that separate teams can manage and own their own individual CRS libraries, and then bring them all together into a master project for broader visibility.
+You can customize Jest configuration to your requirements. In example, you can update `jest.config.js` with new threshold values.
+
+```diff
+const { jestConfig } = require('create-react-styleguide');
+
+module.exports = {
+    ...jestConfig,
++    coverageThreshold: {
++        global: {
++            branches: 80,
++            functions: 80,
++            lines: 80,
++            statements: 80,
++        },
++    },
+};
+```
+
+## Styleguide Config
+
+Require the module:
+
+```js
+// styleguide.config.js
+const { createStyleguideConfig } = require('create-react-styleguide');
+```
+
+### `createStyleguideConfig(config, options)`
+
+Creates a [React Styleguidist configuration object](https://react-styleguidist.js.org/docs/configuration.html) with some default configuration.
+
+-   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
+-   `options.styleguides [array]` - An array of CRS npm modules (the module must be installed as a dependency to your project)
+-   `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
+-   `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
+-   `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
+-   `options.ie11Transforms [array]` - An array of additional modules that need babel transforms for IE11 compatibility ([#1327](https://github.com/styleguidist/react-styleguidist/pull/1327))
+
+## Linking Styleguides
+
+A useful feature of `create-react-styleguide` is the ability to link multiple CRS component libraries into a single project. This means that separate teams can manage and own their own individual CRS libraries, and then bring them all together into a master project for broader visibility.
 
 For a styleguide to be linked, it must first be published to npm. Running `npm publish` will build and publish your component library so that it can be consumed by the master project.
 
@@ -107,7 +167,7 @@ That's it! Running `npm start` will now show components from all linked librarie
 
 ![Linked style guide](assets/linked.png)
 
-## Deploying your styleguide to GitHub Pages
+## Deploying Styleguide to GitHub Pages
 
 Install the `gh-pages` module:
 
@@ -126,36 +186,11 @@ Add the following scripts to your `package.json`:
 
 Running `npm run deploy` will now deploy your styleguide to Github Pages!
 
-## Node API
-
-Require the module:
-
-```javascript
-const { createStyleguideConfig, createJestConfig } = require('create-react-styleguide');
-```
-
-### `createStyleguideConfig(config, options)`
-
-Creates a [React Styleguidist configuration object](https://react-styleguidist.js.org/docs/configuration.html) with some default configuration.
-
--   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
--   `options.styleguides [array]` - An array of CRS npm modules (the module must be installed as a dependency to your project)
--   `options.packageSection [boolean]` - Include `package.json` details as a top level section (default: `true`)
--   `options.packageSectionComponents [boolean]` - Include `components` configuration in the top-level package section (default: `false`)
--   `options.componentsSection [boolean]` - Include `components` configuration as its own separate section (default: `true`)
--   `options.ie11Transforms [array]` - An array of additional modules that need babel transforms for IE11 compatibility ([#1327](https://github.com/styleguidist/react-styleguidist/pull/1327))
-
-### `createJestConfig(config)`
-
-Creates a [Jest configuration object](https://jestjs.io/docs/en/configuration) with some default configuration.
-
--   `config [object]` - A configuration object to be shallowly merged with the rest of the configuration
-
 ## Environment Variables
 
 ### `DEBUG`
 
-Both `createStyleguideConfig` and `createJestConfig` will log their results to the console when the `DEBUG` environment variable is set to any non-empty value (such as `true` or `1`). A quick way to see the configuration these functions are creating is to run the following:
+All config files will log their results to the console when the `DEBUG` environment variable is set to any non-empty value (such as `true` or `1`). A quick way to see the configuration these functions are creating is to run the following:
 
 ```
 DEBUG=true node styleguide.config.js
@@ -179,4 +214,8 @@ PORT=12345 npm start
 
 `create-react-styleguide` leverages [react-styleguidist](https://react-styleguidist.js.org/) under the covers for its living style guide.
 
-Builds are created by simple running the `src` directory through [Babel](https://babeljs.io/) using whatever configuration is in your `.babelrc` file. The build will run twice, once with the default configuration which builds ES modules compatible with tree shaking, and once with the `"cjs"` env configuration which builds CommonJS modules.
+Builds are created by running the `src` directory through [Rollup](https://rollupjs.org/) and [Babel](https://babeljs.io/). The build will create 4 bundles, dev and prod for CJS and ESM formats. An application, which imports your package, will select a correct bundle, based on node environment and bundler capabilities. In example, ESM for Vite or CJS for Webpack 4.
+
+## Migration Guide from 7x to 8x
+
+Please read our [migration guide](./MIGRATE-7-to-8.md) to streamline your update efforts.

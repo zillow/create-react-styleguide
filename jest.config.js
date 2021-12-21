@@ -1,10 +1,7 @@
-const { createJestConfig } = require('./lib');
-
-const config = createJestConfig();
+const { jestConfig } = require('./lib');
 
 module.exports = {
-    ...config,
-    // TODO: test the CLI properly]
+    ...jestConfig,
     collectCoverageFrom: ['lib/**/*.js', 'lib/**/*.jsx'],
     coveragePathIgnorePatterns: ['<rootDir>/bin/'],
     modulePathIgnorePatterns: [],

@@ -2,8 +2,7 @@
 if: tag IS blank
 language: node_js
 node_js:
-  - "12"
-  - "10"
+  - "14"
 env:
   global:
     - NO_UPDATE_NOTIFIER=1

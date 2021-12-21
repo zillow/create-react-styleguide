@@ -10,6 +10,9 @@ Outline buttons:
 
 ```jsx
 <div>
-    <Button outline={true}>Primary</Button> <Button outline variant="secondary">Secondary</Button>
+    <Button outline={true}>Primary</Button>{' '}
+    <Button outline variant="secondary">
+        Secondary
+    </Button>
 </div>
 ```
