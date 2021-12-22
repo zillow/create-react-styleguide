@@ -65,6 +65,10 @@ module.exports = {
 };
 ```
 
+## NEW Prettier config
+
+Add, or modify, `prettier.config.js` on the root of your project with the snippet from `./templates/base/prettier.config.js`.
+
 ## Babel config
 
 Modify your `babel.config.js` and use the snippet from `./templates/base/babel.config.js` as inspiration.
