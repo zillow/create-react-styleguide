@@ -1,6 +1,6 @@
 /coverage
-/es
-/lib
+/dist
 /styleguide
 jest.config.js
+rollup.config.js
 styleguide.config.js

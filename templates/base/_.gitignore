@@ -1,6 +1,5 @@
 /coverage
-/es
-/lib
+/dist
 /node_modules
 /styleguide
 npm-debug.log*

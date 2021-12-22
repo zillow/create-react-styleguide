@@ -9,66 +9,83 @@
     "url": "https://github.com/zillow/create-react-styleguide/issues"
   },
   "bin": {
-    "create-react-styleguide": "./lib/bin/create-react-styleguide.js"
+    "create-react-styleguide": "./bin/index.js"
   },
   "main": "./lib/index.js",
   "scripts": {
-    "build": "src/bin/create-react-styleguide.js script build",
-    "build:watch": "src/bin/create-react-styleguide.js script build:watch",
-    "clean": "src/bin/create-react-styleguide.js script clean",
-    "eslint": "src/bin/create-react-styleguide.js script eslint",
-    "eslint:fix": "src/bin/create-react-styleguide.js script eslint:fix",
-    "test": "src/bin/create-react-styleguide.js script test",
-    "test:coverage": "src/bin/create-react-styleguide.js script test:coverage",
-    "test:update": "src/bin/create-react-styleguide.js script test:update",
-    "test:watch": "src/bin/create-react-styleguide.js script test:watch",
-    "prepublishOnly": "src/bin/create-react-styleguide.js script prepublishOnly",
-    "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint && npm run test"
-    }
+    "clean": "./bin/index.js script clean",
+    "eslint": "./bin/index.js script eslint",
+    "eslint:fix": "./bin/index.js script eslint:fix",
+    "test": "./bin/index.js script test",
+    "test:coverage": "./bin/index.js script test:coverage",
+    "test:update": "./bin/index.js script test:update",
+    "test:watch": "./bin/index.js script test:watch",
+    "prepublishOnly": "./bin/index.js script prepublishOnly",
+    "release": "standard-version",
+    "prepare": "node ./prepare.js"
   },
   "files": [
+    "bin",
     "lib",
     "templates"
   ],
   "engines": {
-    "node": ">=6.11.5"
+    "node": ">=14"
   },
   "dependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "acorn": "^8.1.0",
-    "babel-loader": "^8.2.2",
-    "chalk": "^4.1.0",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.5",
+    "@babel/plugin-proposal-private-methods": "^7.16.5",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
+    "@babel/runtime": "^7.16.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.1",
+    "acorn": "^8.6.0",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-styled-components": "^2.0.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-preset-zillow": "^4.4.0",
+    "chalk": "^4.1.2",
     "circular-dependency-plugin": "^5.2.2",
     "copy-template-dir": "^1.4.0",
     "cross-spawn": "^7.0.3",
-    "eslint": "^7.22.0",
-    "inquirer": "^8.0.0",
-    "jest": "^26.6.3",
-    "ora": "^5.4.0",
-    "prettier": "^2.2.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-zillow": "^4.0.0",
+    "inquirer": "^8.2.0",
+    "jest": "^27.4.5",
+    "jest-styled-components": "^7.0.5",
+    "ora": "^5.4.1",
+    "prettier": "^2.5.1",
+    "prettier-config-zillow": "^1.3.0",
     "react-styleguidist": "^11.1.6",
     "resolve": "^1.20.0",
     "resolve-pkg": "^2.0.0",
     "rimraf": "^3.0.2",
+    "rollup": "^2.61.1",
+    "rollup-plugin-terser": "^7.0.2",
     "run-parallel": "^1.2.0",
     "run-series": "^1.1.9",
+    "semver": "^7.3.5",
+    "tacks": "^1.3.0",
+    "tempy": "^1.0.1",
     "webpack": "^4.46.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
-    "babel-preset-zillow": "^4.4.0",
-    "eslint-plugin-zillow": "^4.0.0",
-    "husky": "^4.3.8",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "husky": "^7.0.4",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "standard-version": "^9.1.1",
-    "tacks": "^1.3.0",
-    "tempy": "^1.0.1"
+    "react-test-renderer": "^17.0.2",
+    "standard-version": "^9.3.2",
+    "styled-components": "^5.3.3"
   },
   "repository": {
     "type": "git",

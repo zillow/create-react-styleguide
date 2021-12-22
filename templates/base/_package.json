@@ -1,15 +1,20 @@
 {
   "name": "{{name}}",
   "version": "1.0.0",
-  "description": "{{name}} React component",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "description": "{{name}} React component library",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/es/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "sideEffects": false,
   "files": [
-    "es",
-    "lib",
-    "src",
+    "dist",
     "docs",
+    "src",
     "styleguide.config.js"
   ],
   "scripts": {
@@ -18,7 +23,7 @@
     "build:styleguide": "create-react-styleguide script build:styleguide",
     "clean": "create-react-styleguide script clean",{{eslintPackageConfig}}
     "start": "create-react-styleguide script start",
-    "test": "create-react-styleguide script test",
+    "test": "create-react-styleguide script test --passWithNoTests",
     "test:coverage": "create-react-styleguide script test:coverage",
     "test:update": "create-react-styleguide script test:update",
     "test:watch": "create-react-styleguide script test:watch",
@@ -29,14 +34,8 @@
       "pre-commit": "{{huskyConfig}}"
     }
   },
-  "dependencies": {
-  },
-  "peerDependencies": {
-    "react": "{{reactPeerVersion}}"
-  },
-  "devDependencies": {
-    "create-react-styleguide": "{{createReactStyleguideVersion}}"
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "author": "{{author}}",
   "homepage": "{{homepage}}",
   "license": "MIT",
