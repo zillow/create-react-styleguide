@@ -20,7 +20,7 @@
     "test:coverage": "./bin/index.js script test:coverage",
     "test:update": "./bin/index.js script test:update",
     "test:watch": "./bin/index.js script test:watch",
-    "prepublishOnly": "./bin/index.js script prepublishOnly",
+    "prepublishOnly": "npm run eslint && npm run test",
     "release": "standard-version",
     "prepare": "node ./prepare.js"
   },
