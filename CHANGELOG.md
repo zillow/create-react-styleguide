@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.0.0](https://github.com/zillow/create-react-styleguide/compare/v7.1.0...v8.0.0) (2021-12-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop IE11 support
+* Add rollup support, update configs, and dependencies
+* add `.nvmrc` with Node 14
+
+### Features
+
+* add prettier config support ([03d4fb1](https://github.com/zillow/create-react-styleguide/commit/03d4fb1347a2dce1205bdadcb72b1b52c8c1e598))
+
+
+### Bug Fixes
+
+* do not install husky in CI pipeline ([316e14f](https://github.com/zillow/create-react-styleguide/commit/316e14fde3d2c8080f1dfe3b6f270cf6bb01e5b5))
+* only run eslint and test during prepublish script ([f0c5ac7](https://github.com/zillow/create-react-styleguide/commit/f0c5ac75d11b5262182d25a4ba69368a4214251e))
+* update husky config to match v7 ([387d0b8](https://github.com/zillow/create-react-styleguide/commit/387d0b86420c15e0bbec8273d2eca77e5c703cd9))
+
+
+### Build System
+
+* add `.nvmrc` with Node 14 ([3c51977](https://github.com/zillow/create-react-styleguide/commit/3c51977e2c9fe8591e6c55d5407c3cee29b8ecdb))
+* Add rollup support, update configs, and dependencies ([87d7b59](https://github.com/zillow/create-react-styleguide/commit/87d7b596fa23a038417cea721dc4d1ab71b5f83d))
+* drop IE11 support ([3704937](https://github.com/zillow/create-react-styleguide/commit/3704937200f308628c8f6c3795ca91c6c9e58124))
+* move `bin` and `lib` to root and remove build process for CRS itself ([3ec932b](https://github.com/zillow/create-react-styleguide/commit/3ec932b0a6fcb91674a616f39dfb51ddc2751a9b))
+
 ## [7.1.0](https://github.com/zillow/create-react-styleguide/compare/v7.0.1...v7.1.0) (2021-09-28)
 
 
