@@ -1,4 +1,5 @@
 const { join } = require('path');
+const runParallel = require('run-parallel');
 const runSeries = require('run-series');
 const { spawn } = require('child_process');
 const { rollup } = require('../../util/executables');
@@ -21,7 +22,6 @@ const build = ({ env, format, flags, cb }) =>
 
 module.exports = ({ callback = noop, flags }) => {
     const steps = [
-        cb => copyTemplate(distTemplateDirectory, distTargetDirectory, {}, cb),
         cb => build({ env: NODE_ENVIRONMENTS.DEV, format: MODULE_FORMATS.ESM, flags, cb }),
         ...(flags.includes('-w')
             ? []
@@ -34,5 +34,11 @@ module.exports = ({ callback = noop, flags }) => {
                       build({ env: NODE_ENVIRONMENTS.PROD, format: MODULE_FORMATS.CJS, flags, cb }),
               ]),
     ];
-    runSeries(steps, callback);
+    runSeries(
+        [
+            cb => copyTemplate(distTemplateDirectory, distTargetDirectory, {}, cb),
+            cb => runParallel(steps, cb),
+        ],
+        callback
+    );
 };
