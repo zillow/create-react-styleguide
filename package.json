@@ -1,7 +1,7 @@
 {
   "name": "create-react-styleguide",
   "description": "A toolkit for creating React component libraries and style guides",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "license": "ISC",
   "author": "Brian Stone <brians@zillowgroup.com>",
   "homepage": "https://github.com/zillow/create-react-styleguide#readme",

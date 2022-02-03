@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.0](https://github.com/zillow/create-react-styleguide/compare/v8.0.0...v8.1.0) (2022-02-03)
+
+
+### Features
+
+* run build tasks in parallel ([ddb49c8](https://github.com/zillow/create-react-styleguide/commit/ddb49c849d856090ce4f5f762c4b4e9b2687cfd0))
+
 ## [8.0.0](https://github.com/zillow/create-react-styleguide/compare/v7.1.0...v8.0.0) (2021-12-22)
 
 
