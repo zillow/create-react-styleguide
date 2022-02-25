@@ -14,12 +14,20 @@ Modify your `package.json` to use the following:
 
 ```json
 {
-    "main": "dist/cjs/index.js",
-    "module": "dist/es/index.js",
+    "main": "dist/cjs/prod/index.js",
+    "module": "dist/es/prod/index.js",
     "exports": {
-        ".": {
-            "import": "./dist/es/index.js",
-            "require": "./dist/cjs/index.js"
+        "development": {
+            "import": "./dist/es/dev/index.js",
+            "require": "./dist/cjs/dev/index.js"
+        },
+        "production": {
+            "import": "./dist/es/prod/index.js",
+            "require": "./dist/cjs/prod/index.js"
+        },
+        "default": {
+            "import": "./dist/es/prod/index.js",
+            "require": "./dist/cjs/prod/index.js"
         }
     }
 }
