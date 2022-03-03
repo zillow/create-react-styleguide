@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.1.3](https://github.com/zillow/create-react-styleguide/compare/v8.1.2...v8.1.3) (2022-03-03)
+
+
+### Bug Fixes
+
+* enable ssr in dev mode and revert cjs index change ([d15c375](https://github.com/zillow/create-react-styleguide/commit/d15c3759d0b927d891a2f66f3b277a8a80af508c))
+
 ### [8.1.2](https://github.com/zillow/create-react-styleguide/compare/v8.1.1...v8.1.2) (2022-02-25)
 
 ### [8.1.1](https://github.com/zillow/create-react-styleguide/compare/v8.1.0...v8.1.1) (2022-02-25)
