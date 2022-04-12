@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.2.0](https://github.com/zillow/create-react-styleguide/compare/v8.1.3...v8.2.0) (2022-04-12)
+
+
+### Features
+
+* add CSS files to side effects in order to tree-shake CSS imports ([37c973d](https://github.com/zillow/create-react-styleguide/commit/37c973d5c02d2be6874218d6eab776522136a2a3))
+
 ### [8.1.3](https://github.com/zillow/create-react-styleguide/compare/v8.1.2...v8.1.3) (2022-03-03)
 
 
