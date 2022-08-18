@@ -16,7 +16,7 @@ Modify your `package.json` to use the following:
 
 ```json
 {
-    "main": "dist/cjs/prod/index.js",
+    "main": "dist/cjs/index.js",
     "module": "dist/es/prod/index.mjs",
     "exports": {
         "development": {
