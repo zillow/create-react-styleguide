@@ -1,6 +1,7 @@
 const runParallel = require('run-parallel');
 const runSeries = require('run-series');
 const { spawn } = require('child_process');
+const writeCjsIndexFile = require('../../util/write-cjs-index-file');
 const { rollup } = require('../../util/executables');
 const noop = require('../../util/noop');
 const { MODULE_FORMATS, NODE_ENVIRONMENTS } = require('../../../lib');
@@ -29,5 +30,5 @@ module.exports = ({ callback = noop, flags }) => {
                       build({ env: NODE_ENVIRONMENTS.PROD, format: MODULE_FORMATS.CJS, flags, cb }),
               ]),
     ];
-    runSeries([cb => runParallel(steps, cb)], callback);
+    runSeries([cb => runParallel(steps, cb), cb => writeCjsIndexFile(cb)], callback);
 };
