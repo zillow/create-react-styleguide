@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.2.1](https://github.com/zillow/create-react-styleguide/compare/v8.2.0...v8.2.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* dual package extensions ([261950f](https://github.com/zillow/create-react-styleguide/commit/261950fade0e3105392ca96cd17a7b11deab3592))
+
 ## [8.2.0](https://github.com/zillow/create-react-styleguide/compare/v8.1.3...v8.2.0) (2022-04-12)
 
 
