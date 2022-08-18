@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.2.3](https://github.com/zillow/create-react-styleguide/compare/v8.2.2...v8.2.3) (2022-08-18)
+
+
+### Bug Fixes
+
+* typo in cjs index file template ([6dd34a7](https://github.com/zillow/create-react-styleguide/commit/6dd34a7e09b56928125b779897a6aa99dc8e3e4b))
+
 ### [8.2.2](https://github.com/zillow/create-react-styleguide/compare/v8.2.1...v8.2.2) (2022-08-18)
 
 
