@@ -9,7 +9,7 @@ const commonJsIndexTemplate = `
 if (process.env.NODE_ENV === 'production') {
     module.exports = require('./prod/index.${extension}');
 } else {
-    module.exports = require('./dev/index.${extension}}');
+    module.exports = require('./dev/index.${extension}');
 }
 `.trim();
 
