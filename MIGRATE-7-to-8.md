@@ -10,23 +10,25 @@ You will need to modify output file pointers and dependencies.
 
 The new build process uses Rollup and creates 4 bundles, dev and prod for ESM and CJS. An application, which imports your package, will select a correct bundle, based on node environment and bundler capabilities. In example, ESM for Vite or CJS for Webpack 4.
 
+If you use `"type": "module"`, we recommend using `.cjs` extensions for CJS files, and if you do not, then `.mjs` for ESM files.
+
 Modify your `package.json` to use the following:
 
 ```json
 {
     "main": "dist/cjs/prod/index.js",
-    "module": "dist/es/prod/index.js",
+    "module": "dist/es/prod/index.mjs",
     "exports": {
         "development": {
-            "import": "./dist/es/dev/index.js",
+            "import": "./dist/es/dev/index.mjs",
             "require": "./dist/cjs/dev/index.js"
         },
         "production": {
-            "import": "./dist/es/prod/index.js",
+            "import": "./dist/es/prod/index.mjs",
             "require": "./dist/cjs/prod/index.js"
         },
         "default": {
-            "import": "./dist/es/prod/index.js",
+            "import": "./dist/es/prod/index.mjs",
             "require": "./dist/cjs/prod/index.js"
         }
     }
