@@ -2,19 +2,19 @@
   "name": "{{name}}",
   "version": "1.0.0",
   "description": "{{name}} React component library",
-  "main": "dist/cjs/index.js",
-  "module": "dist/es/prod/index.js",
+  "main": "dist/cjs/prod/index.js",
+  "module": "dist/es/prod/index.mjs",
   "exports": {
     "development": {
-      "import": "./dist/es/dev/index.js",
+      "import": "./dist/es/dev/index.mjs",
       "require": "./dist/cjs/dev/index.js"
     },
     "production": {
-      "import": "./dist/es/prod/index.js",
+      "import": "./dist/es/prod/index.mjs",
       "require": "./dist/cjs/prod/index.js"
     },
     "default": {
-      "import": "./dist/es/prod/index.js",
+      "import": "./dist/es/prod/index.mjs",
       "require": "./dist/cjs/prod/index.js"
     }
   },

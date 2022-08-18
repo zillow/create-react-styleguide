@@ -1,14 +1,9 @@
-const { join } = require('path');
 const runParallel = require('run-parallel');
 const runSeries = require('run-series');
 const { spawn } = require('child_process');
 const { rollup } = require('../../util/executables');
 const noop = require('../../util/noop');
-const copyTemplate = require('../../util/copy-template');
-const { DIRECTORIES, MODULE_FORMATS, NODE_ENVIRONMENTS } = require('../../../lib');
-
-const distTemplateDirectory = join(__dirname, `../../../templates/${DIRECTORIES.DIST}`);
-const distTargetDirectory = join(process.cwd(), DIRECTORIES.DIST);
+const { MODULE_FORMATS, NODE_ENVIRONMENTS } = require('../../../lib');
 
 const build = ({ env, format, flags, cb }) =>
     spawn(rollup, ['-c', ...flags], {
@@ -34,11 +29,5 @@ module.exports = ({ callback = noop, flags }) => {
                       build({ env: NODE_ENVIRONMENTS.PROD, format: MODULE_FORMATS.CJS, flags, cb }),
               ]),
     ];
-    runSeries(
-        [
-            cb => copyTemplate(distTemplateDirectory, distTargetDirectory, {}, cb),
-            cb => runParallel(steps, cb),
-        ],
-        callback
-    );
+    runSeries([cb => runParallel(steps, cb)], callback);
 };

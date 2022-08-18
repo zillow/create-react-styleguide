@@ -1,6 +1,0 @@
-{
-  "type": "commonjs",
-  "sideEffects": [
-    "*.css"
-  ]
-}
